@@ -1,11 +1,21 @@
 ﻿using System;
 
-namespace _1st_Lesson
+namespace Task
 {
     
     class Program
     {
         static string ListToString(List<double> L)
+        {
+            string s = "";
+            foreach (double v in L)
+            {
+                s += v.ToString();
+                s += " ";
+            }
+            return s;
+        }
+        static string ArrayToString(double[] L)
         {
             string s = "";
             foreach (double v in L)
@@ -43,16 +53,16 @@ namespace _1st_Lesson
             int ans = 0;
             //List<double> x = new List<double>();
 
-            Console.WriteLine($"ведите P и Q (P<Q)");
+            Console.WriteLine($"ведите P и Q");
 
             if (!Input.CheckRead(out P, error) || !Input.CheckRead(out Q, error))
             {
                 return;
             }
-            if(P >= Q)
+            
+            if(P > Q)
             {
-                Console.WriteLine("неверные значения P и Q");
-                return;
+                (P, Q) = (Q, P);
             }
 
             Console.WriteLine($"ведите {n} значений");
@@ -65,7 +75,7 @@ namespace _1st_Lesson
                     return;
                 }
 
-                if(a >= Q && a <= P) ans++;
+                if(a >= P && a <= Q) ans++;
             }
 
             Console.WriteLine(ans);
@@ -76,7 +86,7 @@ namespace _1st_Lesson
             int n = 10;
             int ans = 0;
 
-            List<double> x = new List<double>();
+            List<double> x = new List<double>(n);
 
             Console.WriteLine($"ведите {n} значений");
 
@@ -139,7 +149,7 @@ namespace _1st_Lesson
             string error = "ошибка 1_13";
             int n = 10;
 
-            List<double> x1 = new List<double>(), x2 = new List<double>();
+            List<double> x1 = new List<double>(n), x2 = new List<double>(n);
 
             Console.WriteLine($"ведите {n} значений");
 
@@ -152,7 +162,7 @@ namespace _1st_Lesson
                     return;
                 }
                 
-                if(i%2 == 1)
+                if(i%2 == 0)
                 {
                     x1.Add(a);
                 }
@@ -195,7 +205,7 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> x = new List<double>(n), ans = new List<double>(n);
 
             Console.WriteLine($"ведите {n} значений");
             int maxI = 0, minI = 0;
@@ -245,7 +255,7 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> x = new List<double>(n);
 
             Console.WriteLine($"ведите {n} значений");
             double sum = 0;
@@ -261,9 +271,10 @@ namespace _1st_Lesson
                 x.Add(a);
                 sum += a;
             }
-            double mid = sum / n;
+
+            double mid = sum / n, P;
             int midI = 0;
-            
+
             for (int i = 0; i < x.Count(); ++i)
             {
                 if (Math.Abs(mid - x[midI]) > Math.Abs(mid - x[i]))
@@ -273,22 +284,16 @@ namespace _1st_Lesson
             }
 
             Console.WriteLine("ведите P");
-            double P;
+
             if (!Input.CheckRead(out P, error))
             {
                 return;
             }
 
             string s = "ans : ";
-            for(int i = 0; i < x.Count(); ++i)
-            {
-                ans.Add(x[i]);
-                if(i == midI)
-                {
-                    ans.Add(P);
-                }
-            }
-            s += ListToString(ans);
+
+            x.Insert(midI + 1, P);
+            s += ListToString(x);
             Console.WriteLine(s);
         }
         static void exercise_2_9()
@@ -306,7 +311,7 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> x = new List<double>(n), ans = new List<double>(n);
 
             Console.WriteLine($"ведите {n} значений");
             int maxI = 0, minI = 0;
@@ -358,7 +363,7 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> x = new List<double>(n), ans = new List<double>(n);
 
             Console.WriteLine($"ведите {n} значений");
             int minI = -1;
@@ -383,13 +388,9 @@ namespace _1st_Lesson
             }
 
             string s = "ans : ";
-            for (int i = 0; i < x.Count(); ++i) 
-            {
-                if (i == minI) continue;
-                ans.Add(x[i]); 
-            }
-            
-            s += ListToString(ans);
+
+            x.Remove(minI);
+            s += ListToString(x);
             Console.WriteLine(s);
         }
         static void exercise_2_11()
@@ -407,7 +408,7 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> x = new List<double>(n);
 
             Console.WriteLine($"ведите {n} значений");
             int lastI = -1;
@@ -427,29 +428,22 @@ namespace _1st_Lesson
                     lastI = i;
                 }
             }
+
             Console.WriteLine("ведите P");
             double P;
             if (!Input.CheckRead(out P, error))
             {
                 return;
             }
-            string s = "ans : ";
-            for (int i = 0; i < x.Count(); ++i)
-            {
-                
-                ans.Add(x[i]);
-                if (i == lastI)
-                {
-                    ans.Add(P);
-                }
-            }
 
-            s += ListToString(ans);
+            string s = "ans : ";
+            x.Insert(lastI + 1, P);
+            s += ListToString(x);
             Console.WriteLine(s);
         }
         static void exercise_2_13()
         {
-            string error = "ошибка 2_11";
+            string error = "ошибка 2_13";
             int n;
             Console.WriteLine($"ведите n (n >= 0)");
             if (!Input.CheckRead(out n, error))
@@ -462,10 +456,11 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            double[] x = new double[n];
+            int maxI = 0;
 
             Console.WriteLine($"ведите {n} значений");
-            int maxI = 0;
+            
             for (int i = 0; i < n; ++i)
             {
 
@@ -475,7 +470,7 @@ namespace _1st_Lesson
                     return;
                 }
 
-                x.Add(a);
+                x[i] = a;
 
                 if (i % 2 == 0) 
                 {
@@ -485,21 +480,11 @@ namespace _1st_Lesson
                     }
                 }
             }
-            
-            string s = "ans : ";
-            for (int i = 0; i < x.Count(); ++i)
-            {
-                if (i == maxI)
-                {
-                    ans.Add(maxI);
-                }
-                else
-                {
-                    ans.Add(x[i]);
-                }
-            }
 
-            s += ListToString(ans);
+            string s = "ans : ";
+
+            x[maxI] = maxI;
+            s += ArrayToString(x);
             Console.WriteLine(s);
         }
         static void exercise_2_15()
@@ -537,7 +522,7 @@ namespace _1st_Lesson
                 Console.WriteLine("неправильное k");
                 return;
             }
-            List<double> A = new List<double>(), B = new List<double>(), ans = new List<double>();
+            List<double> A = new List<double>(n+m), B = new List<double>(m);
 
             Console.WriteLine($"ведите {n} значений");
             for (int i = 0; i < n; ++i)
@@ -567,22 +552,11 @@ namespace _1st_Lesson
             }
 
             string s = "ans : ";
-            for (int i = 0; i < A.Count(); ++i)
-            {
-                ans.Add(A[i]);
-                if(i == k)
-                {
-                    foreach(double a in B)
-                    {
-                        ans.Add(a);
-                    }
-                }
-            }
 
-            s += ListToString(ans);
+            A.InsertRange(k + 1, B);
+            s += ListToString(A);
             Console.WriteLine(s);
         }
-
 
         static void exercise_3_1()
         {
@@ -600,20 +574,22 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> ans = new List<double>();
+            double[] x = new double[n];
+            int maxI = 0;
 
             Console.WriteLine($"ведите {n} значений");
-            int maxI = 0;
+            
             for (int i = 0; i < n; ++i)
             {
-
                 double a;
+
                 if (!Input.CheckRead(out a, error))
                 {
                     return;
                 }
 
-                x.Add(a);
+                x[i] = a;
 
                 if (x[maxI] < a)
                 {
@@ -623,7 +599,7 @@ namespace _1st_Lesson
             }
 
             string s = "ans : ";
-            for (int i = 0; i < x.Count(); ++i)
+            for (int i = 0; i < x.Length; ++i)
             {
                 if (x[i] == x[maxI])
                 {
@@ -650,8 +626,8 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x1 = new List<double>(), x2 = new List<double>(), ans = new List<double>();
-
+            List<double>  ans = new List<double>(n);
+            double[] x = new double[n];
             Console.WriteLine($"ведите {n} значений");
 
             for (int i = 0; i < n; ++i)
@@ -663,29 +639,22 @@ namespace _1st_Lesson
                     return;
                 }
 
-                if (i % 2 == 0)
-                {
-                    x2.Add(a);
-                }
-                else
-                {
-                    x1.Add(a);
-                }
+                x[i] = a;
             }
 
-            x2.Sort();
+            for(int i = 0; i < n; i += 2)
+            {
+                for (int j = i + 2; j < n; j += 2)
+                {
+                    if (x[i] > x[j])
+                    {
+                        (x[j], x[i]) = (x[i], x[j]);
+                    }
+                }
+            }
 
             string s = "ans : ";
-            for (int i = 0; i < x2.Count(); ++i)
-            {
-                ans.Add(x2[i]);
-                if (i < x1.Count())
-                {
-                    ans.Add(x1[i]);
-                }
-            }
-
-            s += ListToString(ans);
+            s += ArrayToString(x);
             Console.WriteLine(s);
         }
         static void exercise_3_8()
@@ -704,8 +673,8 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x1 = new List<double>(), x2 = new List<double>(), ans = new List<double>();
-
+            List<double> A = new List<double>(), ans = new List<double>(n);
+            double[] x = new double[n];
             Console.WriteLine($"ведите {n} значений");
 
             for (int i = 0; i < n; ++i)
@@ -717,36 +686,27 @@ namespace _1st_Lesson
                     return;
                 }
 
-                if (a < 0)
+                x[i] = a;
+                if(a < 0)
                 {
-                    x1.Add(-1);
-                    x2.Add(a);
-                }
-                else
-                {
-                    x1.Add(a);
+                    A.Add(i);
                 }
             }
 
-            x2.Sort();
-            x2.Reverse();
+            foreach (int i in A)
+            {
+                foreach(int j in A)
+                {
+                    if (x[i] > x[j])
+                    {
+                        (x[j], x[i]) = (x[i], x[j]);
+                    }
+
+                }
+            }
 
             string s = "ans : ";
-            int sh = 0;
-            for (int i = 0; i < x1.Count(); ++i)
-            {
-                if (x1[i] == -1)
-                {
-                    ans.Add(x2[sh]);
-                    sh++;
-                }
-                else
-                {
-                    ans.Add(x1[i]);
-                }
-            }
-
-            s += ListToString(ans);
+            s += ArrayToString(x);
             Console.WriteLine(s);
         }
         static void exercise_3_9()
@@ -765,10 +725,11 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>();
+            double[] x = new double[n];
+            int max1 = 1, max2 = 1, sh1 = 1, sh2 = 1;
 
             Console.WriteLine($"ведите {n} значений");
-            int max1 = 1, max2 = 1, sh1 = 1, sh2 = 1;
+   
             for (int i = 0; i < n; ++i)
             {
 
@@ -778,10 +739,10 @@ namespace _1st_Lesson
                     return;
                 }
 
-                x.Add(a);
+                x[i]=a;
             }
 
-            for (int i = 0; i < x.Count() - 1; ++i)
+            for (int i = 0; i < x.Length - 1; ++i)
             {
                 if (x[i] < x[i + 1])
                 {
@@ -798,13 +759,16 @@ namespace _1st_Lesson
                     sh1 = 1;
                     continue;
                 }
+
                 max1 = Math.Max(max1, sh1);
                 max2 = Math.Max(max2, sh2);
                 sh1 = 1;
                 sh2 = 1;
             }
+
             int ans = Math.Max(max1, max2);
             string s = "ans : ";
+
             s += ans.ToString();
             Console.WriteLine(s);
         }
@@ -814,7 +778,7 @@ namespace _1st_Lesson
             string error = "ошибка 3_12";
             int n = 12;
 
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> x = new List<double>(n), ans = new List<double>();
 
             Console.WriteLine($"ведите {n} значений"); ;
             for (int i = 0; i < n; ++i)
@@ -829,14 +793,13 @@ namespace _1st_Lesson
                 x.Add(a);
             }
 
-            for (int i = 0; i < x.Count() ; ++i)
+            foreach (double to in x)
             {
-                if (x[i] >= 0)
+                if(to >= 0)
                 {
-                    ans.Add(x[i]);
+                    ans.Add(to);
                 }
             }
-
             string s = "ans : ";
             s += ListToString(ans);
             Console.WriteLine(s);
@@ -903,7 +866,7 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> A = new List<double>();
+            List<double> A = new List<double>(n);
             Console.WriteLine($"ведите {n} значений");
 
             for (int i = 0; i < n; ++i)
@@ -962,8 +925,8 @@ namespace _1st_Lesson
                 Console.WriteLine("неправильное n");
                 return;
             }
-
-            List<double> A = new List<double>(), B = new List<double>(), ans = new List<double>();
+  
+            double[] A = new double[n], B = new double[n], ans = new double[n*2];    
             Console.WriteLine($"ведите {n} значений");
 
             for (int i = 0; i < n; ++i)
@@ -975,7 +938,7 @@ namespace _1st_Lesson
                     return;
                 }
 
-                A.Add(a);
+                A[i] = a;
             }
 
             Console.WriteLine($"ведите {n} значений");
@@ -989,17 +952,17 @@ namespace _1st_Lesson
                     return;
                 }
 
-                B.Add(a);
+                B[i] = a;
             }
 
             for (int i = 0; i < n; ++i)
             {
-                ans.Add(A[i]);
-                ans.Add(B[i]);
+                ans[i * 2] = A[i];
+                ans[i * 2 + 1] = B[i];
             }
 
             string s = "ans : ";
-            s += ListToString(ans);
+            s += ArrayToString(ans);
             Console.WriteLine(s);
         }
         static void exercise_0_13()
@@ -1027,7 +990,7 @@ namespace _1st_Lesson
                 Console.WriteLine("неправильное m");
                 return;
             }
-            List<double> A = new List<double>(), B = new List<double>(), ans = new List<double>();
+            List<double> A = new List<double>(n), B = new List<double>(m), ans = new List<double>(n+m);
             Console.WriteLine($"ведите {n} значений");
 
             for (int i = 0; i < n; ++i)
@@ -1105,7 +1068,8 @@ namespace _1st_Lesson
                 return;
             }
 
-            List<double> x = new List<double>();
+            double[] x = new double[n];
+
             Console.WriteLine($"ведите {n} значений");
 
             for (int i = 0; i < n; ++i)
@@ -1117,13 +1081,16 @@ namespace _1st_Lesson
                     return;
                 }
 
-                x.Add(a);
+                x[i] = a;
             }
 
-            x.Reverse();
+            for (int i = 0; i < n / 2; ++i)
+            {
+                (x[i], x[n - i - 1]) = (x[n - i - 1], x[i]);
+            }
 
             string s = "ans : ";
-            s += ListToString(x);
+            s += ArrayToString(x);
             Console.WriteLine(s);
         }
         static void exercise_0_15()
@@ -1145,7 +1112,7 @@ namespace _1st_Lesson
             {
                 return;
             }
-            List<double> x = new List<double>(), ans = new List<double>();
+            List<double> x = new List<double>(n), ans = new List<double>(n);
             Console.WriteLine($"ведите {n} значений");
 
             for (int i = 0; i < n; ++i)
@@ -1190,97 +1157,101 @@ namespace _1st_Lesson
         }
         static void Main(string[] args)
         {
-            #region exercise 1_6
+            /*#region exercise 1_6
             exercise_1_6();
-            #endregion
+            #endregion*/
 
-            #region exercise 1_10
+            /*#region exercise 1_10
             exercise_1_10();
-            #endregion
+            #endregion*/
 
-            #region exercise 1_11
-            exercise_1_11();
-            #endregion
+            /* #region exercise 1_11
+             exercise_1_11();
+             #endregion*/
 
-            #region exercise 1_12
+            /*#region exercise 1_12
             exercise_1_12();
-            #endregion
+            #endregion*/
 
-            #region exercise 1_13
+            /*#region exercise 1_13
             exercise_1_13();
-            #endregion
+            #endregion*/
 
-            #region exercise 2_5
+            /*#region exercise 2_5
             exercise_2_5();
-            #endregion
+            #endregion*/
 
-            #region exercise 2_6
+            /*#region exercise 2_6
             exercise_2_6();
-            #endregion
+            #endregion*/
 
-            #region exercise 2_9
+            /*#region exercise 2_9
             exercise_2_9();
-            #endregion
+            #endregion*/
 
-            #region exercise 2_10
+            /*#region exercise 2_10
             exercise_2_10();
-            #endregion
+            #endregion*/
 
-            #region exercise 2_11
+            /*#region exercise 2_11
             exercise_2_11();
-            #endregion
+            #endregion*/
 
-            #region exercise 2_13
+            /*#region exercise 2_13
             exercise_2_13();
-            #endregion
+            #endregion*/
 
-            #region exercise 2_15
+            /*#region exercise 2_15
             exercise_2_15();
-            #endregion
+            #endregion*/
 
-            #region exercise 3_1
+            /*#region exercise 3_1
             exercise_3_1();
-            #endregion
+            #endregion*/
 
+            //!
             #region exercise 3_5
             exercise_3_5();
             #endregion
 
+            //!
             #region exercise 3_8
             exercise_3_8();
             #endregion
 
-            #region exercise 3_9
+            /*#region exercise 3_9
             exercise_3_9();
-            #endregion
+            #endregion*/
 
-            #region exercise 3_12
+            /*#region exercise 3_12
             exercise_3_12();
-            #endregion
+            #endregion*/
 
-            #region exercise 3_13
+            /*#region exercise 3_13
             exercise_3_13();
-            #endregion
+            #endregion*/
 
-            #region exercise 0_11
+            /*#region exercise 0_11
             exercise_0_11();
-            #endregion
+            #endregion*/
 
+            //!
             #region exercise 0_12
             exercise_0_12();
             #endregion
 
-            #region exercise 0_13
+            /*#region exercise 0_13
             exercise_0_13();
-            #endregion
+            #endregion*/
 
+            //!
             #region exercise 0_14
             exercise_0_14();
             #endregion
 
-            #region exercise 0_15
+            /*#region exercise 0_15
             exercise_0_15();
-            #endregion
+            #endregion*/
         }
     }
 
