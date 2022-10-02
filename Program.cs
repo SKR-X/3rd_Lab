@@ -45,7 +45,7 @@ namespace _1st_Lab
                 }
 
                 List<double> x = new List<double>();
-                
+
 
                 Console.WriteLine("     enter n values");
 
@@ -98,7 +98,7 @@ namespace _1st_Lab
             #region 12 merging arrays with with elements alternation
             Console.WriteLine("12 merging arrays with with elements alternation");
             {
-                int n;
+                int n, m;
 
                 Console.WriteLine("     enter n");
 
@@ -117,9 +117,26 @@ namespace _1st_Lab
                     break;
                 }
 
-                double[] a = new double[n], b = new double[n], c = new double[n + n];
+                Console.WriteLine("     enter m");
 
-                Console.WriteLine("     enter n values");
+                while (true)
+                {
+                    if (!int.TryParse(Console.ReadLine(), out m))
+                    {
+                        Console.WriteLine("     incorrect format, try again");
+                        continue;
+                    }
+                    if (m <= 0)
+                    {
+                        Console.WriteLine("     m > 0, try again");
+                        continue;
+                    }
+                    break;
+                }
+
+                double[] a = new double[n], b = new double[m];
+
+                Console.WriteLine($"     enter {n} values");
 
                 for (int i = 0; i < n; i++)
                 {
@@ -134,9 +151,9 @@ namespace _1st_Lab
                     a[i] = value;
                 }
 
-                Console.WriteLine("     enter n values");
+                Console.WriteLine($"     enter {m} values");
 
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i < m; i++)
                 {
                     double value;
 
@@ -149,7 +166,9 @@ namespace _1st_Lab
                     b[i] = value;
                 }
 
-                for (int i = 0; i < n; i++)
+                double[] c = new double[2 * Math.Min(m, n)];
+
+                for (int i = 0; i < Math.Min(n, m); i++)
                 {
                     c[i + i] = a[i];
                     c[i + i + 1] = b[i];
@@ -372,7 +391,8 @@ namespace _1st_Lab
                     break;
                 }
 
-                List<double> x = new List<double>(), result = new List<double>();
+                List<double> x = new List<double>();
+                Queue<double> result = new Queue<double>();
 
                 Console.WriteLine("     enter n values");
 
@@ -393,20 +413,14 @@ namespace _1st_Lab
 
                 for (int i = n - m; i < n; i++)
                 {
-                    result.Add(x[i]);
+                    result.Append(x[i]);
                 }
                 for (int i = 0; i < n - m; i++)
                 {
-                    result.Add(x[i]);
+                    result.Append(x[i]);
                 }
 
-                string answer = "   answer: ";
-                foreach (double v in result)
-                {
-                    answer += v.ToString();
-                    answer += " ";
-                }
-                Console.WriteLine(answer);
+                Console.WriteLine(result.ToString());
             }
             #endregion
 
@@ -506,7 +520,7 @@ namespace _1st_Lab
             #region task 11
             Console.WriteLine("Task 11");
             {
-                double[] positive_only = new double[10];
+                List<double> positive_only = new List<double>();
                 double[] array = new double[10];
                 double x;
 
@@ -522,22 +536,15 @@ namespace _1st_Lab
                     array[i] = x;
                 }
 
-                for (int j = 0; j < 10; j++)
+                foreach(double v in array)
                 {
-                    if (array[j] > 0)
+                    if (v > 0)
                     {
-                        positive_only[j] = array[j];
+                        positive_only.Add(v);
                     }
                 }
 
-                Console.WriteLine("     positive elements:");
-                foreach (double elem in positive_only)
-                {
-                    if (elem > 0)
-                    {
-                        Console.WriteLine($"    {elem}");
-                    }
-                }
+                Console.WriteLine($"    answer: {positive_only.ToString()}");
             }
             #endregion
 
@@ -546,7 +553,7 @@ namespace _1st_Lab
             {
                 int idx = 0;
                 double value = 0;
-                double[] array = new double[] {1, 2, 3, -1, -2, -3, 4, 5};
+                double[] array = new double[] { 1, 2, 3, -1, -2, -3, 4, 5 };
 
                 for (int i = 0; i <= 7; i++)
                 {
@@ -605,14 +612,9 @@ namespace _1st_Lab
                 while (true)
                 {
                     Console.WriteLine("     enter length of the array");
-                    if (!int.TryParse(Console.ReadLine(), out n))
+                    if (!int.TryParse(Console.ReadLine(), out n) || n <= 0)
                     {
-                        Console.WriteLine("     incorrect format, try again");
-                        continue;
-                    }
-                    if (n <= 0)
-                    {
-                        Console.WriteLine("     length must be positive, try again");
+                        Console.WriteLine("     incorrect format or n is not positive, try again");
                         continue;
                     }
                     break;
@@ -665,7 +667,7 @@ namespace _1st_Lab
                     ans += " ";
                 }
                 Console.WriteLine(ans);
-                
+
             }
             #endregion
 
@@ -736,7 +738,7 @@ namespace _1st_Lab
 
                 x.Insert(idx_mean, p);
 
-                
+
 
                 string s = "    answer: ";
                 foreach (double v in x)
@@ -1041,7 +1043,7 @@ namespace _1st_Lab
                     break;
                 }
 
-                List<double> a = new List<double>;
+                List<double> a = new List<double>();
                 double[] b = new double[m];
 
                 Console.WriteLine("     enter n values for A array");
@@ -1210,9 +1212,9 @@ namespace _1st_Lab
                 /*
                  * bubble sort
                  */
-                for (int i = 0; i < n; i += 2)
+                for (int i = 0; i < n; i++)
                 {
-                    for (int j = i + 2; j < n; j += 2)
+                    for (int j = i + 1; j < n; j++)
                     {
                         if (x[i] > x[j])
                         {
