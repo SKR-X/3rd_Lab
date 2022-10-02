@@ -166,12 +166,27 @@ namespace _1st_Lab
                     b[i] = value;
                 }
 
-                double[] c = new double[2 * Math.Min(m, n)];
+                List<double> c = new List<double>();
 
                 for (int i = 0; i < Math.Min(n, m); i++)
                 {
-                    c[i + i] = a[i];
-                    c[i + i + 1] = b[i];
+                    c.Add(a[i]);
+                    c.Add(b[i]);
+                }
+
+                double[] copy_;
+                if (n < m)
+                {
+                    copy_ = b;
+                }
+                else
+                {
+                    copy_ = a;
+                }
+
+                for (int i = Math.Min(n, m); i < Math.Max(n, m); i++)
+                {
+                    c.Add(copy_[i]);
                 }
 
                 string answer = "   answer: ";
@@ -571,18 +586,26 @@ namespace _1st_Lab
             #region task 13
             Console.WriteLine("task 13");
             {
-                double[] odd = new double[5], even = new double[5];
-                double[] array = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                List<double> even = new List<double>(), odd = new List<double>();
 
-                for (int i = 0; i <= 9; i++)
+                Console.WriteLine($"enter 10 values");
+
+                for (int i = 0; i < 10; ++i)
                 {
-                    if (i % 2 == 1)
+
+                    double value;
+                    if (!double.TryParse(Console.ReadLine(), out value))
                     {
-                        odd[i % 5] = array[i];
+                        return;
+                    }
+
+                    if (i % 2 == 0)
+                    {
+                        even.Add(value);
                     }
                     else
                     {
-                        even[i % 5] = array[i];
+                        odd.Add(value);
                     }
                 }
 
@@ -1212,9 +1235,9 @@ namespace _1st_Lab
                 /*
                  * bubble sort
                  */
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i < n - 1; i += 2)
                 {
-                    for (int j = i + 1; j < n; j++)
+                    for (int j = i + 2; j < n - 1; j += 2)
                     {
                         if (x[i] > x[j])
                         {
