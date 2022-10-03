@@ -209,7 +209,7 @@ namespace _3nd_Lab
             while (true)
             {
                 Console.WriteLine("    Please enter n");
-                if ((!int.TryParse(Console.ReadLine(), out n)) || (n < 0))
+                if ((!int.TryParse(Console.ReadLine(), out n)) || (n <= 0))
                 {
                     Console.WriteLine("    Wrong n, please try again");
                     continue;
@@ -264,7 +264,7 @@ namespace _3nd_Lab
             while (true)
             {
                 Console.WriteLine("    Please enter n");
-                if ((!int.TryParse(Console.ReadLine(), out n)) || (n < 0))
+                if ((!int.TryParse(Console.ReadLine(), out n)) || (n <= 0))
                 {
                     Console.WriteLine("    Wrong n, please try again");
                     continue;
@@ -300,12 +300,21 @@ namespace _3nd_Lab
             }
             int start = Math.Min(min_n, max_n);
             int end = Math.Max(min_n, max_n);
-            double s = 0;
-            for (int k = start + 1; k < end; k++)
+            int dif = end - start - 1;
+            if (dif <= 0)
             {
-                s += x[k];
+                Console.WriteLine($"     Task can't be solved for such array");
             }
-            Console.WriteLine($"     Answer: {s / (end - start - 1)}");
+            else
+            {
+                double s = 0;
+                for (int k = start + 1; k < end; k++)
+                {
+                    s += x[k];
+                }
+
+                Console.WriteLine($"     Answer: {s / dif}");
+            }
             #endregion
             
             #region task 2.10
@@ -314,7 +323,7 @@ namespace _3nd_Lab
             while (true)
             {
                 Console.WriteLine("    Please enter n");
-                if ((!int.TryParse(Console.ReadLine(), out n)) || (n < 0))
+                if ((!int.TryParse(Console.ReadLine(), out n)) || (n <= 0))
                 {
                     Console.WriteLine("    Wrong n, please try again");
                     continue;
@@ -341,12 +350,19 @@ namespace _3nd_Lab
                     min_n = i;
                 }
             }
-            x.RemoveAt(min_n);
-            Console.WriteLine("     Answer: ");
-            foreach (double j in x)
+            if (min_n == -1)
             {
-                Console.Write($"{j} ");
+                Console.WriteLine("    There are no positive elements in array");
             }
+            else
+            {
+                x.RemoveAt(min_n);
+                Console.WriteLine("     Answer: ");
+                foreach (double j in x)
+                {
+                    Console.Write($"{j} ");
+                }
+            }            
             #endregion
             
             #region task 2.11
@@ -409,7 +425,7 @@ namespace _3nd_Lab
             while (true)
             {
                 Console.WriteLine("    Please enter n");
-                if ((!int.TryParse(Console.ReadLine(), out n)) || (n < 0))
+                if ((!int.TryParse(Console.ReadLine(), out n)) || (n <= 0))
                 {
                     Console.WriteLine("    Wrong n, please try again");
                     continue;
@@ -450,13 +466,13 @@ namespace _3nd_Lab
             while (true)
             {
                 Console.WriteLine("    Please enter n");
-                if ((!int.TryParse(Console.ReadLine(), out n)) || (n < 0))
+                if ((!int.TryParse(Console.ReadLine(), out n)) || (n <= 0))
                 {
                     Console.WriteLine("    Wrong n, please try again");
                     continue;
                 }
                 Console.WriteLine("    Please enter m");
-                if ((!int.TryParse(Console.ReadLine(), out m)) || (m < 0))
+                if ((!int.TryParse(Console.ReadLine(), out m)) || (m <= 0))
                 {
                     Console.WriteLine("    Wrong n, please try again");
                     continue;
@@ -798,20 +814,53 @@ namespace _3nd_Lab
             
             #region task 0.12
             Console.WriteLine("Level Final Boss Task 12");
-            static double[] Task12(double[] a, double[] b, int n)
+            static double[] Task12(double[] a, double[] b, int n, int m)
             {
-                var c = new double[n * 2];
-                for (int i = 0; i < n; i++)
+                double[] c = new double[m + n];
+                if (n > m)
                 {
-                    Console.Write($"{i} ");
-                    c[2 * i] = a[i];
-                    c[2 * i + 1] = b[i];
+                    for (int i = 0; i < m; i++)
+                    {
+                        c[2 * i] = a[i];
+                        c[2 * i + 1] = b[i];
+                    }
+                    for (int i = m; i < n; i++)
+                    {
+                        c[m + i] = a[i];
+                    }
+                }
+                else if (m > n)
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        c[2 * i] = a[i];
+                        c[2 * i + 1] = b[i];
+                    }
+                    for (int i = n; i < m; i++)
+                    {
+                        c[n + i] = b[i];
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        c[2 * i] = a[i];
+                        c[2 * i + 1] = b[i];
+                    }
                 }
                 return c;
             }
-            /*var x = Task12(new double[] { -1, -2, -3, -4, -5 }, new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 }, 5);
+            /*var x = Task12(new double[] { -1, -2, -3, -4, -5 }, new double[] { 1, 2, 3, 4, 5, 6, 7 }, 5, 7);
             Console.WriteLine("     Answer: ");
             foreach (double j in x)
+            {
+                Console.Write($"{j} ");
+            }
+            Console.Write("\n");
+            var y = Task12(new double[] { 1, 2, 3, 4, 5, 6, 7 }, new double[] { -1, -2, -3, -4, -5 }, 7, 5);
+            Console.WriteLine("     Answer: ");
+            foreach (double j in y)
             {
                 Console.Write($"{j} ");
             }*/
