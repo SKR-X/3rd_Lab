@@ -152,13 +152,20 @@ namespace _3rd_Lab
                 isOdd = !isOdd;
             }
 
-            Console.WriteLine("Initial array:\t{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}",
-                numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5], numbers[6],
-                numbers[7], numbers[8], numbers[9]);
-            Console.WriteLine("Odd indexes: {0}, {1}, {2}, {3}, {4}",
-                oddIndexes[0], oddIndexes[1], oddIndexes[2], oddIndexes[3], oddIndexes[4]);
-            Console.WriteLine("Even indexes: {0}, {1}, {2}, {3}, {4}",
-                evenIndexes[0], evenIndexes[1], evenIndexes[2], evenIndexes[3], evenIndexes[4]);
+            Console.Write("Initial array:\t ");
+            foreach (var number in numbers)
+                Console.Write($"{number} ");
+            Console.WriteLine();
+
+            Console.Write("Odd indexes: ");
+            foreach (var odd in oddIndexes)
+                Console.Write($"{odd} ");
+            Console.WriteLine();
+
+            Console.Write("Even indexes: ");
+            foreach (var even in evenIndexes)
+                Console.Write($"{even} ");
+            Console.WriteLine();
             #endregion
 
             #endregion
@@ -822,12 +829,24 @@ namespace _3rd_Lab
             #region Task 9
             Console.WriteLine("\nTask 9:\n");
 
-            int currentSequenceLength = 0;
-            int maxSequenceLength = 0;
+            int currentSequenceLength = 1;
+            int maxSequenceLength = 1;
 
-            // Initialize array
-            numbers = new int[] { 1, 2, 4, 3, 2, 0, 1 };
+            // Step of arithmetic progression
+            int step = 0;
+            // Ratio of geometric progression
+            double ratio = 0;
+
+            // Tests
+            numbers = new int[] { 1, 2, 5, 9, 4, 2, -5, -8, -11, 3 };
+            
             n = numbers.Length;
+
+            if (n == 0)
+            {
+                Console.WriteLine("Array can not be empty!");
+                return;
+            }
 
             Console.Write("Initial array:\t");
             for (int i = 0; i < n; i++)
@@ -835,40 +854,73 @@ namespace _3rd_Lab
             Console.WriteLine();
 
             // Find max length of sequences
-            int growDirection = 0;
-
-            for (int i = 0; i < n - 1; i++)
+            if (n > 1)
             {
-                if (numbers[i] + 1 == numbers[i + 1])
+                int previousStep = numbers[1] - numbers[0];
+                double previousRatio = (double)numbers[1] / numbers[0];
+                currentSequenceLength++;
+
+                // -1 -> arithmetic, 1 -> geometric, 0 -> any
+                int sequenceKind = 0;
+
+                for (int i = 1; i < n - 1;)
                 {
-                    if (growDirection == 1)
+                    int currentNumber = numbers[i];
+                    int nextNumber = numbers[i + 1];
+
+                    step = nextNumber - currentNumber;
+                    ratio = (double)nextNumber / currentNumber;
+
+                    if (step == previousStep && ratio == previousRatio)
+                    {
+                        sequenceKind = 0;
                         currentSequenceLength++;
+                    }
+                    else if (step == previousStep)
+                    {
+                        if (sequenceKind == 1)
+                        {
+                            sequenceKind = -1;
+                            currentSequenceLength = 1;
+                        }
+                        else if (sequenceKind == 0)
+                            sequenceKind = -1;
+
+                        currentSequenceLength++;
+                    }
+                    else if (ratio == previousRatio)
+                    {
+                        if (sequenceKind == -1)
+                        {
+                            sequenceKind = 1;
+                            currentSequenceLength = 1;
+                        }
+                        else if (sequenceKind == 0)
+                            sequenceKind = 1;
+
+                        currentSequenceLength++;
+                    }
                     else
                     {
                         if (currentSequenceLength > maxSequenceLength)
                             maxSequenceLength = currentSequenceLength;
 
-                        growDirection = 1;
-                        currentSequenceLength = 2;
+                        previousStep = step;
+                        previousRatio = ratio;
+                        currentSequenceLength = 1;
+                        continue;
                     }
-                }
-                else if (numbers[i] - 1 == numbers[i + 1])
-                {
-                    if (growDirection == -1)
-                        currentSequenceLength++;
-                    else
-                    {
-                        if (currentSequenceLength > maxSequenceLength)
-                            maxSequenceLength = currentSequenceLength;
 
-                        growDirection = -1;
-                        currentSequenceLength = 2;
-                    }
+                    if (currentSequenceLength > maxSequenceLength)
+                        maxSequenceLength = currentSequenceLength;
+
+                    previousStep = step;
+                    previousRatio = ratio;
+                    i++;
                 }
             }
 
             Console.WriteLine($"Max sequence length: {maxSequenceLength}");
-
             #endregion
 
             #region Task 12
@@ -899,37 +951,21 @@ namespace _3rd_Lab
             Console.WriteLine();
 
             // Delete negative elements
-            for (int i = 0; i < n - 1; i++)
+            Queue<int> positiveNums = new Queue<int>();
+            foreach (var number in numbers)
             {
-                if (numbers[i] < 0)
-                {
-                    int negativeNumber = numbers[i];
-                    for (int j = i + 1; j < n; j++)
-                    {
-                        if (numbers[j] > 0)
-                        {
-                            numbers[i] = numbers[j];
-                            numbers[j] = negativeNumber;
-                            break;
-                        }
-                    }
-                }
+                if (number > 0)
+                    positiveNums.Enqueue(number);
             }
 
             Console.Write("Result array:\t");
-            for (int i = 0; i < n; i++)
-            {
-                if (numbers[i] < 0)
-                    break;
-                Console.Write($"{numbers[i]} ");
-            }
+            foreach (var number in positiveNums)
+                Console.Write($"{number} ");
             Console.WriteLine();
             #endregion
 
             #region Task 13
             Console.WriteLine("\nTask 13:\n");
-
-            int repeatingCount = 0;
 
             // Initialize array
             numbers = new int[] { 10, 3, 3, 6, 3, 6 };
@@ -941,34 +977,16 @@ namespace _3rd_Lab
             Console.WriteLine();
 
             // Delete equal elements
-            for (int i = 0; i < n - 1; i++)
+            Queue<int> uniqueNumbers = new Queue<int>(); 
+            foreach (var number in numbers)
             {
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (numbers[j] == numbers[i])
-                    {
-                        int repeatingNumber = numbers[i];
-                        int firstRepeatingIndex = j;
-
-                        while (j < n)
-                        {
-                            if (numbers[j] != repeatingNumber)
-                            {
-                                numbers[firstRepeatingIndex] = numbers[j];
-                                numbers[j] = repeatingNumber;
-                            }
-
-                            j++;
-                        }
-
-                        repeatingCount++;
-                    }
-                }
+                if (!uniqueNumbers.Contains(number))
+                    uniqueNumbers.Enqueue(number);
             }
 
             Console.Write("Result array:\t");
-            for (int i = 0; i < n - repeatingCount; i++)
-                Console.Write($"{numbers[i]} ");
+            foreach (var number in uniqueNumbers)
+                Console.Write($"{number} ");
             Console.WriteLine();
 
             #endregion
@@ -1035,8 +1053,6 @@ namespace _3rd_Lab
             Console.WriteLine("\nArrays union:\n");
 
             // Initialize arrays
-            int indexOffset = 0;
-
             int[] firstArray = new int[] { 1, 3, 5 };
             int[] secondArray = new int[] { 2, 4, 6, 8, 10 };
 
@@ -1053,38 +1069,25 @@ namespace _3rd_Lab
             resultArray = new int[firstArray.Length + secondArray.Length];
 
             // Unite the arrays
-            resultArray[0] = firstArray[0];
-            if (firstArray.Length <= secondArray.Length)
-                n = firstArray.Length * 2;
+            if (firstArray.Length >= secondArray.Length)
+                n = firstArray.Length;
             else
-                n = secondArray.Length * 2;
+                n = secondArray.Length;
 
-            for (index = 0; index < n; index++)
-            {
-                if (index % 2 == 0)
-                    resultArray[index] = firstArray[indexOffset];
-                else
-                {
-                    resultArray[index] = secondArray[indexOffset];
-                    indexOffset += 1;
-                }
-            }
+            index = 0;
 
-            // Fill the remains
-            if (firstArray.Length <= secondArray.Length)
+            for (int i = 0; i < n; i++)
             {
-                for (; index < resultArray.Length; index++)
+                if (i < firstArray.Length)
                 {
-                    resultArray[index] = secondArray[indexOffset];
-                    indexOffset += 1;
+                    resultArray[index] = firstArray[i];
+                    index++;
                 }
-            }
-            else
-            {
-                for (; index < resultArray.Length; index++)
+
+                if (i < secondArray.Length)
                 {
-                    resultArray[index] = firstArray[indexOffset];
-                    indexOffset += 1;
+                    resultArray[index] = secondArray[i];
+                    index++;
                 }
             }
 
@@ -1098,8 +1101,8 @@ namespace _3rd_Lab
             Console.WriteLine("\nSorted arrays union:\n");
 
             // Initialize the arrays
-            firstArray = new int[] { 11, 22, 33, 44, 55 };
-            secondArray = new int[] { 28, 37, 39 };
+            firstArray = new int[] { 55, 44, 33, 22, 11 };
+            secondArray = new int[] { 39, 37, 28 };
 
             Console.Write("First array:\t");
             foreach (var number in firstArray)
