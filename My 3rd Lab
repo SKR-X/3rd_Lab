@@ -1,0 +1,976 @@
+#region // level 1 Task 6
+using System.Linq;
+
+double[] vector = new double[5];
+string s;
+double L = 0, A = 0;
+Console.WriteLine("Enter values of vectors length");
+for (int i = 0; i < 5; i++)
+{
+    s = Console.ReadLine();
+    vector[i] = Double.Parse(s);
+}
+for (int i = 0; i < 5; i++)
+{
+    A += (vector[i] * vector[i]);
+}
+L = Math.Sqrt(A);
+Console.WriteLine($"vector length = {L}");
+#endregion
+
+
+
+#region // level 1 Task 10
+double[] array = new double[10];
+string s;
+
+int n = 0;
+Console.WriteLine("Enter values of P and Q, P<Q");
+double P = Convert.ToDouble(Console.ReadLine());
+double Q = Convert.ToDouble(Console.ReadLine());
+Console.WriteLine("Enter values for array");
+for (int i = 0; i < 10; i++)
+{
+    s = Console.ReadLine();
+    array[i] = Double.Parse(s);
+}
+for (int i = 0; i < 10; i++)
+{
+    if (P < array[i] && array[i] < Q)
+    {
+        n += 1;
+    }
+}
+Console.WriteLine($"Numbers of values is {n}");
+#endregion
+
+
+
+#region // level 1 Task 11
+
+double[] original = new double[10];
+double[] result = new double[10];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for original array");
+for (int i = 0; i < 10; i++)
+{
+    s = Console.ReadLine();
+    original[i] = Double.Parse(s);
+}
+foreach (double x in original)
+{
+    if (x > 0)
+    {
+        result[n] = x;
+        n += 1;
+    }
+}
+Console.WriteLine($"New array with positive elements from original is");
+for (int i = 0; i < n; i++)
+{
+    Console.Write(result[i]);
+    Console.Write(" ");
+}
+#endregion
+
+
+#region // level 1 Task 12
+
+double[] array = new double[8];
+string s;
+double n = 0, p = 0;
+Console.WriteLine("Enter values for array");
+for (int i = 0; i < 8; i++)
+{
+    s = Console.ReadLine();
+    array[i] = Double.Parse(s);
+}
+for (int i = 7; i >= 0; i--)
+{
+    if (array[i] < 0)
+    {
+        p = i;
+        n = array[i];
+        break;
+    }
+}
+Console.WriteLine($"Last negative element is {n}, his number: {p + 1}");
+#endregion
+
+
+
+#region // level 1 Task 13
+
+double[] original = new double[10];
+double[] even = new double[5];
+double[] uneven = new double[5];
+string s;
+int n1 = 0, n2 = 0;
+Console.WriteLine("Enter values for original array");
+for (int i = 0; i < 10; i++)
+{
+    s = Console.ReadLine();
+    original[i] = Double.Parse(s);
+}
+for (int i = 0; i < 10; i++)
+{
+    if (i % 2 != 0)
+    {
+        uneven[n1] = original[i];
+        n1 += 1;
+    }
+    else
+    {
+        even[n2] = original[i];
+        n2 += 1;
+    }
+}
+Console.WriteLine($"Array with even elements is");
+for (int i = 0; i < 5; i++)
+{
+    Console.Write(even[i]);
+    Console.Write(" ");
+}
+Console.WriteLine($"\nArray with uneven elements is");
+for (int i = 0; i < 5; i++)
+{
+    Console.Write(uneven[i]);
+    Console.Write(" ");
+}
+#endregion
+
+
+
+#region // level 2 Task 5
+
+double[] original = new double[0];
+double[] negative = new double[0];
+int n = 0;
+string s;
+Console.WriteLine("Enter values for original array, if values have run out, enter $");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref original, original.Length + 1);
+    original[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+double max = original[0];
+int imax = 0;
+for (int i = 1; i < n; i++)
+{
+    if (original[i] > max)
+    {
+        max = original[i];
+        imax = i;
+    }
+}
+double min = original[0];
+int imin = 0;
+for (int i = 1; i < n; i++)
+{
+    if (original[i] < min)
+    {
+        min = original[i];
+        imin = i;
+    }
+}
+
+int p = 0;
+if (imin < imax)
+{
+    for (int i = imin; i <= imax; i++)
+    {
+        if (original[i] < 0)
+        {
+            negative[p] = original[i];
+            p += 1;
+        }
+    }
+}
+
+else
+{
+    for (int i = imax; i <= imin; i++)
+    {
+        if (original[i] < 0)
+        {
+            negative[p] = original[i];
+            p += 1;
+        }
+    }
+}
+Console.WriteLine($"Array with negative elements between max and min is");
+for (int c = 0; c < p; c++)
+{
+    Console.Write(negative[c]);
+    Console.Write(" ");
+}
+
+#endregion
+
+
+
+#region // level 2 Task 9
+
+double[] original = new double[0];
+int n = 0;
+string s;
+Console.WriteLine("Enter values for original array, if values have run out, enter $");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref original, original.Length + 1);
+    original[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+double max = original[0];
+int imax = 0;
+for (int i = 1; i < n; i++)
+{
+    if (original[i] > max)
+    {
+        max = original[i];
+        imax = i;
+    }
+}
+double min = original[0];
+int imin = 0;
+for (int i = 1; i < n; i++)
+{
+    if (original[i] < min)
+    {
+        min = original[i];
+        imin = i;
+    }
+}
+
+double sum = 0;
+int a = 0;
+if (imin < imax)
+{
+    for (int i = imin + 1; i < imax; i++)
+    {
+        sum += original[i];
+        a += 1;
+    }
+}
+
+else
+{
+    for (int i = imax + 1; i < imin; i++)
+    {
+        sum += original[i];
+        a += 1;
+    }
+}
+Console.WriteLine($"Average of elements between max and min is {sum / a}");
+
+#endregion
+
+
+
+#region // level 2 Task 10
+
+double[] original = new double[0];
+int n = 0;
+string s;
+Console.WriteLine("Enter values for original array, if values have run out, enter $");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref original, original.Length + 1);
+    original[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+double min = original[0];
+int imin = 0;
+for (int i = 1; i < n; i++)
+{
+    if (original[i] < min && original[i] > 0)
+    {
+        min = original[i];
+        imin = i;
+    }
+}
+
+n = n - 1;
+for (int i = imin; i < n; i++)
+{
+    original[i] = original[i + 1];
+}
+
+
+Console.WriteLine($"New array without minimal positive element is ");
+for (int i = 0; i < n; i++)
+{
+    Console.Write(original[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region // level 2 Task 11
+
+Console.WriteLine("Enter P");
+double P = Convert.ToDouble(Console.ReadLine());
+int n = 0;
+double[] original = new double[0];
+string s;
+Console.WriteLine("Enter values for original array, if values have run out, enter $");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref original, original.Length + 1);
+    original[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+int pos = 0;
+for (int i = 0; i < n + 1; i++)
+{
+    if (original[i] > 0)
+    {
+        pos = i;
+    }
+}
+
+for (int i = n - 1; i >= pos + 1; i--)
+{
+    original[i + 1] = original[i];
+}
+original[pos + 1] = P;
+
+
+Console.WriteLine($"New array with new element is ");
+for (int i = 0; i < n + 1; i++)
+{
+    Console.WriteLine(original[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region // level 2 Task 13
+
+double[] original = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for original array, if values have run out, enter $");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref original, original.Length + 1);
+    original[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+double maxx = original[0];
+int maxi = 0;
+for (int i = 0; i < n; i = i + 2)
+{
+    if (original[i] > maxx)
+    {
+        maxx = original[i];
+        maxi = i;
+    }
+}
+original[maxi] = maxi;
+
+Console.WriteLine($"New array with chanded element is ");
+for (int i = 0; i < n; i++)
+{
+    Console.WriteLine(original[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region // level 2 Task 15
+
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array A, if they have run out, enter $");
+for (int i = 0; i < a.Length; i++)
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref original, original.Length + 1);
+    original[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+int m = 0;
+double[] b = new double[1000];
+string s1;
+Console.WriteLine("Enter values for array B, if they have run out, enter $");
+for (int i = 0; i < b.Length; i++)
+{
+    s1 = Console.ReadLine();
+    if (s1 != "$")
+    {
+        b[i] = Double.Parse(s1);
+        m += 1;
+    }
+    else
+    {
+        break;
+    }
+
+
+}
+Console.WriteLine("Enter K(index)");
+int k = Convert.ToInt32(Console.ReadLine());
+int bcnt = 0;
+for (int i = k + 1; i < n; i++)
+{
+    a[i + m] = a[i];
+    a[i] = 0;
+}
+for (int i = k + 1; i < n + 1; i++)
+{
+    a[i] = b[bcnt];
+    bcnt += 1;
+}
+
+Console.WriteLine($"New array with chanded element is ");
+for (int i = 0; i < n + m; i++)
+{
+    Console.WriteLine(a[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region // level 3 Task 1
+int n = 0;
+double[] a = new double[0];
+string s;
+Console.WriteLine("Enter values for array");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+int[] index = new int[n];
+int cnt = 0;
+double amax = a[0];
+int imax = 0;
+for (int i = 0; i < n; i++)
+{
+    if (a[i] == amax)
+    {
+        index[cnt] = i;
+        amax = a[i];
+        cnt += 1;
+    }
+    if (a[i] > amax)
+    {
+        Array.Clear(index, 0, cnt);
+        cnt = 0;
+        amax = a[i];
+        index[cnt] = i;
+    }
+}
+
+Console.WriteLine($"Array with maximum element's index is ");
+for (int i = 0; i < index.Length; i++)
+{
+    Console.WriteLine(index[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region // level 3 Task 5
+
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+for (int i = 0; i < n - 1; i += 2)
+{
+    double amin = a[i];
+    int imin = i;
+    for (int j = i; j < n; j += 2)
+    {
+        if (a[j] < amin)
+        {
+            amin = a[j];
+            imin = j;
+        }
+    }
+    a[imin] = a[i];
+    a[i] = amin;
+}
+
+
+Console.WriteLine($"Sorted array is");
+for (int i = 0; i < n; i++)
+{
+    Console.WriteLine(a[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region // level 3 Task 8
+
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+for (int i = 0; i < n - 1; i++)
+{
+    if (a[i] < 0)
+    {
+        double amax = a[i];
+        int imax = i;
+        for (int j = i + 1; j < n; j++)
+        {
+            if (a[j] > amax)
+            {
+                amax = a[j];
+                imax = j;
+            }
+        }
+        a[imax] = a[i];
+        a[i] = amax;
+    }
+
+}
+
+Console.WriteLine($"Sorted array is");
+for (int i = 0; i < n; i++)
+{
+    Console.WriteLine(a[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region // level 3 Task 9
+
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+int currentSize = 0;
+int j;
+int max = 0;
+for (int i = 1; i < n; i++)
+{
+    if (a[i - 1] < a[i])
+    {
+        currentSize = 2;
+        j = i;
+        while (a[j - 1] < a[j] && j < n - 1)
+        {
+            j += 1;
+            currentSize += 1;
+        }
+    }
+    if (currentSize > max)
+    {
+        max = currentSize;
+    }
+}
+
+Console.WriteLine($"The longest ordered chain is {max}");
+
+#endregion
+
+
+
+#region // level 3 task 12
+double[] a = new double[12];
+Console.WriteLine("Enter values for array");
+for (int i = 0; i < a.Length; i++)
+{
+    a[i] = Convert.ToDouble(Console.ReadLine());
+}
+double[] rez = new double[12];
+int j = 0;
+for (int i = 0; i < a.Length; i++)
+{
+    if (a[i] >= 0)
+    {
+        rez[j] = a[i];
+        j++;
+    }
+}
+
+Console.WriteLine($"Array without negative element is");
+for (int i = 0; i < rez.Length - 1; i++)
+{
+    if (rez[i] != 0)
+    {
+        Console.WriteLine(rez[i]);
+        Console.Write("");
+    }
+}
+#endregion
+
+
+
+#region // level 3 task 13
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+double[] rez = new double[a.Length];
+int j = 1;
+rez[0] = a[0];
+for (int i = 1; i < a.Length - 1; i++)
+{
+    if (a[i] != a[i - 1])
+    {
+        rez[j] = a[i];
+        j++;
+    }
+}
+
+Console.WriteLine($"Array without repeaping elemenst is");
+for (int i = 0; i < rez.Length - 1; i++)
+{
+    if (rez[i] != 0)
+    {
+        Console.WriteLine(rez[i]);
+        Console.Write("");
+    }
+}
+#endregion
+
+
+
+#region // algorithm 11
+
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+for (int i = 0; i < n - 1; i++)
+{
+    double amin = a[i];
+    int imin = i;
+    for (int j = i; j < n; j++)
+    {
+        if (a[j] < amin)
+        {
+            amin = a[j];
+            imin = j;
+        }
+    }
+    a[imin] = a[i];
+    a[i] = amin;
+}
+Console.WriteLine("Enter x");
+double x = Convert.ToDouble(Console.ReadLine());
+int central = (0 + n - 1) / 2;
+int i1 = central, i2 = central;
+if (x == a[central])
+{
+    Console.WriteLine($"index of x is {central}");
+}
+else if (x < a[central])
+{
+    for (int i = i2 - 1; i > 0; i--)
+    {
+        if (x == a[i])
+        {
+            Console.WriteLine($"index of x is {i}");
+        }
+        else
+        {
+            i--;
+        }
+    }
+}
+else if (x > a[central])
+{
+    for (int j = central + 1; j < n; j++)
+    {
+        if (x == a[j])
+        {
+            Console.WriteLine($"index of x is {j}");
+        }
+        else
+        {
+            j++;
+        }
+    }
+}
+#endregion
+
+
+
+#region // algorithm 12
+
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array a");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+double[] b = new double[0];
+string s1;
+int m = 0;
+Console.WriteLine("Enter values for array b");
+s1 = Console.ReadLine();
+while (s1 != "$")
+{
+    Array.Resize<double>(ref b, b.Length + 1);
+    b[^1] = Convert.ToDouble(s1);
+    s1 = Console.ReadLine();
+    m += 1;
+}
+
+if (n > m)
+{
+    Array.Resize(ref a, m);
+}
+if (n < m)
+{
+    Array.Resize(ref b, n);
+}
+double[] c = new double[n + m];
+int j = 0;
+int z = 0;
+for (int i = 0; i < n + m - 1; i += 2)
+{
+    c[i] = a[j];
+    j++;
+}
+for (int i = 1; i < n + m - 1; i += 2)
+{
+    c[i] = b[z];
+    z++;
+}
+Console.WriteLine($"Array c is ");
+for (int i = 0; i < n + m; i++)
+{
+    if (c[i] != 0)
+    {
+        Console.WriteLine(c[i]);
+        Console.Write("");
+    }
+
+}
+#endregion
+
+
+
+#region // algorithm 13
+
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array a");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+
+double[] b = new double[0];
+string s1;
+int m = 0;
+Console.WriteLine("Enter values for array b");
+s1 = Console.ReadLine();
+while (s1 != "$")
+{
+    Array.Resize<double>(ref b, b.Length + 1);
+    b[^1] = Convert.ToDouble(s1);
+    s1 = Console.ReadLine();
+    m += 1;
+}
+Array.Sort(a);
+Array.Sort(b);
+List<double> c = new List<double>();
+
+int ii = 0, jj = 0;
+while (ii < n || jj < m)
+{
+    if (ii == n)
+    {
+        c.Add(b[jj]);
+        jj++;
+        continue;
+    }
+
+    if (jj == m)
+    {
+        c.Add(a[ii]);
+        ii++;
+        continue;
+    }
+
+    if (a[ii] <= b[jj])
+    {
+        c.Add(a[ii]);
+        ii++;
+    }
+    else
+    {
+        c.Add(b[jj]);
+        jj++;
+    }
+}
+double[] answer = new double[c.Count];
+for (int i = 0; i < c.Count; i++)
+{
+    answer[i] = c[i];
+}
+Console.WriteLine($"Answer is ");
+for (int i = 0; i < answer.Length; i++)
+{
+    Console.WriteLine(answer[i]);
+    Console.Write("");
+}
+#endregion
+
+
+
+#region// algorithm 14
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array a");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+double cur;
+for (int i = 0; i < (a.Length / 2); i++)
+{
+    cur = a[i];
+    a[i] = a[n - (i + 1)];
+    a[n - (i + 1)] = cur;
+}
+Console.WriteLine($"Invert array is ");
+for (int i = 0; i < n; i++)
+{
+    Console.WriteLine(a[i]);
+    Console.Write("");
+}
+#endregion
+
+
+#region// algorithm 15
+double[] a = new double[0];
+string s;
+int n = 0;
+Console.WriteLine("Enter values for array a");
+s = Console.ReadLine();
+while (s != "$")
+{
+    Array.Resize<double>(ref a, a.Length + 1);
+    a[^1] = Convert.ToDouble(s);
+    s = Console.ReadLine();
+    n += 1;
+}
+Console.WriteLine("Enter m - shift number");
+int m = Convert.ToInt32(Console.ReadLine());
+double variable;
+while (m > 0)
+{
+    {
+        variable = a[^1];
+        for (int j = a.Length - 1; j > 0; j--)
+        {
+            a[j] = a[j - 1];
+        }
+        a[0] = variable;
+        m--;
+    }
+}
+
+Console.WriteLine($"Array with a cyclic shift");
+for (int i = 0; i < n; i++)
+{
+    if (a[i] != 0)
+    {
+        Console.WriteLine(a[i]);
+        Console.Write("");
+    }
+}
+#endregion
