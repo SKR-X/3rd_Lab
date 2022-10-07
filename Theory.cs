@@ -839,7 +839,7 @@ namespace _3rd_Lab
 
             // Tests
             numbers = new int[] { 1, 2, 5, 9, 4, 2, -5, -8, -11, 3 };
-            
+
             n = numbers.Length;
 
             if (n == 0)
@@ -857,7 +857,12 @@ namespace _3rd_Lab
             if (n > 1)
             {
                 int previousStep = numbers[1] - numbers[0];
-                double previousRatio = (double)numbers[1] / numbers[0];
+                double previousRatio;
+
+                if (numbers[0] != 0)
+                    previousRatio = (double)numbers[1] / numbers[0];
+                else
+                    previousRatio = 0;
                 currentSequenceLength++;
 
                 // -1 -> arithmetic, 1 -> geometric, 0 -> any
@@ -869,7 +874,11 @@ namespace _3rd_Lab
                     int nextNumber = numbers[i + 1];
 
                     step = nextNumber - currentNumber;
-                    ratio = (double)nextNumber / currentNumber;
+
+                    if (currentNumber != 0)
+                        ratio = (double)nextNumber / currentNumber;
+                    else
+                        ratio = 0;
 
                     if (step == previousStep && ratio == previousRatio)
                     {
@@ -888,7 +897,7 @@ namespace _3rd_Lab
 
                         currentSequenceLength++;
                     }
-                    else if (ratio == previousRatio)
+                    else if (ratio == previousRatio && ratio != 0)
                     {
                         if (sequenceKind == -1)
                         {
