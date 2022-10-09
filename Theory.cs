@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -161,7 +162,7 @@ namespace _3rd_Lab
                 {                   
                     Console.Write($"{elem}\t");
                 }
-            }//fixed
+            }
             static void task_1_12()
             {
                 bool flag = false;
@@ -351,12 +352,14 @@ namespace _3rd_Lab
 
 
             }
-            static void task_2_10() 
+            static void task_2_10()
             {
+                double smallest_value = -1;
+                int smallest_index = -1;
                 bool flag = false;
                 int n;
                 int quality = 0;
-                int the_minimal_index=0;
+                int the_minimal_index = 0;
                 Console.WriteLine("enter n for array:");
                 bool res = int.TryParse(Console.ReadLine(), out n);
                 if (!(res & n > 0)) return;
@@ -368,36 +371,41 @@ namespace _3rd_Lab
                     Console.WriteLine("input error");
                     return;
                 }
-                foreach (double elem in array_in_use)
-                {
-                    if (elem > 0) quality++;
-                }
-                double[] positive_array = new double[quality];
-                for (int i = 0, b = 0; i < array_in_use.Length; i++)
+                for (int i = 0; i < array_in_use.Length; i++)
                 {
                     if (array_in_use[i] > 0)
                     {
-                        positive_array[b] = array_in_use[i];
-                        b++;
-                    }
-                    if(i == array_in_use.Length - 1)
-                    {
-                        double the_minimal_value = min_value_index(positive_array)[0];
-                        the_minimal_index = Array.IndexOf(array_in_use, the_minimal_value);
+                        smallest_value = array_in_use[i];
+                        smallest_index = i;
+                        break;
                     }
                 }
-                
-                
-                for (int i = the_minimal_index; i < array_in_use.Length - 1; i++)
+                if(smallest_index ==-1)
                 {
-                    array_in_use[i] = array_in_use[i + 1];
-                }
-                for (int i = 0; i < array_in_use.Length - 1; i++)
-                {
-                    Console.Write($"{array_in_use[i]}\t");
+                    Console.WriteLine("no positive elements");
+                    return;
                 }
 
-            }//fixed but i didn't entirely understand
+                for (int i = 0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] <= 0) continue;
+                    if (array_in_use[i] < smallest_value)
+                    {
+                        smallest_value = array_in_use[i];
+                        smallest_index = i;
+                    }
+                }
+                    for (int k = smallest_index; k < array_in_use.Length - 1; k++)
+                    {
+                        array_in_use[k] = array_in_use[k + 1];
+                    }
+                    for (int j = 0; j < array_in_use.Length - 1; j++)
+                    {
+                        Console.Write($"{array_in_use[j]}\t");
+                    }
+
+                }//fixed
+            
             static void task_2_11()
             {
                 int n;
@@ -444,12 +452,11 @@ namespace _3rd_Lab
                 }
 
 
-            }//fixed
+            }
             static void task_2_13()
             {
                 bool flag = false;
                 int n;
-                double index = 0;
                 Console.WriteLine("enter n for array:");
                 bool res = int.TryParse(Console.ReadLine(), out n);
                 if (!(res & n > 0)) return;
@@ -461,16 +468,17 @@ namespace _3rd_Lab
                     Console.WriteLine("input error");
                     return;
                 }
-                for (int i = 0; i < array_in_use.Length; i++)
+                double biggest_value = array_in_use[0];
+                int biggest_index = 0;
+                for (int i = 1; i < array_in_use.Length; i++)
                 {
-                    double max_ind = max_value_index(array_in_use)[1];
-                    if (i % 2 == 0)
+                    if (array_in_use[i] > biggest_value & i % 2 == 0)
                     {
-                        index = max_ind;
-                        break;
-                    }
+                        biggest_value = array_in_use[i];
+                        biggest_index = i;
+                    }                             
                 }                             
-                array_in_use[(int)index] = index;
+                array_in_use[(int)biggest_index] = biggest_index;
                 foreach (double elem in array_in_use)
                 {
                     Console.Write($"{elem}\t");
@@ -533,7 +541,7 @@ namespace _3rd_Lab
 
 
             }
-            task_2_11();
+            
 
 
 
@@ -580,7 +588,7 @@ namespace _3rd_Lab
                 }
                 
                 
-            }//fixed
+            }
             static void task_3_5()
             {
                 bool flag = false;
@@ -626,7 +634,7 @@ namespace _3rd_Lab
                 }
 
 
-            }//ok
+            }
             static void task_3_8()
             {
                 bool flag = false;
@@ -677,7 +685,7 @@ namespace _3rd_Lab
                 {
                     Console.Write($"{elem}\t");
                 }
-            }//ok
+            }
             static void task_3_9()
             {
                 bool flag = false;
@@ -708,27 +716,21 @@ namespace _3rd_Lab
                     }
                    
                     quality_1 = 1;
-                                    
-                }
-                for (int i = 0; i < array_in_use.Length - 1; i++)
-                {
+
+
                     if (array_in_use[i + 1] < array_in_use[i])
                     {
                         quality_2++;
-                        if (quality_2 > fin_q_2) { 
-                        fin_q_2 = quality_2;
-                    }
+                        if (quality_2 > fin_q_2)
+                        {
+                            fin_q_2 = quality_2;
+                        }
                         continue;
                     }
-                    
-                        quality_2 = 1;
-                    
+
+                    quality_2 = 1;
                 }
-
-
-
-
-
+                
                 if (quality_1 > fin_q_1)
                 {
                     fin_q_1 = quality_1;
@@ -784,7 +786,6 @@ namespace _3rd_Lab
             {
                 bool flag = false;
                 int n;
-                int quality = 0;
                 Console.WriteLine("enter n for array:");
                 bool res = int.TryParse(Console.ReadLine(), out n);
                 if (!(res & n > 0)) return;
@@ -796,27 +797,14 @@ namespace _3rd_Lab
                     Console.WriteLine("input error");
                     return;
                 }
-                Array.Sort(array_in_use);
-                for (int i = 0; i < array_in_use.Length - 1; i++)
-                {
-                    if (array_in_use[i] == array_in_use[i + 1])
-                        continue;
-                    quality++;
-                }
-                double[] new_array = new double[quality];
-                for (int i = 0, j = 0; i < array_in_use.Length - 1; i++)
-                {
-                    if (array_in_use[i] == array_in_use[i + 1])
-                        continue;
-                    new_array[j] = array_in_use[i + 1];
-                    j++;
-                }
+                List<double> lis = array_in_use.ToList();
+                lis.Distinct();
                 Console.WriteLine("result array:");
-                foreach (double elem in new_array)
+                foreach (double elem in lis)
                 {
                     Console.Write($"{elem}\t");
                 }
-            }// sort it is not useful, it will not work without it
+            }//fixed
             
 
 
@@ -1015,4 +1003,4 @@ namespace _3rd_Lab
 
         }
     }
-}  
+} 
