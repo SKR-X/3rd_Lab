@@ -798,9 +798,9 @@ namespace _3rd_Lab
                     return;
                 }
                 List<double> lis = array_in_use.ToList();
-                lis.Distinct();
+                var uniq = array_in_use.Distinct();
                 Console.WriteLine("result array:");
-                foreach (double elem in lis)
+                foreach (double elem in uniq)
                 {
                     Console.Write($"{elem}\t");
                 }
