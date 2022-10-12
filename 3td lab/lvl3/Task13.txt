@@ -1,0 +1,79 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
+
+class Program
+{
+    static void Main()
+    {
+        double x;
+        double lenght = 12;
+        int k = 0;
+
+        Console.WriteLine(" Please enter the lenght array");
+        while (true)
+        {
+            if (!double.TryParse(Console.ReadLine(), out lenght))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (lenght < 0)
+            {
+                Console.WriteLine("Lenght array must be positive");
+                continue;
+            }
+            break;
+        }
+
+        var mas = new List<double>();
+        var mas_new = new List<double>();
+        var A = new List<int>();
+
+        Console.WriteLine(" Please enter elements array");
+        for (int i = 0; i < lenght; i++)
+        {
+
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                mas.Add(x);
+                break;
+            }
+        }
+
+        for(int i = 0; i < lenght; i++)
+        {
+            if (mas_new.Contains(mas[i]) == true)
+            {
+                A.Add(i);
+            }
+
+            if (mas_new.Contains(mas[i]) == false)
+            {
+                mas_new.Add(mas[i]);
+            }
+        }
+
+        for(int i = 0; i < mas.Count; i++)
+        {
+            if (A.Contains(i + k) == true)
+            {
+                mas.RemoveAt(i);
+                i--;
+                k++;
+            }
+        }
+
+        Console.WriteLine(" Array:");
+        for (int i = 0; i < mas.Count; i++)
+        {
+            Console.Write(mas[i] + " ");
+        }
+    }   
+}

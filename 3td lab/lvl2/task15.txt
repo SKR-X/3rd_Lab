@@ -1,0 +1,107 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+
+class Program
+{
+    static void Main()
+    {
+        int n, m, k;
+
+        Console.WriteLine(" Please enter the lenght for mas - A");
+        while (true)
+        {
+            if(!int.TryParse(Console.ReadLine(), out n))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (n < 0)
+            {
+                Console.WriteLine(" Lenght must be >= 0");
+                continue;
+            }
+            break;
+        }
+        List<double> A = new List<double>(n);
+
+        double x;
+        Console.WriteLine(" Please enter elements for A");
+
+        for (int i = 0; i < n; i++)
+        {
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                A.Add(x);
+                break;
+            }
+        }
+
+        Console.WriteLine(" Please enter the lenght for mas - B");
+        while (true)
+        {
+            if (!int.TryParse(Console.ReadLine(), out m))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (m < 0)
+            {
+                Console.WriteLine(" Lenght must be >= 0");
+                continue;
+            }
+            break;
+        }
+
+        List<double> B = new List<double>(m);
+
+        double y;
+        Console.WriteLine(" Please enter elements for B");
+        for (int i = 0; i < m; i++)
+        {
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out y))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                B.Add(y);
+                break;
+            }
+        }
+
+        Console.WriteLine(" Pleas enter the k");
+        while (true)
+        {
+            if (!int.TryParse(Console.ReadLine(), out k))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (k < 0)
+            {
+                Console.WriteLine(" Data must be >= 0");
+                continue;
+            }
+            if (k > A.Count)
+            {
+                Console.WriteLine(" k must be < lenght A");
+                continue;
+            }
+            break;
+        }
+
+            A.InsertRange(k, B);
+
+        for (int i = 0; i < A.Count; i++)
+        {
+            Console.Write(A[i] + " ");
+        }
+    }   
+}

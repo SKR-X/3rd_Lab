@@ -1,0 +1,91 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
+
+class Program
+{
+    static void Main()
+    {
+        double x, x1;
+        int lenght = 0;
+
+        Console.WriteLine(" Please enter the lenght array");
+        while (true)
+        {
+            if (!int.TryParse(Console.ReadLine(), out lenght))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (lenght < 0)
+            {
+                Console.WriteLine("Lenght array must be positive");
+                continue;
+            }
+            break;
+        }
+
+        Console.WriteLine(" Plese enter what do you want to find");
+        while (true)
+        {
+            if (!double.TryParse(Console.ReadLine(), out x1))
+            {
+                Console.WriteLine(" Please enter the correct daat");
+                continue;
+            }
+            break;
+        }
+
+        var mas = new List<double>();
+
+        Console.WriteLine(" Please enter elements array");
+        for (int i = 0; i < lenght; i++)
+        {
+
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                mas.Add(x);
+                break;
+            }
+        }
+        mas.Sort();
+
+        int i_2, i_1;
+        int average = 0;
+        i_1 = 0;
+        i_2 = lenght - 1;
+        average = (i_1 + i_2) / 2;
+
+        for (int i = 0; i < mas.Count; i++)
+        {
+            average = (i_1 + i_2) / 2;
+
+            if (x1 == mas[average])
+            {
+               Console.WriteLine(" The element is present in the array at the index " + average);
+                break;
+            }
+
+            if (x1 < mas[average])
+            {
+                i_2 = average - 1;
+            }
+
+            if (x1 > mas[average])
+            {
+                i_1 = average + 1;
+            }
+
+            if (i_2 < i_1)
+            {
+                Console.WriteLine(x1 + " is missing");
+            }
+        }        
+    }   
+}

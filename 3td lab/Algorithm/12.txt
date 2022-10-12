@@ -1,0 +1,128 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
+
+class Program
+{
+    static void Main()
+    {
+        double x, y;
+        int lenght = 0;
+        int lenght1 = 0;
+
+        Console.WriteLine(" Please enter the lenght array 'A'");
+        while (true)
+        {
+            if (!int.TryParse(Console.ReadLine(), out lenght))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (lenght < 0)
+            {
+                Console.WriteLine("Lenght array must be positive");
+                continue;
+            }
+            break;
+        }
+
+        var A = new List<double>();
+
+        Console.WriteLine(" Please enter elements array");
+        for (int i = 0; i < lenght; i++)
+        {
+
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                A.Add(x);
+                break;
+            }
+        }
+
+        Console.WriteLine(" Please enter the lenght array 'B'");
+        while (true)
+        {
+            if (!int.TryParse(Console.ReadLine(), out lenght1))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (lenght1 < 0)
+            {
+                Console.WriteLine("Lenght array must be positive");
+                continue;
+            }
+            break;
+        }
+
+        var B = new List<double>();
+
+        Console.WriteLine(" Please enter elements array");
+        for (int i = 0; i < lenght1; i++)
+        {
+
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out y))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                B.Add(y);
+                break;
+            }
+        }
+
+        var C = new List<double>();
+
+        if (lenght1 == lenght)
+        {
+            for (int i = 0; i < lenght1; i++)
+            {
+                C.Add(A[i]);
+                C.Add(B[i]);
+            }
+        }
+
+        if (lenght1 > lenght)
+        {
+            for (int i = 0; i < lenght; i++)
+            {
+                C.Add(A[i]);
+                C.Add(B[i]);
+            }
+
+            for ( int i = lenght; i < lenght1; i++)
+            {
+                C.Add(B[i]);
+            }
+        }
+
+        if (lenght1 < lenght)
+        {
+            for (int i = 0; i < lenght1; i++)
+            {
+                C.Add(A[i]);
+                C.Add(B[i]);
+            }
+
+            for (int i = lenght1; i < lenght; i++)
+            {
+                C.Add(A[i]);
+            }
+        }
+
+        Console.WriteLine(" Array 'C'");
+        
+        for(int i = 0; i < C.Count; i++)
+        {
+            Console.Write(C[i] + " ");
+        }
+    }   
+}
