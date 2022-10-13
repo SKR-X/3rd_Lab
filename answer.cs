@@ -59,6 +59,7 @@ namespace _3_Lab {
 
             static void task_1_10() {
                 double[] nums = inputDoubleArray();
+                int count = 0;
 
                 if (nums == null) {
                     return;
@@ -86,23 +87,15 @@ namespace _3_Lab {
                     return;
                 }
 
-                int pInd = -1, qInd = -1;
                 for (int i = 0; i < nums.Length; i++) {
-                    if (nums[i] == p) {
-                        pInd = i;
+                    if (p < nums[i] && nums[i] < q) {
+                        count++;
                     }
-                    if (nums[i] == q) {
-                        qInd = i;
-                    }
-                }
-
-                if (pInd == -1 || qInd == -1) {
-                    Console.WriteLine();
-                    return;
+                    
                 }
 
                 Console.WriteLine($"Task 1.10 answer:");
-                Console.WriteLine($"{Math.Max(pInd, qInd) - Math.Min(pInd, qInd) - 1} elements between p and q");
+                Console.WriteLine($"{count} elements between p and q");
 
             }
 
@@ -287,8 +280,15 @@ namespace _3_Lab {
                     }
                 }
 
-                Array.Clear(nums, ind, 1);
-                printAnswer("2.9", nums);
+                double[] result = new double[nums.Length - 1];
+                int curInd = 0;
+                for (int i = 0; i < nums.Length; i++) {
+                    if (i != ind) {
+                        result[curInd] = nums[i];
+                        curInd++;
+                    }
+                }
+                printAnswer("2.10", result);
 
             }
 
@@ -510,10 +510,109 @@ namespace _3_Lab {
                 printAnswer("3.13", answer);
             }
 
+            // 11-15 end of theory -----------
+
+            static void task_0_11() {
+                double[] nums = inputDoubleArray();
+                
+                if (!double.TryParse(Console.ReadLine(), out double n)) {
+                    return;
+                }
+
+
+                Console.WriteLine($"Task 0.11 answer:");
+
+                for (int i = 0; i < nums.Length; i++) {
+                    if (nums[i] == n) {
+                        Console.WriteLine(i);
+                        return;
+                    }
+                }
+
+                Console.WriteLine(-1);
+            }
+
+            static void task_0_12() {
+                double[] a = inputDoubleArray();
+                double[] b = inputDoubleArray();
+                double[] c = new double[a.Length + b.Length];
+
+                for (int i = 0; i < a.Length; i++) {
+                    c[2 * i] = a[i];
+                    c[2 * i + 1] = b[i];
+                }
+
+                printAnswer("0.12", c);
+            }
+
+            static void task_0_13() {
+                double[] a = inputDoubleArray();
+                double[] b = inputDoubleArray();
+                int indA = 0, indB = 0;
+                double[] c = new double[a.Length + b.Length];
+
+                for (int i = 0; i < c.Length; i++) {
+                    if (indA == a.Length) {
+                        c[i] = b[indB];
+                        indB++;
+                        continue;
+                    }
+                    if (indB == b.Length) {
+                        c[i] = a[indA];
+                        indA++;
+                        continue;
+                    }
+                    if (a[indA] > b[indB]) {
+                        c[i] = a[indA];
+                        indA++;
+                    } else {
+                        c[i] = b[indB];
+                        indB++;
+                    }
+                }
+
+                printAnswer("0.13", c);
+            }
+
+            static void task_0_14() {
+                double[] nums = inputDoubleArray();
+
+                for (int i = 0; i < nums.Length / 2; i++) {
+                    double temp = nums[i];
+                    nums[i] = nums[nums.Length - i - 1];
+                    nums[nums.Length - i - 1] = temp;
+                }
+
+                printAnswer("0.14", nums);
+            }
+
+            static void task_0_15() {
+                double[] nums = inputDoubleArray();
+                double[] answer = new double[nums.Length];
+                int curInd = 0;
+
+                if (!int.TryParse(Console.ReadLine(), out int n)) {
+                    return;
+                }
+
+                for (int i = nums.Length - (n % nums.Length); i < nums.Length; i++) {
+                    answer[curInd] = nums[i];
+                    curInd++;
+                }
+
+                for (int i = 0; i < nums.Length - (n % nums.Length); i++) {
+                    answer[curInd] = nums[i];
+                    curInd++;
+                }
+
+                printAnswer("0.15", answer);
+
+            }
+
 
             // -------------------------------
 
-            task_1_6();
+            task_0_15();
 
         }
     }
