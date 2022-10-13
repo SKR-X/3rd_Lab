@@ -1,25 +1,624 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32630.194
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3rd_Lab", "3rd_Lab.csproj", "{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {81830C5F-B9BF-4AFB-AF7C-20645099C2E5}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Services;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lab_3
+{
+    internal class Program
+    {
+
+        static void Insert(ref double[] array, double value, int index)
+        {
+            double[] newArray = new double[array.Length + 1];
+            newArray[index] = value;
+            for (int i = 0; i < index; i++) newArray[i] = array[i];
+            for (int i = index; i < array.Length; i++) newArray[i+1] = array[i];
+            array = newArray;
+        }
+        static void nArray(string inp, ref double[] newArray)
+        {
+            string[] array = inp.Split(' ');
+            newArray = new double[array.Length];
+            for (int i = 0; i < array.Length; i++) double.TryParse(array[i], out newArray[i]);
+        }
+        static void Delete(ref double[] array, int index)
+        {
+            double[] newArray = new double[array.Length - 1];
+            for (int i = 0; i < index; i++) newArray[i] = array[i];
+            for (int i = index; i < newArray.Length; i++) newArray[i] = array[i+1];
+            array = newArray;
+        }
+        static void Main(string[] args)
+        {
+
+            string input;
+
+            #region 1  level 6
+            double l = 0; double[] x = new double[5];
+            for (int i = 0; i < 5; i++)  
+            {
+                Console.WriteLine($"Введите {i}e значениe х");
+                input = Console.ReadLine();
+                while (!(double.TryParse(input, out x[i])))
+                {
+                    Console.WriteLine($"Повторите ввод");
+                    input = Console.ReadLine();
+                }
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                l += x[i] * x[i];
+            }
+ 
+            Console.WriteLine($"Ответ {Math.Sqrt(l)}");
+
+            #endregion
+
+            #region 1 level 10
+            Console.WriteLine("10.Введите значения массива через пробел (10 элементов)");
+            input = Console.ReadLine();
+            string [] a = input.Split(' '); double P, Q;
+            double[] b = new double[a.Length];
+            for (int i = 0; i < a.Length; i++)
+            {
+                double.TryParse(a[i], out b[i]);
+            }
+            Console.WriteLine("Введите P");
+            input = Console.ReadLine();
+            while (!(double.TryParse(input, out  P)))
+            {
+                Console.WriteLine("Попробуйте заново");
+                input = Console.ReadLine();
+            }
+            Console.WriteLine("Введите Q > P");
+            input = Console.ReadLine();
+            while (!(double.TryParse(input, out Q)) || !(Q > P))
+            {
+                Console.WriteLine("Попробуйте заново (возможно вы ввели значение < P)");
+                input = Console.ReadLine();
+            }
+            int count = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (b[i] < Q && b[i] > P) count++;
+            }
+            Console.WriteLine($"Между P и Q находится {count} элементов");
+
+
+            #endregion
+
+            #region 1 level 11
+            Console.WriteLine("11.Введите значения массива через пробел (10 элементов)");
+            input = Console.ReadLine();
+            string[] old = input.Split(' '); 
+            double[] young = new double[old.Length];
+            for (int i = 0; i < old.Length; i++)
+            {
+                if (double.TryParse(old[i], out young[i]));
+                else Console.WriteLine($"{i} элемент - не число");
+            }
+            young = young.Where(v => v > 0).ToArray();
+            string enter = string.Join(" ", young);
+            Console.WriteLine($"Итоговый массив - {enter}");
+            #endregion
+
+            #region 1 level 12
+            Console.WriteLine("12.Введите масссив длиной 10 (через пробел каждое значение)");
+            input = Console.ReadLine();
+            string[] o = input.Split(' '); double[] answer = new double[2] {0,0};
+            double[] y = new double[o.Length];
+            for (int i = 0; i < o.Length; i++)
+            {
+                if (double.TryParse(o[i], out y[i]) && y[i] < 0)
+                {
+                    answer[0] = i;
+                    answer[1] = y[i];
+                }
+            }
+            if (answer[1] != 0) Console.WriteLine($"Номер последнего отрицательного - {answer[0]}, а его значение - {answer[1]}");
+            else Console.WriteLine($"Нет отрицательных чисел");
+            #endregion
+
+            #region 1 level 13
+            Console.WriteLine("13.Введите масссив длиной 10 (через пробел каждое значение)");
+            input = Console.ReadLine();
+            old = input.Split(' ');
+            double[] new_1 = new double[0];
+            double[] new_2 = new double[0];
+            for (int i = 0; i < old.Length; i++)
+            {
+                if (double.TryParse(old[i], out double something))
+                {
+                    if (i % 2 == 0) Insert(ref new_2, something, new_2.Length);
+                    else Insert(ref new_1, something, new_1.Length);
+                }
+            }
+            enter = string.Join(" ", new_1);
+            Console.WriteLine($"Массив с нечётными индексами - {enter}");
+            enter = string.Join(" ", new_2);
+            Console.WriteLine($"Массив с чётными индексами - {enter}");
+            #endregion
+
+            #region 2 level 5
+            Console.WriteLine("5.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine(); double[] array = new double[0]; double[] Newarray = new double[0];
+            nArray(input, ref array);
+            if (Array.IndexOf(array, array.Min()) < Array.IndexOf(array, array.Max()))
+            {
+                for (int i = Array.IndexOf(array, array.Min()) + 1; i < Array.IndexOf(array, array.Max()); i++)
+                {
+                    if (array[i] < 0) Insert(ref Newarray, array[i], Newarray.Length);
+                }
+            }
+            else if (Array.IndexOf(array, array.Min()) > Array.IndexOf(array, array.Max()))
+            {
+                for (int i = Array.IndexOf(array, array.Max()) + 1; i < Array.IndexOf(array, array.Min()); i++)
+                {
+                    if (array[i] < 0) Insert(ref Newarray, array[i], Newarray.Length);
+                }
+            }
+            else Console.WriteLine("У нас только одно число");
+            if (Newarray != null)
+            {
+                enter = string.Join(" ", Newarray);
+                Console.WriteLine(enter);
+            }
+            else Console.WriteLine("Нет отрицательных чисел между наибольшим и наимельним");
+
+            #endregion
+
+            #region 2 level 6
+            Console.WriteLine("6.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine(); array = new double[0];
+            nArray(input, ref array); int m_index = 0;double minimum = double.MaxValue, element = 0;
+            input = "";
+            while ( !(double.TryParse(input,out P)) )
+            {
+                Console.WriteLine("Введите значение P");
+                input = Console.ReadLine();
+            }
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (Math.Abs((array.Sum()/array.Length) - array[i]) < minimum)
+                {
+                    minimum = Math.Abs((array.Sum() / array.Length) - array[i]);
+                    element = array[i];
+                    m_index = i;
+                }
+            }
+            Insert(ref array, P, m_index + 1);
+            enter = string.Join(" ", array);
+            Console.WriteLine($"Новый массив - {enter}");
+            #endregion
+
+            #region 2 level 9
+            Console.WriteLine("9.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine(); array = new double[0]; Newarray = new double[0];
+            nArray(input, ref array);
+            if (array != null)
+            {
+                if (Array.IndexOf(array, array.Min()) < Array.IndexOf(array, array.Max()))
+                {
+                    for (int i = Array.IndexOf(array, array.Min()) + 1; i < Array.IndexOf(array, array.Max()); i++)
+                        Insert(ref Newarray, array[i], Newarray.Length);
+                }
+                else if (Array.IndexOf(array, array.Min()) > Array.IndexOf(array, array.Max()))
+                {
+                    for (int i = Array.IndexOf(array, array.Max()) + 1; i < Array.IndexOf(array, array.Min()); i++)
+                        Insert(ref Newarray, array[i], Newarray.Length);
+                }
+                else Console.WriteLine("У нас только одно число");
+                if (Newarray != null)
+                {
+                    Console.WriteLine(Newarray.Sum() / Newarray.Length);
+                }
+                else Console.WriteLine("Нет чисел между наибольшим и наимельним");
+            }
+            #endregion
+
+            #region 2 level 10
+            Console.WriteLine("10.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine(); array = new double[0]; minimum = double.MaxValue;
+            nArray(input, ref array);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 0 && array[i] < minimum)
+                {
+                    minimum = array[i];
+                    m_index = i;
+                }
+            }
+            if (array[0] != 0)
+            {
+                Delete(ref array, m_index);
+                enter = String.Join(" ", array);
+                Console.WriteLine(enter);
+            }
+            #endregion
+
+            #region 2 level 11
+            Console.WriteLine("11.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine(); array = new double[0]; minimum = double.MaxValue;
+            nArray(input, ref array);
+            Console.WriteLine("Введите значение P");
+            input = Console.ReadLine();
+            while (!(double.TryParse(input, out P)))
+            {
+                Console.WriteLine("Введите значение P");
+                input = Console.ReadLine();
+            }
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 0)
+                {
+                    minimum = array[i];
+                    m_index = i;
+                }
+            }
+            Insert(ref array, P, m_index + 1);
+            enter = String.Join(" ", array);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region 2 level 13
+            Console.WriteLine("13.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine(); array = new double[0];double maximum = double.MinValue;
+            nArray(input, ref array);
+            for (int i = 0; i < array.Length; i += 2)
+            {
+                if (array[i] > maximum)
+                {
+                    maximum = array[i];
+                    m_index = i;
+                }
+            }
+            Delete(ref array, m_index);
+            Insert(ref array, m_index, m_index);
+            enter = String.Join(" ", array);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region 2 level 15
+            Console.WriteLine("14.Введите масссив A (через пробел каждое значение)");
+            input = Console.ReadLine(); 
+            double[] A = new double[0]; double[] B = new double[0];const int k = 0;
+            nArray(input, ref A);
+            Console.WriteLine("14.Введите масссив B (через пробел каждое значение)");
+            input = Console.ReadLine();
+            nArray(input, ref B);
+            if (k < A.Length-1)
+            {
+                for (int i = 0; i < B.Length; i++)
+                {
+                    Insert(ref A, B[i], k + i + 1);
+                }    
+            }
+            enter = string.Join(" ", A);
+            Console.WriteLine(enter);
+
+            #endregion
+
+            #region 3 level 1
+            Console.WriteLine("1.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine();
+            nArray(input, ref array); Newarray = new double[0];
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == array.Max()) Insert(ref Newarray,i,Newarray.Length);
+            }
+            enter = String.Join(" ",Newarray);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region 3 level 5
+            Console.WriteLine("5.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine();
+            nArray(input, ref array);
+            for (int i = 0; i < array.Length; i +=2)
+            {
+                double mini = array[i]; int i_mini = i;
+                for (int j = i + 2; j < array.Length; j += 2)
+                {
+                    if (mini > array[j])
+                    {
+                        mini = array[j]; 
+                        i_mini = j;
+                    }
+                }
+                array[i_mini] = array[i];
+                array[i] = mini;
+            }
+            enter = String.Join(" ", array);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region 3 level 8
+            Console.WriteLine("8.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine();
+            nArray(input, ref array);
+            for (int i = 0; i < array.Length; i ++)
+            {
+                if (array[i] < 0)
+                {
+                    double maxi = array[i]; int i_maxi = i;
+                    for (int j = i + 1; j < array.Length; j++)
+                    {
+                        if (array[j] < 0)
+                        {
+                            if (maxi < array[j])
+                            {
+                                maxi = array[j];
+                                i_maxi = j;
+                            }
+                        }
+                    }
+                    array[i_maxi] = array[i];
+                    array[i] = maxi;
+                }
+            }
+            enter = String.Join(" ", array);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region 3 level 9
+            Console.WriteLine("9.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine();
+            nArray(input, ref array); int maximum_wane = 1, maximum_grow = 1, current_wane = 1, current_grow = 1;
+            for (int i = 0; i < array.Length-1; i ++)
+            {
+                if (array [i] > array[i+1]) current_wane++;
+                else if (maximum_wane < current_wane) maximum_wane = current_wane;
+
+                if (array[i] < array[i + 1]) current_grow++;
+                else if (maximum_grow < current_grow) maximum_grow = current_grow;
+            }
+            if (maximum_grow > maximum_wane) Console.WriteLine($"Максимальная последовательность - возрастающая с длиной {maximum_grow}");
+            else if (maximum_grow < maximum_wane) Console.WriteLine($"Максимальная последовательность - убывающая с длиной {maximum_wane}");
+            else Console.WriteLine($"Длина максимальных последовательностей убывания и возрастания одинакова и равна {maximum_grow}");
+            #endregion
+
+            #region 3 level 12
+            Console.WriteLine("12 задание");
+            array = new double[12] {34, 6896, 46, 34, -273, -1, 0, -90, 657, 10000, -15, -2 };
+            for (int i = array.Length-1; i >= 0; i--)
+            {
+                if (array[i] < 0) Delete(ref array, i);
+            }
+            enter = String.Join(" ", array);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region 3 level 13
+            Console.WriteLine("13.Введите масссив (через пробел каждое значение)");
+            input = Console.ReadLine();
+            nArray(input, ref array); maximum = 0; int i_max = 0;
+            for (int i =0; i<array.Length; i++)
+            {
+                maximum = array[i]; i_max = i;
+                for (int j = i+1; j < array.Length; j++)
+                {
+                    if (array[j] > maximum)
+                    {
+                        maximum = array[j];
+                        i_max = j;
+                    }
+                }
+                array[i_max] = array[i];
+                array[i] = maximum;
+            }
+            Newarray = new double[0]; count = 0;
+            for (int i = 0; i < array.Length-1; i++)
+            {
+                if (array[i] == array[i + 1])
+                {
+                    count++;
+                    Insert(ref Newarray, i, Newarray.Length);
+                }
+                else if (count != 0)
+                {
+                    Insert(ref Newarray, i, Newarray.Length);
+                    count = 0;
+                }
+            }
+            for (int i = Newarray.Length - 1; i >= 0; i--)
+            {
+                Delete(ref array, (int)Newarray[i]);
+            }
+            enter = String.Join(" ", array);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region algorithm 11
+            Console.WriteLine("11а.Введите кол-во элементов в массиве (n)");
+            int.TryParse(Console.ReadLine(),out int n);
+            array = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine($"Введите {i}й элемент массива");
+                double.TryParse(Console.ReadLine(), out double u);
+                array[i] = u;
+            }
+            for (int i = 0; i < n; i++)
+            {
+                minimum = array[i]; int i_min = i;
+                for (int j = i+1; j < n; j++)
+                {
+                    if (array[j] < minimum)
+                    {
+                        minimum = array[j];
+                        i_min = j;
+                    }
+                }
+                array[i_min] = array[i];
+                array[i] = minimum;
+            }
+            int medium_i = (0 + n - 1) / 2;
+            Console.WriteLine(medium_i);
+            Console.WriteLine("Введите число, которое хотите найти");
+            double.TryParse(Console.ReadLine(), out double found);
+            if (array.Length != 0)
+            {
+                if (found == array[medium_i]) Console.WriteLine($"Индекс этого числа в отсортированном списке - {medium_i}");
+                else if (found < array[medium_i])
+                {
+                    while (medium_i >= 0)
+                    {
+                        if (array[medium_i] == found) { Console.WriteLine($"Индекс этого числа в отсортированном списке - {medium_i}"); break; }
+                        medium_i--;
+                    }
+                    Console.WriteLine("Данного числа нет в массиве");
+                }
+                else if (found > array[medium_i])
+                {
+                    while (medium_i < n)
+                    {
+                        if (array[medium_i] == found) { Console.WriteLine($"Индекс этого числа в отсортированном списке - {medium_i}"); break; }
+                        medium_i++;
+                    }
+                    Console.WriteLine("Данного числа нет в массиве");
+                }
+            }
+            else Console.WriteLine("Массив не найден");
+            #endregion
+
+            #region algorithm 12
+            double[] A_ar = new double[7] {100, -90, 1, 0, 648, -348,5}, B_ar = new double[6] {-1920, 34, 0, 67, -3, 88}, D_ar = new double[0], C_ar = new double[A_ar.Length+B_ar.Length-1];
+            if (A_ar.Length > B_ar.Length)
+            {
+                for (int i = A_ar.Length-1; i >= B_ar.Length; i--)
+                {
+                    Insert(ref D_ar, A_ar[i], 0);
+                    Delete(ref A_ar, i);
+                }
+            }
+            else if (A_ar.Length < B_ar.Length)
+            {
+                for (int i = B_ar.Length - 1; i >= A_ar.Length; i--)
+                {
+                    Insert(ref D_ar, B_ar[i], 0);
+                    Delete(ref B_ar, i);
+                }
+            }
+            C_ar[0] = A_ar[0]; 
+            for (int i = 1; i < A_ar.Length; i++)
+            {
+                C_ar[2 * i - 1] = B_ar[i - 1];
+                C_ar[2*i] = A_ar[i];
+            }
+            C_ar[C_ar.Length-1] = B_ar[B_ar.Length-1];
+            if (D_ar.Length != 0)
+            {
+                for (int i = 0; i < D_ar.Length; i++) Insert(ref C_ar, D_ar[i], C_ar.Length);
+            }
+            enter = String.Join(" ", C_ar);
+            Console.WriteLine($"12a.Наш новый массив - {enter}");
+
+            #endregion
+
+            #region algoriyhm 13
+            Console.WriteLine("Начало алгоритма 13");
+            A_ar = new double[5] { 100, -90, 0, 9,77}; B_ar = new double[2] { -1920, 34 }; C_ar = new double[0];
+            n = A_ar.Length; int m = B_ar.Length; 
+            for (int i = 0; i < n; i++)
+            {
+                maximum = A_ar[i]; i_max = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (A_ar[j] > maximum)
+                    {
+                        maximum = A_ar[j];
+                        i_max = j;
+                    }
+                }
+                A_ar[i_max] = A_ar[i];
+                A_ar[i] = maximum;
+            }
+            for (int i = 0; i < m; i++)
+            {
+                maximum = B_ar[i]; i_max = i;
+                for (int j = i + 1; j < m; j++)
+                {
+                    if (B_ar[j] > maximum)
+                    {
+                        maximum = B_ar[j];
+                        i_max = j;
+                    }
+                }
+                B_ar[i_max] = B_ar[i];
+                B_ar[i] = maximum;
+            }
+            int i_a = 0, j_b = 0;
+            while (C_ar.Length != B_ar.Length + A_ar.Length && i_a < n && j_b < m)
+            {
+                while (A_ar[i_a] >= B_ar[j_b] && i_a < n && j_b < m)
+                {
+                    Insert(ref C_ar, A_ar[i_a], C_ar.Length);
+                    i_a++;
+                    if (i_a >= n) break;
+                }
+                if (i_a < n)
+                {
+                    while (B_ar[j_b] >= A_ar[i_a] && j_b < m && i_a < n)
+                    {
+                        Insert(ref C_ar, B_ar[j_b], C_ar.Length);
+                        j_b++;
+                    }
+                }
+            }
+            if (i_a >= n)
+            {
+                for (int i = j_b; i < B_ar.Length; i++) Insert(ref C_ar, B_ar[i], C_ar.Length);             
+            }
+            else if (j_b >= m)
+            {
+                for (int i = i_a; i < n; i++) Insert(ref C_ar, A[i], C_ar.Length);
+            }
+            enter = String.Join(" ", C_ar);
+            Console.WriteLine("13а. Сортированный массив С");
+            Console.WriteLine(enter);
+            #endregion
+
+            #region algorithm 14
+            Console.WriteLine("14а.Введите кол-во элементов в массиве (n)");
+            int.TryParse(Console.ReadLine(), out n);
+            array = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine($"Введите {i}й элемент массива");
+                double.TryParse(Console.ReadLine(), out double p);
+                array[i] = p;
+            }
+            for (int i = 0; i < n/2; i++)
+            {
+                element = array[i];
+                array[i] = array[n-i-1];
+                array[n - i - 1] = element;
+            }
+            enter = String.Join(" ", array);
+            Console.WriteLine(enter);
+            #endregion
+
+            #region algorithm 15
+            array = new double[6] {123, -98, 348, 0 ,1 ,17};
+            enter = String.Join(" ", array);
+            Console.WriteLine("15а.Изначально массив");
+            Console.WriteLine(enter);
+            m = 2;
+            for (int i = 0; i < m; i++)
+            {
+                element = array[array.Length-1];
+                Delete(ref array,array.Length-1);
+                Insert(ref array, element, 0);
+            }
+            enter = String.Join(" ", array);
+            Console.WriteLine("15а.Массив после сдвига");
+            Console.WriteLine(enter);
+
+            #endregion
+        }
+    }
+}
