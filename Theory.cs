@@ -1,121 +1,1006 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace _3rd_Lab
 {
     class Theory
     {
+
         static void Main(string[] args)
         {
-            #region Collections Theory
-            /* Array - static (restricted) massive of data in the memory. If we want to extend it, we should create a new array and copy existing data there.
-             * access to each number of array have static time that don't depend on size of array. So get arr[10] and arr[25426] consume equal time.
-             * use it when you have determinative amount of elements.
-             * 
-             *
-             *
-             * These more suitable collections available if you add System.Collections.Generic library
-             *
-             *
-             * Stack<type of data> - pile of elements (like a books on the table or plates in the sink) 
-             * that lay one over another and you can add new one to the top, look at the uppest one or take it
-             * 
-             * Queue<type of data> - like in the shop or on escalator in the subway. You can add to the end, look the first element or take the first element.
-             * 
-             * List<type of data> - linked array when you don't know the limit of your array and ought to add or remove elements sometimes (linked array)
-             * the PC create an array and when you want to add new element, it create a new array and copy all existing elements there.
-             *
-             * LinkedList<type of data> - array with a reference to the next and previous element (twice-linked array)
-             * 
-             * Dictionary<type of key, type of data> - pair key-value. You can add new key, find key, get value by key, set value by key. 
-             * Very fast access (as simple array), but more flexible
-             * 
-             */
-            #endregion
 
-            #region Arrays
+            static double[] double_array(string str_, int size, ref bool flag)
+            {
 
-            //Dimensions:
-            int[] oneDimension = new int[1000000]; // row with a 1 million if zeros
-            double[] oneDimensionInitializedArray; // undefined array
-            int[,] twoDimension = new int[1000, 1000]; // matrix 1000 x 1000, filled by zeros
-            string[,,] threeDimension = new string[5, 10, 255]; 
-            // 5 rows, 10 columns and 255 elements in the column. Each element can contain a string (so it 4-th dimension array actually)
+                double[] fin_arr = new double[size];
+                string[] array_1 = str_.Split(' ');
+                for (int i = 0; i < size; i++)
+                {
+                    if (!(array_1.Length == size & double.TryParse(array_1[i], out fin_arr[i])))
+                    {
+                        Console.WriteLine("input error");
+                        flag = true;
+                        double[] arr = { };
+                        return arr;
+                    }
+                }
+                return fin_arr;
+            }
+            static double[] min_value_index(double[] array)
+            {
+                double smallest_value = array[0];
+                int smallest_index = 0;
+                for (int i = 1; i < array.Length; i++)
+                {
+                    if (array[i] < smallest_value)
+                    {
+                        smallest_value = array[i];
+                        smallest_index = i;
+                    }
+                }
+                double[] fin_array = { smallest_value, smallest_index };
+                return fin_array;
+            }
+            static double[] max_value_index(double[] array)
+            {
+                double biggest_value = array[0];
+                int biggest_index = 0;
+                for (int i = 1; i < array.Length; i++)
+                {
+                    if (array[i] > biggest_value)
+                    {
+                        biggest_value = array[i];
+                        biggest_index = i;
+                    }
+                }
+                double[] fin_array = { biggest_value, biggest_index };
+                return fin_array;
+            }
 
-            int[][] notSquarMatrix = new int[15][]; // array where each element contain an array (different or equal lengths) -> [ [0,1,2,3,4] , [10,25] , [8] ];
+            static double BinarySearch(double[] array, double key)
+            {
+                int left = 0;
+                int right = array.Length;
+                int mid = 0;
 
-            //and so on
+                while (!(left >= right))
+                {
+                    mid = left + (right - left) / 2;
 
-            // Access to element:
+                    if (array[mid] == key)
+                        return mid;
 
-            threeDimension[threeDimension.Length-1, 0, threeDimension.GetLength(2)-1] = "I am the latest element here!"; 
-            // do not forget that start with 0 and end with Length-1!
+                    if (array[mid] > key)
+                        right = mid;
+                    else
+                        left = mid + 1;
+                }
+
+                return -(1 + left);
+            }
+
+            static void task_1_6()
+            {
+                bool flag = false;
+                int n = 5;
+                double s = 0;
+                Console.WriteLine("enter data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                foreach (double elem in array_in_use)
+                {
+                    s += elem * elem;
+                }
+                Console.WriteLine(Math.Sqrt(s));
+            }
+            static void task_1_10()
+            {
+                bool flag = false;
+                int n = 10;
+                double p;
+                double q;
+                int result = 0;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                Console.WriteLine("enter P:");
+                bool res_1 = double.TryParse(Console.ReadLine(), out p);
+                Console.WriteLine("enter Q:");
+                bool res_2 = double.TryParse(Console.ReadLine(), out q);
+                if (!(res_1 & res_2 & p < q))
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                foreach (double elem in array_in_use)
+                {
+                    if (elem > p & elem < q) result++;
+                }
+                Console.WriteLine($"quality:{result} ");
+            }
+            static void task_1_11()
+            {
+                bool flag = false;
+                int n = 10;
+                int result = 0;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                foreach (double elem in array_in_use)
+                {
+                    if (elem > 0) result++;                 
+                }
+                double[] array_ = new double[result];
+                for (int i = 0,j=0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] > 0)
+                    {
+                        array_[j] = array_in_use[i];
+                        j++;
+                    }
+                }
+                Console.WriteLine("result array:");
+                foreach (double elem in array_)
+                {                   
+                    Console.Write($"{elem}\t");
+                }
+            }
+            static void task_1_12()
+            {
+                bool flag = false;
+                int n = 8;
+                double result = 0;
+                int index = 0;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = array_in_use.Length - 1; i >= 0; i--)
+                {
+                    if (array_in_use[i] < 0)
+                    {
+                        result = array_in_use[i];
+                        index = i;
+                    }
+                }
+                if (result == 0)
+                {
+                    Console.WriteLine("only positive numbers or zero");
+                    return;
+                }
+                Console.WriteLine($"result:{result}\nindex:{index}");
+
+            }
+            static void task_1_13()
+            {
+                bool flag = false;
+                int n = 10;
+                double[] chet_array = new double[5];
+                double[] ne_chet_array = new double[5];
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = 0, chet_ind = 0, ne_chet_ind = 0; i < array_in_use.Length; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        chet_array[chet_ind] = array_in_use[i];
+                        chet_ind++;
+                    }
+                    else
+                    {
+                        ne_chet_array[ne_chet_ind] = array_in_use[i];
+                        ne_chet_ind++;
+                    }
+                }
+                Console.WriteLine("chet indexes:");
+                foreach (double elem in chet_array)
+                {
+                    Console.Write($"{elem}\t");
+                }
+                Console.WriteLine();
+                Console.WriteLine("nechet indexes:");
+                foreach (double elem in ne_chet_array)
+                {
+                    Console.Write($"{elem}\t");
+                }
+            }
+            
+
+            static void task_2_5()
+            {
+                bool flag = false;
+                int n;
+                int quality = 0;
+                Console.WriteLine("enter n:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                double max_elem = max_value_index(array_in_use)[0];
+                double min_elem = min_value_index(array_in_use)[0];
+                double[] res_array = new double[n];
+                for (int i = 0, b = 0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] < 0 & array_in_use[i] > min_elem & array_in_use[i] < max_elem)
+                    {
+                        res_array[b] = array_in_use[i];
+                        b++;
+                        quality++;
+                    }
+                }
+                Console.WriteLine("result array:");
+                for (int i = 0; i < quality; i++)
+                {
+
+                    Console.Write($"{res_array[i]}\t");
+                }
+
+            }
+            static void task_2_6()
+            {
+                bool flag = false;
+                int n;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine() + " 0";
+
+                double[] array_in_use = double_array(str_, n + 1, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                double p;
+                double s = 0;
+                Console.WriteLine("enter P:");
+                bool res_2 = double.TryParse(Console.ReadLine(), out p);
+                if (!(res_2)) return;
+                foreach (double elem in array_in_use)
+                {
+                    s += elem;
+                }
+                double average_ = s / (array_in_use.Length - 1);
+                Console.WriteLine($"average:{average_}");
+                double the_closest = array_in_use[0];
+                int the_closest_ind = 0;
+
+                for (int i = 1; i < array_in_use.Length; i++)
+                {
+                    if (Math.Abs(average_ - the_closest) > Math.Abs(average_ - array_in_use[i]))
+                    {
+                        the_closest = array_in_use[i];
+                        the_closest_ind = i;
+                    }
+                }
+                for (int i = array_in_use.Length - 1; i > the_closest_ind; i--)
+                {
+                    array_in_use[i] = array_in_use[i - 1];
+                }
+                array_in_use[the_closest_ind + 1] = p;
+
+                foreach (double elem in array_in_use)
+                {
+                    Console.Write($"{elem}\t");
+                }
+
+            }
+            static void task_2_9()
+            {
+                bool flag = false;
+                int n;
+                int quality = 0;
+                Console.WriteLine("enter n:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                double max_elem = max_value_index(array_in_use)[0];
+                double min_elem = min_value_index(array_in_use)[0];
+                double s = 0;
+                for (int i = 0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] > min_elem & array_in_use[i] < max_elem)
+                    {
+                        s += array_in_use[i];
+                        quality++;
+                    }
+                }
+                double average = s / quality;
+                Console.WriteLine($"result:{average}");
 
 
-            double[] shortExample = new double[4] { 1.2, 0.154564, -454, 0 }; // will be crated a new massive with 4 elements
+            }
+            static void task_2_10()
+            {
+                double smallest_value = -1;
+                int smallest_index = -1;
+                bool flag = false;
+                int n;
+                int quality = 0;
+                int the_minimal_index = 0;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = 0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] > 0)
+                    {
+                        smallest_value = array_in_use[i];
+                        smallest_index = i;
+                        break;
+                    }
+                }
+                if(smallest_index ==-1)
+                {
+                    Console.WriteLine("no positive elements");
+                    return;
+                }
 
-            // Use arrays for limited length. Otherwise - List.
-            // For fast search - Dictionary
-            // Efficient simple solutions usually realizing by Stack and Queue
-            // LinkedList is used seldom
+                for (int i = 0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] <= 0) continue;
+                    if (array_in_use[i] < smallest_value)
+                    {
+                        smallest_value = array_in_use[i];
+                        smallest_index = i;
+                    }
+                }
+                    for (int k = smallest_index; k < array_in_use.Length - 1; k++)
+                    {
+                        array_in_use[k] = array_in_use[k + 1];
+                    }
+                    for (int j = 0; j < array_in_use.Length - 1; j++)
+                    {
+                        Console.Write($"{array_in_use[j]}\t");
+                    }
 
-            #endregion
+                }//fixed
+            
+            static void task_2_11()
+            {
+                int n;
+                bool flag = false;
+                double result = 0;
+                int index = 0;
+                double p;
+                bool f = true;
+                Console.WriteLine("enter P:");
+                bool res_2 = double.TryParse(Console.ReadLine(), out p);
+                if (!(res_2)) return;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine() + " 0";
+                double[] array_in_use = double_array(str_, n + 1, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = array_in_use.Length - 1; i >= 0; i--)
+                {
+                    if (array_in_use[i] > 0 & f)
+                    {
+                        result = array_in_use[i];
+                        index = i;
+                        f = false;
+                        i = array_in_use.Length - 1;
+                    }
+                    else if (!f) ;//cicle just need
+                    else continue;
+                    if (i > index)
+                    {
+                        array_in_use[i] = array_in_use[i - 1];
+                    }
+                }              
+                array_in_use[index + 1] = p;
+
+                foreach (double elem in array_in_use)
+                {
+                    Console.Write($"{elem}\t");
+                }
+
+
+            }
+            static void task_2_13()
+            {
+                bool flag = false;
+                int n;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                double biggest_value = array_in_use[0];
+                int biggest_index = 0;
+                for (int i = 1; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] > biggest_value & i % 2 == 0)
+                    {
+                        biggest_value = array_in_use[i];
+                        biggest_index = i;
+                    }                             
+                }                             
+                array_in_use[(int)biggest_index] = biggest_index;
+                foreach (double elem in array_in_use)
+                {
+                    Console.Write($"{elem}\t");
+                }
+            }//fixed
+            static void task_2_15()
+            {
+                bool flag = false;
+                int n;
+                int m;
+                int k;
+                Console.WriteLine("enter k:");
+                bool res_2 = int.TryParse(Console.ReadLine(), out k);
+                if (!(res_2 & k >= 0)) return;
+                Console.WriteLine("enter m for array B :");
+                bool res_ = int.TryParse(Console.ReadLine(), out m);
+                if (!(res_ & m > 0)) return;
+                Console.WriteLine("enter array B data:");
+                string str_b = Console.ReadLine();
+                double[] array_b = double_array(str_b, m, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+
+                Console.WriteLine("enter n for array A :");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                n += m;
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array A data:");
+                string str_ = Console.ReadLine();
+                for (int i = 0; i < m; i++)
+                {
+                    str_ += " 0";
+                }
+                double[] array_a = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = n - m - 1, j = 0; i > k; i--, j--)
+                {
+
+                    array_a[n - 1 + j] = array_a[i];
+
+                }
+                for (int i = k + 1, j = 0; i <= k + m; i++, j++)
+                {
+
+                    array_a[i] = array_b[j];
+
+                }
+                foreach (double elem in array_a)
+                {
+                    Console.Write($"{elem}\t");
+                }
+
+
+
+            }
+            
+
+
+
+            static void task_3_1()
+            {
+                bool flag = false;
+                int n;
+                Console.WriteLine("enter n:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                int[] indexes = new int[array_in_use.Length];
+                double biggest_value = array_in_use[0];
+                for (int i = 1,j =0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] > biggest_value)
+                    {
+                        j = 0;
+                        for (int k = 0; k < indexes.Length; k++)
+                        {
+                            indexes[k] = 0;
+                        }
+                        biggest_value = array_in_use[i];
+                    }
+                    if (array_in_use[i] == biggest_value )
+                    {
+                        
+                        indexes[j] = i;
+                        j++;
+                    }
+                                     
+                }
+                for (int i = 0; i < indexes.Length; i++)
+                {
+                    if (i != 0 & indexes[i] == 0) break;
+                    Console.Write($"{indexes[i]}\t");
+                }
                 
-            #region Tuples
-
-            //It is linked links to several variables in the fixed order:
-            (string name, int age, double height) student = ("Vasiliy", 20, 1.89);
-            (int[] marks, int average) table = ({1,2,3,4,5}, 3);.
                 
-            string Name = student.name; // or student.Item1
-            
-            var tuple = (count:5, sum:10);
-            Console.WriteLine(tuple.count); // 5
-            Console.WriteLine(tuple.sum); // 10
-            
-            // It is the simpliest structure of data (not an array!)
-            #endregion
-           
-            #region Enum
-
-            //It is order of integers (Int 8 / 16 / 32 / 64) where you create a list of names and each name get the value (increment by 1 of previous):              
-            enum Marks
+            }
+            static void task_3_5()
             {
-                Bad = 2,
-                Nice, // auto-incremented to 3
-                Good, // 4 ...
-                Excellent // not coma at the end!
+                bool flag = false;
+                int n;
+                int n_for_chet = 0;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                n_for_chet = (n % 2 == 0) ? n / 2 : (n - 1) / 2 + 1;
+                double[] chet_array = new double[n_for_chet];
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = 0, chet_ind = 0; i < array_in_use.Length; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        chet_array[chet_ind] = array_in_use[i];
+                        chet_ind++;
+                    }
+
+                }
+                Array.Sort(chet_array);
+                Console.WriteLine("chet sorted array:");
+                foreach (double elem in chet_array)
+                {
+                    Console.Write($"{elem}\t");
+                }
+                Console.WriteLine();
+                for (int i = 0, j = 0; j < chet_array.Length; i += 2, j++)
+                {
+                    array_in_use[i] = chet_array[j];
+                }
+                Console.WriteLine("result array:");
+                foreach (double elem in array_in_use)
+                {
+                    Console.Write($"{elem}\t");
+                }
+
+
+            }
+            static void task_3_8()
+            {
+                bool flag = false;
+                int n;
+                int quality = 0;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                foreach (double elem in array_in_use)
+                {
+                    if (elem < 0) quality++;
+                }
+                double[] negative_array = new double[quality];
+                for (int i = 0, b = 0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] < 0)
+                    {
+                        negative_array[b] = array_in_use[i];
+                        b++;
+                    }
+                }
+                Array.Sort(negative_array);
+                Array.Reverse(negative_array);
+                Console.WriteLine("negative sorted array");
+                foreach (double elem in negative_array)
+                {
+                    Console.Write($"{elem}\t");
+                }
+                for (int i = 0, j = 0; j < negative_array.Length; i++)
+                {
+                    if (array_in_use[i] < 0)
+                    {
+                        array_in_use[i] = negative_array[j];
+                        j++;
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine("result array:");
+                foreach (double elem in array_in_use)
+                {
+                    Console.Write($"{elem}\t");
+                }
+            }
+            static void task_3_9()
+            {
+                bool flag = false;
+                int n;
+                int quality_1 = 1;
+                int quality_2 = 1;
+                int fin_q_1 = 1;
+                int fin_q_2 = 1;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = 0; i < array_in_use.Length - 1; i++)
+                {
+                    if (array_in_use[i + 1] > array_in_use[i])
+                    {
+                        quality_1++;
+                        if (quality_1 > fin_q_1)
+                        { fin_q_1 = quality_1; }
+                        continue;
+                    }
+                   
+                    quality_1 = 1;
+
+
+                    if (array_in_use[i + 1] < array_in_use[i])
+                    {
+                        quality_2++;
+                        if (quality_2 > fin_q_2)
+                        {
+                            fin_q_2 = quality_2;
+                        }
+                        continue;
+                    }
+
+                    quality_2 = 1;
+                }
+                
+                if (quality_1 > fin_q_1)
+                {
+                    fin_q_1 = quality_1;
+                }
+                if (quality_2 > fin_q_2)
+                {
+                    fin_q_2 = quality_2;
+                }
+
+
+                if (fin_q_1 >= fin_q_2)
+                {
+                    Console.WriteLine($"the longest:{fin_q_1}");
+                }
+                else
+                {
+                    Console.WriteLine($"the longest:{fin_q_2}");
+                }
+            } //fixed
+            static void task_3_12()
+            {
+                bool flag = false;
+                int n = 12;
+                int quality = 0;
+                Console.WriteLine("enter array data(12):");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                foreach (double elem in array_in_use)
+                {
+                    if (elem >= 0) quality++;
+                }
+                double[] positive_array = new double[quality];
+                for (int i = 0, b = 0; i < array_in_use.Length; i++)
+                {
+                    if (array_in_use[i] >= 0)
+                    {
+                        positive_array[b] = array_in_use[i];
+                        b++;
+                    }
+                }
+                Console.WriteLine("result array:");
+                foreach (double elem in positive_array)
+                {
+                    Console.Write($"{elem}\t");
+                }
+            }
+            static void task_3_13()
+            {
+                bool flag = false;
+                int n;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                List<double> lis = array_in_use.ToList();
+                var uniq = array_in_use.Distinct();
+                Console.WriteLine("result array:");
+                foreach (double elem in uniq)
+                {
+                    Console.Write($"{elem}\t");
+                }
+            }//fixed
+            
+
+
+
+            static void task11()
+            {
+                bool flag = false;
+                int n;
+                double key = 0;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                Console.WriteLine("enter key:");
+                bool res2 = double.TryParse(Console.ReadLine(), out key);
+                if (!(res & n > 0 & res2)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                Console.WriteLine("result:");
+                Console.WriteLine(BinarySearch(array_in_use, key));
+            }
+            static void task12()
+            {
+                bool flag = false;
+                int n;
+                int m;
+                int quality = 0;
+                Console.WriteLine("enter n for array_1:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array_1 data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use_1 = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                Console.WriteLine("enter m for array_2:");
+                bool res1 = int.TryParse(Console.ReadLine(), out m);
+                if (!(res1 & m > 0)) return;
+                Console.WriteLine("enter array_2 data:");
+                string str_1 = Console.ReadLine();
+                double[] array_in_use_2 = double_array(str_1, m, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                double[] res_array = new double[n + m];
+                for (int i = 0, j = 0; i < res_array.Length; i += 2, j++)
+                {
+                    res_array[i] = array_in_use_1[j];
+
+                }
+                for (int i = 1, j = 0; i < res_array.Length; i += 2, j++)
+                {
+                    res_array[i] = array_in_use_2[j];
+
+                }
+                Console.WriteLine("result array:");
+                foreach (double elem in res_array)
+                {
+                    Console.Write($"{elem}\t");
+                }
+            }
+            static void task13()
+            {
+                bool flag = false;
+                int n;
+                int m;
+                int quality = 0;
+                Console.WriteLine("enter n for array_1:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array_1(sorted po ubivaniu) data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use_1 = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                Console.WriteLine("enter m for array_2:");
+                bool res1 = int.TryParse(Console.ReadLine(), out m);
+                if (!(res1 & m > 0)) return;
+                Console.WriteLine("enter array_2(sorted po ubivaniu) data:");
+                string str_1 = Console.ReadLine();
+                double[] array_in_use_2 = double_array(str_1, m, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                double[] res_array = new double[n + m];
+                for (int i = 0; i < array_in_use_1.Length; i++)
+                {
+                    res_array[i] = -array_in_use_1[i];
+                }
+                for (int i = n, j = 0; i < n + m; i++, j++)
+                {
+                    res_array[i] = -array_in_use_2[j];
+                }
+                Array.Sort(res_array);
+                for (int i = 0; i < res_array.Length; i++)
+                {
+                    res_array[i] = -res_array[i];
+                }
+                Console.WriteLine("result array:");
+                foreach (double elem in res_array)
+                {
+                    Console.Write($"{elem}\t");
+                }
+
+            }
+            static void task14()
+            {
+                bool flag = false;
+                int n;
+
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                for (int i = 0; i < array_in_use.Length / 2; i++)
+                {
+                    double memory = array_in_use[i];
+                    array_in_use[i] = array_in_use[n - 1 - i];
+                    array_in_use[n - 1 - i] = memory;
+                }
+                Console.WriteLine("result array:");
+                foreach (double elem in array_in_use)
+                {
+                    Console.Write($"{elem}\t");
+                }
+
+
+            }
+            static void task15()
+            {
+                bool flag = false;
+                int n;
+                int quality;
+                Console.WriteLine("enter n for array:");
+                bool res = int.TryParse(Console.ReadLine(), out n);
+                if (!(res & n > 0)) return;
+                Console.WriteLine("enter array data:");
+                string str_ = Console.ReadLine();
+                Console.WriteLine("enter positions quality:");
+                bool res_ = int.TryParse(Console.ReadLine(), out quality);
+                if (!(res_ & quality<n-1)) return;
+                double[] array_in_use = double_array(str_, n, ref flag);
+                if (flag)
+                {
+                    Console.WriteLine("input error");
+                    return;
+                }
+                double[] first_elements = new double[array_in_use.Length - quality];
+                for (int i = 0; i < first_elements.Length; i++)
+                {
+                    first_elements[i] = array_in_use[i];
+                }
+                
+
+                for (int i = 0, j = 0; i < quality; i++, j++)
+                {
+                    array_in_use[i] = array_in_use[n-quality+j];
+                }
+               
+
+                for (int i = quality,j=0; i <n; i++,j++)
+                {
+                    array_in_use[i] = first_elements[j];
+                }
+
+                Console.WriteLine("result array:");
+                foreach (double elem in array_in_use)
+                {
+                    Console.Write($"{elem}\t");
+                }
             }
             
-            enum Classes
-            {
-                Math = 1,
-                PhysicalCulture = 3, // Jump over
-                History = 4,
-                Dinner = 2 // Instead Informatics
-            }
-            
-            int myAvgMark = (int)Marks.Bad + (int)Marks.Excellent; // cast to int!
-            Console.WriteLine((Classes)10); // expancion to enum values
-            
-            public enum Season
-            {
-                Spring,
-                Summer,
-                Autumn,
-                Winter
-            }
-            
-            Season a = Season.Autumn;
-            Console.WriteLine($"Integral value of {a} is {(int)a}");  // output: Integral value of Autumn is 2
 
-            var b = (Season)1;
-            Console.WriteLine(b);  // output: Summer
 
-            var c = (Season)4;
-            Console.WriteLine(c);  // output: 4
-            
-            // More informative than variables, more flexible than constans, more strict than string, more effective than dictionary :) cool thing!
-            #endregion       
+
         }
     }
-}
+} 
