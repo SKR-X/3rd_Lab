@@ -276,8 +276,7 @@ namespace Lab_3
                     m_index = i;
                 }
             }
-            Delete(ref array, m_index);
-            Insert(ref array, m_index, m_index);
+            array[m_index] = m_index;
             enter = String.Join(" ", array);
             Console.WriteLine(enter);
             #endregion
@@ -370,11 +369,18 @@ namespace Lab_3
             nArray(input, ref array); int maximum_wane = 1, maximum_grow = 1, current_wane = 1, current_grow = 1;
             for (int i = 0; i < array.Length-1; i ++)
             {
-                if (array [i] > array[i+1]) current_wane++;
-                else if (maximum_wane < current_wane) maximum_wane = current_wane;
-
+                if (array[i] > array[i + 1]) current_wane++;
+                else if (maximum_wane < current_wane)
+                {
+                    maximum_wane = current_wane;
+                    current_wane = 1;
+                }
                 if (array[i] < array[i + 1]) current_grow++;
-                else if (maximum_grow < current_grow) maximum_grow = current_grow;
+                else if (maximum_grow < current_grow)
+                {
+                    maximum_grow = current_grow;
+                    current_grow = 1;
+                } 
             }
             if (maximum_grow > maximum_wane) Console.WriteLine($"Максимальная последовательность - возрастающая с длиной {maximum_grow}");
             else if (maximum_grow < maximum_wane) Console.WriteLine($"Максимальная последовательность - убывающая с длиной {maximum_wane}");
