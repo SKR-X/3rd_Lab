@@ -9,14 +9,14 @@ class Program
         Console.WriteLine(" Please enter the leght mas");
         while (true)
         {
-            if(!int.TryParse(Console.ReadLine(), out n))
+            if (!int.TryParse(Console.ReadLine(), out n))
             {
                 Console.WriteLine(" Please enter the correct data");
                 continue;
             }
-            if (n < 0)
+            if (n <= 0)
             {
-                Console.WriteLine(" lenght mas must be positive");
+                Console.WriteLine(" Lenght mas must be positive");
                 continue;
             }
             break;
@@ -45,43 +45,47 @@ class Program
         double min = mas[0];
         int index_max = 0;
         int index_min = 0;
-        for(int i = 0; i < mas.Length; i++)
+        for (int i = 0; i < mas.Length; i++)
         {
-            if(max < mas[i])
+            if (max < mas[i])
             {
                 max = mas[i];
                 index_max = i;
             }
-            if(min > mas[i])
+            if (min > mas[i])
             {
                 min = mas[i];
                 index_min = i;
             }
         }
 
-        if (index_max > index_min) 
+        int k = 0;
+        if (index_max > index_min)
         {
             for (int i = index_min + 1; i < index_max; i++)
             {
                 if (mas[i] < 0)
                 {
-                    amountot[i] = mas[i];
+                    amountot[k] = mas[i];
+                    k++;
                 }
             }
         }
 
+        k = 0;
         if (index_max < index_min)
         {
-            for (int i = index_max+1; i < index_min; i++)
+            for (int i = index_max + 1; i < index_min; i++)
             {
                 if (mas[i] < 0)
                 {
-                    amountot[i] = mas[i];
+                    amountot[k] = mas[i];
+                    k++;
                 }
             }
         }
 
-        for(int i = 0; i < amountot.Length; i++)
+        for (int i = 0; i < k; i++)
         {
             Console.Write(amountot[i] + " ");
         }
