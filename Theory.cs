@@ -277,13 +277,14 @@ namespace _3rd_Lab
             {
                 Console.WriteLine("11 task:");
                 k = 0;
+                double prev = 0, next = 0;
                 Console.WriteLine("Enter the lenght of the array:");
                 if (int.TryParse(Console.ReadLine(), out n))
                 {
                     Console.WriteLine("Enter the P number:");
                     if (double.TryParse(Console.ReadLine(), out P))
                     {
-                        double[] allnums8 = new double[n];
+                        double[] allnums8 = new double[n + 1];
                         for (int i = 0; i < n; i++)
                         {
                             Console.WriteLine($"Enter the {i} element for array:");
@@ -291,9 +292,19 @@ namespace _3rd_Lab
                             allnums8[i] = double.Parse(s);
                             if (allnums8[i] > 0) k = i;
                         }
-
+                        
                         Console.WriteLine("Source array:");
-                        Console.WriteLine(String.Join(" ", allnums8));
+                        Console.WriteLine(String.Join(" ", allnums8.Take(n)));
+                        prev = allnums8[k + 1];
+                        for (int i = 0; i < n; i++)
+                        {
+                            if (i >= (k + 1))
+                            {
+                                next = allnums8[i + 1];
+                                allnums8[i + 1] = prev;
+                                prev = next;
+                            }
+                        }
                         allnums8[k + 1] = P;
                         Console.WriteLine("Final array:");
                         Console.WriteLine(String.Join(" ", allnums8));
@@ -491,6 +502,7 @@ namespace _3rd_Lab
             void Task9_3lvl()
             {
                 Console.WriteLine("9 task:");
+                bool flag1 = true, flag2 = true;
                 int k1 = 1, k2 = 1;
                 int maxB = 0, maxM = 0;
                 Console.WriteLine("Enter the lenght of the array:");
@@ -515,12 +527,7 @@ namespace _3rd_Lab
                             maxB = Math.Max(maxB, k1);
                             k1 = 1;
                         }
-                    }
-
-                    maxB = Math.Max(maxB, k1);
-                    for (int i = 0; i < n - 1; i++)
-                    {
-                        if (allnums[i] > allnums[i + 1])
+                        if (allnums[i + 1] < allnums[i])
                         {
                             k2++;
                         }
@@ -531,6 +538,7 @@ namespace _3rd_Lab
                         }
                     }
 
+                    maxB = Math.Max(maxB, k1);
                     maxM = Math.Max(maxM, k2);
 
                     Console.WriteLine("Biggest subsequence lenght:");
@@ -723,7 +731,7 @@ namespace _3rd_Lab
                                     arrayC[i] = arrayA[I];
                                     I++;
                                 }
-                                else if (arrayA[I] < arrayB[J])
+                                else
                                 {
                                     arrayC[i] = arrayB[J];
                                     J++;
