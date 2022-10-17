@@ -1,0 +1,63 @@
+using System;
+class Program
+{
+    static void Main()
+    {
+        double x, P, Q;
+        double amount = 0;
+        double[] mas = new double[10];
+
+        Console.WriteLine("Please enter the 'P'");
+        while (true)
+        {
+            if (!double.TryParse(Console.ReadLine(), out P))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            break;
+        }
+
+        Console.WriteLine(" Please enter the 'Q'");
+        while (true)
+        {
+            if (!double.TryParse(Console.ReadLine(), out Q))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (Q < P)
+            {
+                Console.WriteLine(" Please enter the correct data | Q should be more P ");
+                continue;
+            }
+            break;
+        }
+
+        for (int i = 0; i < mas.Length; i++)
+        {
+
+            Console.WriteLine(" Please enter the 'x'");
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                mas[i] = x;
+                break;
+            }
+        }
+
+        for (int i = 0; i < mas.Length; i++)
+        {
+            if(mas[i] > P && mas[i] < Q)
+            {
+                amount++;
+            }
+        }
+
+        Console.WriteLine("   Amount point which belong to the segment from P to Q " + "= " + amount);
+    }
+}

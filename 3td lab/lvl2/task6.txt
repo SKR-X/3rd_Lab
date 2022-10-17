@@ -1,0 +1,71 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
+
+class Program
+{
+    static void Main()
+    {
+        int n;
+
+        Console.WriteLine(" Please enter lenght mas");
+        while (true)
+        {
+            if (!int.TryParse(Console.ReadLine(), out n))
+            {
+                Console.WriteLine(" Please enter the correct lenght");
+                continue;
+            }
+            if (n < 0)
+            {
+                Console.WriteLine(" Please enter lenght '>0'");
+                continue;
+            }
+            break;
+        }
+        double P, x;
+        Console.WriteLine(" Please enter 'P'");
+        while (true)
+        {
+            if (!double.TryParse(Console.ReadLine(), out P))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            break;
+        }
+
+        double sum = 0;
+        double mid = 0;
+        List<double> mas = new List<double>(n);
+        int mid_I = 0;
+        Console.WriteLine(" Pleas enter the 'X'");
+        for (int i = 0; i < n; i++)
+        {
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                mas.Add(x);
+                sum += x;
+                break;
+            }
+        }
+        mid = sum / n;
+        for(int i = 0; i < n; i++)
+        {
+            if(Math.Abs(mid - mas[mid_I]) > Math.Abs(mid - mas[i]))
+            {
+                mid_I = i;
+            }
+        }
+
+        mas.Insert(mid_I + 1, P);
+        for(int i = 0; i < n + 1; i++)
+        {
+            Console.Write(mas[i] + " ");
+        }
+    }
+}

@@ -1,0 +1,103 @@
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
+
+class Program
+{
+    static void Main()
+    {
+        double x;
+        double lenght;
+        int k = 1;
+        int amount = 1;
+        double max1 = -1;
+        double max2 = -1;
+
+        Console.WriteLine(" Please enter the lenght array");
+        while (true)
+        {
+            if (!double.TryParse(Console.ReadLine(), out lenght))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (lenght < 0)
+            {
+                Console.WriteLine("Lenght array must be positive");
+                continue;
+            }
+            break;
+        }
+
+        var mas = new List<double>();
+
+        Console.WriteLine(" Please enter elements array");
+        for (int i = 0; i < lenght; i++)
+        {
+
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                mas.Add(x);
+                break;
+            }
+        }
+
+        for ( int i = 0; i < lenght - 1; i++)
+        {
+            if (mas[i] < mas[i + 1])
+            {
+                k++;
+            }
+
+            else
+            {
+                if(max1 < k)
+                {
+                    max1 = k;
+                    k = 1;
+                    
+                }
+            }
+        }
+
+        for (int i = 0; i < lenght - 1; i++)
+        {
+            if (mas[i] > mas[i + 1])
+            {
+                amount++;
+            }
+
+            else
+            {
+                if (max2 < amount)
+                {
+                    max2 = amount;
+                    amount = 1;
+
+                }
+            }
+        }
+
+        if (k > amount)
+        {
+            Console.WriteLine(" Increasing sequence " + k);
+        }
+        
+        if(k < amount)
+        {
+            Console.WriteLine(" Descending Sequence " + amount);
+        }
+
+        if(k == amount)
+        {
+            Console.WriteLine(" Sequence equal " + k);
+        }
+    }   
+}

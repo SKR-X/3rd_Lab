@@ -1,0 +1,61 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+
+class Program
+{
+    static void Main()
+    {
+        double x;
+        double lenght;
+
+        Console.WriteLine(" Please enter the lenght array");
+        while (true)
+        {
+            if(!double.TryParse(Console.ReadLine(), out lenght))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (lenght < 0)
+            {
+                Console.WriteLine("Lenght array must be positive");
+                continue ;
+            }
+            break;
+        }
+
+        var mas = new List<double>();
+        var new_mas = new List<double>();
+
+        Console.WriteLine(" Please enter elements array");
+        for (int i = 0; i < lenght; i++)
+        {
+
+            while (true)
+            {
+                if(!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                mas.Add(x);
+                break;
+            }
+        }
+
+        double element;
+        element = mas.Max();
+
+        for (int i = 0; i < lenght; i++)
+        {
+            if(mas[i] == element)
+            {
+                new_mas.Add(i);
+            }
+        }
+        Console.WriteLine("Array:");
+        for (int i = 0; i < new_mas.Count; i++)
+            Console.Write(new_mas[i] + " ");
+    }   
+}

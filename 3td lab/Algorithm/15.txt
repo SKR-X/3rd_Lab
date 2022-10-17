@@ -1,0 +1,79 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
+
+class Program
+{
+    static void Main()
+    {
+        double x, m;
+        int lenght = 0;
+
+        Console.WriteLine(" Please enter the lenght array");
+        while (true)
+        {
+            if (!int.TryParse(Console.ReadLine(), out lenght))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            if (lenght < 0)
+            {
+                Console.WriteLine("Lenght array must be positive");
+                continue;
+            }
+            break;
+        }
+
+        var A = new List<double>();
+
+        Console.WriteLine(" Please enter elements array");
+        for (int i = 0; i < lenght; i++)
+        {
+
+            while (true)
+            {
+                if (!double.TryParse(Console.ReadLine(), out x))
+                {
+                    Console.WriteLine(" Please enter the correct data");
+                    continue;
+                }
+                A.Add(x);
+                break;
+            }
+        }
+
+        Console.WriteLine(" Please enter amount step");
+        while (true)
+        {
+            if (!double.TryParse(Console.ReadLine(), out m))
+            {
+                Console.WriteLine(" Please enter the correct data");
+                continue;
+            }
+            break;
+        }
+
+        double c;
+
+        for(int i = 0; i < m; i++)
+        {
+            c = A[lenght - 1];
+
+            for(int j = 0; j < lenght - 1; j++)
+            {
+                A[lenght - 1 - j] = A[lenght - 2 - j];
+            }
+
+            A[0] = c;
+        }
+
+        Console.WriteLine(" Array");
+
+        for (int i = 0; i < lenght; i++)
+        {
+            Console.Write(A[i] + " ");
+        }
+    }
+}
