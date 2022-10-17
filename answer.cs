@@ -8,7 +8,7 @@ namespace _3_Lab {
             static double[] inputDoubleArray(int preferrablyLength = 0) {
                 Console.WriteLine("Enter nums with spaces between, example: 3 5 2 -1 3 1");
 
-                string[] strNums = Console.ReadLine().Split();
+                string[] strNums = Console.ReadLine().Trim().Split();
                 double[] nums = new double[strNums.Length];
 
                 for (int i = 0; i < strNums.Length; i++) {
@@ -514,22 +514,36 @@ namespace _3_Lab {
 
             static void task_0_11() {
                 double[] nums = inputDoubleArray();
-                
                 if (!double.TryParse(Console.ReadLine(), out double n)) {
                     return;
                 }
 
-
-                Console.WriteLine($"Task 0.11 answer:");
-
                 for (int i = 0; i < nums.Length; i++) {
-                    if (nums[i] == n) {
-                        Console.WriteLine(i);
-                        return;
+                    for (int j = i + 1; j < nums.Length; j++) {
+                        if (nums[i] > nums[j]) {
+                            double temp = nums[i];
+                            nums[i] = nums[j];
+                            nums[j] = temp;
+                        }
                     }
                 }
 
-                Console.WriteLine(-1);
+                Console.WriteLine($"Task 0.11 answer:");
+
+                int l = 0, r = nums.Length - 1, m;
+                while (r - l > 1) {
+                    m = (l + r) / 2;
+                    if (nums[m] == n) {
+                        Console.WriteLine($"{m}");
+                        return;
+                    }else if (nums[m] > n) {
+                        r = m;
+                    } else {
+                        l = m;
+                    }
+                }
+
+                Console.WriteLine("-1");
             }
 
             static void task_0_12() {
@@ -539,7 +553,9 @@ namespace _3_Lab {
 
                 for (int i = 0; i < a.Length; i++) {
                     c[2 * i] = a[i];
-                    c[2 * i + 1] = b[i];
+                    if (i < b.Length) {
+                        c[2 * i + 1] = b[i];
+                    }
                 }
 
                 printAnswer("0.12", c);
@@ -548,6 +564,27 @@ namespace _3_Lab {
             static void task_0_13() {
                 double[] a = inputDoubleArray();
                 double[] b = inputDoubleArray();
+
+                for (int i = 0; i < a.Length; i++) {
+                    for (int j = i + 1; j < a.Length; j++) {
+                        if (a[i] < a[j]) {
+                            double temp = a[i];
+                            a[i] = a[j];
+                            a[j] = temp;
+                        }
+                    }
+                }
+
+                for (int i = 0; i < b.Length; i++) {
+                    for (int j = i + 1; j < b.Length; j++) {
+                        if (b[i] < b[j]) {
+                            double temp = b[i];
+                            b[i] = b[j];
+                            b[j] = temp;
+                        }
+                    }
+                }
+
                 int indA = 0, indB = 0;
                 double[] c = new double[a.Length + b.Length];
 
@@ -612,7 +649,7 @@ namespace _3_Lab {
 
             // -------------------------------
 
-            task_0_15();
+            task_0_12();
 
         }
     }
