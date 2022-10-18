@@ -214,7 +214,6 @@ namespace _3_Lab {
 
             }
 
-
             static void task_2_6() {
                 double[] nums = inputDoubleArray();
 
@@ -543,18 +542,44 @@ namespace _3_Lab {
                     }
                 }
 
+
                 Console.WriteLine("-1");
             }
 
             static void task_0_12() {
                 double[] a = inputDoubleArray();
+
+                if (a == null) {
+                    return;
+                }
+
                 double[] b = inputDoubleArray();
+
+                if (b == null) {
+                    return;
+                }
+
                 double[] c = new double[a.Length + b.Length];
 
-                for (int i = 0; i < a.Length; i++) {
+                int minSize = Math.Min(a.Length, b.Length);
+
+                for (int i = 0; i < minSize; i++) {
                     c[2 * i] = a[i];
-                    if (i < b.Length) {
-                        c[2 * i + 1] = b[i];
+                    c[2 * i + 1] = b[i];
+                }
+
+                if (a.Length != b.Length) {
+                    int curInd = minSize * 2;
+                    if (a.Length > b.Length) {
+                        for (int i = minSize; i < a.Length; i++) {
+                            c[curInd] = a[i];
+                            curInd++;
+                        }
+                    } else {
+                        for (int i = minSize; i < b.Length; i++) {
+                            c[curInd] = b[i];
+                            curInd++;
+                        }
                     }
                 }
 
