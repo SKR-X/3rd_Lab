@@ -17,11 +17,11 @@ namespace ConsoleApp6
     {
         static void Main(string[] args)
         {
-            task0_15();
+            task0_13();
         }
         static void task1_6()
         {
-            double[] a = new double[6] { 2, 4, 5, 6, 10, 11};
+            double[] a = new double[6] { 2, 4, 5, 6, 10, 11 };
             double L = 0;
             foreach (double i in a)
             {
@@ -76,9 +76,9 @@ namespace ConsoleApp6
         }
         static void task1_12()
         {
-            double[] a = new double[8] {-2, 5, 6, 7, -9, 10, 12, -14};
+            double[] a = new double[8] { -2, 5, 6, 7, -9, 10, 12, -14 };
             int p = 0;
-            for (int i = 0;i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (a[i] < 0)
                 {
@@ -94,26 +94,26 @@ namespace ConsoleApp6
             double[] c = new double[5];
             var count = 0;
             var count1 = 0;
-            for (int i = 0;i < 10;i++)
-            { 
+            for (int i = 0; i < 10; i++)
+            {
                 if (i % 2 == 0)
-                    {
+                {
                     b[count] = a[i];
                     count++;
-                    }
+                }
                 else
                 {
                     c[count1] = a[i];
                     count1++;
                 }
             }
-            for (int i = 0; i < 5; i++) 
+            for (int i = 0; i < 5; i++)
             {
                 Console.Write(b[i]);
                 Console.Write(" ");
             }
             Console.WriteLine();
-            for (int i = 0; i < 5; i++) 
+            for (int i = 0; i < 5; i++)
             {
                 Console.Write(c[i]);
                 Console.Write(" ");
@@ -123,8 +123,8 @@ namespace ConsoleApp6
         {
             double[] a = new double[8] { -15, 5, -6, -7, -8, 9, 10, 15 };
             double p = 0, l = 0;
-            int c = 0,p1 = 0 ,l1 = 0;
-            for (int i = 0;i < 8; i++)
+            int c = 0, p1 = 0, l1 = 0;
+            for (int i = 0; i < 8; i++)
             {
                 if (p > a[i])
                 {
@@ -141,7 +141,7 @@ namespace ConsoleApp6
             if (c == 0) { Console.WriteLine("There are no '-' elem in array"); return; }
             int j = 0;
             double[] b = new double[c - 1];
-            for (int i = p1 + 1; i < l1;i++)
+            for (int i = p1 + 1; i < l1; i++)
             {
                 if (j == c - 1) break;
                 if (a[i] < 0)
@@ -150,15 +150,15 @@ namespace ConsoleApp6
                     Console.Write(b[j]);
                     Console.Write(" ");
                     j++;
-                    
+
                 }
             }
         }
         static void task2_6()
         {
-            double[] a = new double[8] {-15, 5, -6, -7, -8, 9, 10, 15};
+            double[] a = new double[8] { -15, 5, -6, -7, -8, 9, 10, 15 };
             double sr = 0;
-            foreach(double x in a)
+            foreach (double x in a)
             {
                 sr += x;
             }
@@ -199,7 +199,7 @@ namespace ConsoleApp6
             double sr = 0;
             int min = 0, max = 0;
             double min1 = 0, max1 = 0;
-            for (int i = 0; i < 8;i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (min1 > a[i])
                 {
@@ -248,7 +248,7 @@ namespace ConsoleApp6
             double[] a = new double[8] { -15, 5, -6, -7, -8, 9, -15, -10 };
             int max = 0;
             double max1 = 0;
-            for (int j = 0; j < 8; j++) 
+            for (int j = 0; j < 8; j++)
             {
                 if (max < a[j] && a[j] > 0)
                 {
@@ -258,7 +258,7 @@ namespace ConsoleApp6
             }
             Array.Resize(ref a, 9);
             Console.WriteLine("Enter a number P");
-            if (double.TryParse(Console.ReadLine(),out double P))
+            if (double.TryParse(Console.ReadLine(), out double P))
             {
                 for (int i = a.Length - 1; i >= max + 1; i--)
                 {
@@ -301,7 +301,7 @@ namespace ConsoleApp6
         static void task2_15()
         {
             double[] a = new double[8] { -15, 5, -6, -7, 8, 9, -15, -10 };
-            double[] b = new double[3] {2, -4, 8 };
+            double[] b = new double[3] { 2, -4, 8 };
             int l = 0;
             double[] c = new double[a.Length + b.Length];
             Console.WriteLine("Enter a number K from 0 to 7");
@@ -313,14 +313,14 @@ namespace ConsoleApp6
                     c[i] = a[i];
                     Console.WriteLine(c[i]);
                 }
-                for (int j = K + 1; j < K + 1 + b.Length;j++)
+                for (int j = K + 1; j < K + 1 + b.Length; j++)
                 {
                     c[j] = b[l];
                     Console.WriteLine(c[j]);
                     l++;
                 }
                 l = K + 1;
-                for (int k = K + 1 + b.Length; k < c.Length; k++) 
+                for (int k = K + 1 + b.Length; k < c.Length; k++)
                 {
                     c[k] = a[l];
                     Console.WriteLine(c[k]);
@@ -346,7 +346,7 @@ namespace ConsoleApp6
                 }
                 else if (max == a[p])
                 {
-                    Array.Resize(ref b,b.Length + 1);
+                    Array.Resize(ref b, b.Length + 1);
                     b[b.Length - 1] = p;
                 }
             }
@@ -362,7 +362,7 @@ namespace ConsoleApp6
         {
             double amin = 100000000;
             int imin = 0;
-            double[] a = new double[10] {0,1,2,3,5,6,4,7,8,9};
+            double[] a = new double[10] { 0, 1, 2, 3, 5, 6, 4, 7, 8, 9 };
             for (int i = 0; i < a.Length - 1; i++)
             {
                 if (i % 2 == 0)
@@ -381,7 +381,7 @@ namespace ConsoleApp6
                     a[i] = amin;
                 }
             }
-            for (int i = 0; i < a.Length;i++)
+            for (int i = 0; i < a.Length; i++)
             {
                 Console.Write(a[i]);
                 Console.Write(" ");
@@ -421,6 +421,42 @@ namespace ConsoleApp6
             double[] a = new double[8] { -1, 12, 11, 10, 9, 10, 9, 10 };
             int count = 1, count1 = 1;
             int max1 = 0, max2 = 0;
+            //for (int i = 0; i < a.Length - 1; i++)
+            //{
+            //    if (a[i] <= a[i + 1])
+            //    {
+            //        count++;
+            //    }
+            //    else
+            //    {
+            //        Array.Resize(ref b, b.Length + 1);
+            //        b[j] = count;
+            //        j++;
+            //        count = 1;
+            //    }
+            //}
+            //for (int m = 0; m < a.Length - 1; m++)
+            //{
+            //    if (a[m] >= a[m + 1])
+            //    {
+            //        count1++;
+            //    }
+            //    else
+            //    {
+            //        Array.Resize(ref c, c.Length + 1);
+            //        c[k] = count1;
+            //        k++;
+            //        count1 = 1;
+            //    }
+            //}
+            //for (k = 0; k < b.Length; k++)
+            //{
+            //    Console.WriteLine(b[k]);
+            //}
+            //if (b.Max() > c.Max())
+            //{
+            //    Console.WriteLine(b.Max());
+            //}
             for (int i = 0; i < a.Length - 1; i++)
             {
                 if (a[i] > a[i + 1])
@@ -442,13 +478,13 @@ namespace ConsoleApp6
                 count = 1;
                 count1 = 1;
             }
-            Console.WriteLine(Math.Max(max1,max2));
+            Console.WriteLine(Math.Max(max1, max2));
         }
         static void task3_12()
         {
-            double[] a = new double[12] { -12, 5, 6, -7, 8, 9, 15, -10, 4 , 1, 9, 14};
+            double[] a = new double[12] { -12, 5, 6, -7, 8, 9, 15, -10, 4, 1, 9, 14 };
             a = Array.FindAll(a, x => x > 0);
-            foreach(int i in a)
+            foreach (int i in a)
             {
                 Console.WriteLine(i);
             }
@@ -471,23 +507,23 @@ namespace ConsoleApp6
         }
         static void task0_11()
         {
-            double[] a = new double[12] {1,2,3,4,5,6,7,8,9,10,11,12};
+            double[] a = new double[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             Array.Sort(a);
             bool f = false;
             int l = 0, r = a.Length - 1;
             int t = (l + r) / 2;
             Console.WriteLine("Enter the desired element");
-            if (double.TryParse(Console.ReadLine(),out double x))
+            if (double.TryParse(Console.ReadLine(), out double x))
             {
                 while (r - l != 1)
-                    {
+                {
                     if (a[t] == x)
                     {
                         f = true;
                         Console.WriteLine(t);
                         break;
                     }
-                    else if (a[t] > x) 
+                    else if (a[t] > x)
                     {
                         r = t;
                         t = (l + r) / 2;
@@ -497,7 +533,7 @@ namespace ConsoleApp6
                         l = t;
                         t = (l + r) / 2;
                     }
-                    }
+                }
                 if (a[l] == x)
                 {
                     Console.WriteLine(l);
@@ -514,94 +550,96 @@ namespace ConsoleApp6
             {
                 Console.WriteLine("Error");
             }
-    }
+        }
         static void task0_12()
         {
-            double[] a = new double[5] { 0, 2, 4, 6, 8};
-            double[] b = new double[7] { 1,3,5,7,9,11,13};
+            double[] b = new double[5] { 0, 2, 4, 6, 8 };
+            double[] a = new double[7] { 1, 3, 5, 7, 9, 11, 13 };
             double[] c = new double[a.Length + b.Length];
-            int p = 0, k = 0;
-            if (b.Length < a.Length)
+            int p = 0, k = 0, m = 0;
+            for (int i = 0; i < a.Length && i < b.Length; i++)
             {
-                for (int i = 0; i < b.Length * 2; i++)
+                c[p] = a[m];
+                m++;
+                p++;
+                c[p] = b[k];
+                k++;
+                p++;
+            }
+            for (int i = p; i < c.Length; i++)
+            {
+                if (a.Length > b.Length)
                 {
-                    if (i % 2 == 0)
-                    {
-                        c[i] = a[p];
-                        p++;
-                    }
-                    else
-                    {
-                        c[i] = b[k];
-                        k++;
-                    }
+                    c[i] = a[m];
+                    m++;
                 }
-                for (int i = b.Length * 2; i < c.Length;i++)
+                else
                 {
-                    c[i] = a[p];
-                    p++;
-                }
-                foreach (int i in c)
-                {
-                    Console.WriteLine(i);
+                    c[i] = b[k];
+                    k++;
                 }
             }
-            else
+            foreach (int i in c)
             {
-                for (int i = 0; i < a.Length * 2; i++)
+                Console.Write(i);
+                Console.Write(" ");
+            }
+        }
+
+        static void task0_13()
+        {
+            double[] b = new double[6] { 0, -2, 4, 6, 8, 10};
+            double[] a = new double[6] { 1, 3, 5, 7, 9, 11 };
+            double[] c = new double[a.Length + b.Length];
+            int k = 0, p = 0;
+            Array.Sort(a);
+            Array.Reverse(a);
+            Array.Sort(b);
+            Array.Reverse(b);
+            for (int i = 0; i < c.Length;i++)
+            {
+                if (k < a.Length && p < b.Length)
                 {
-                    if (i % 2 == 0)
+                    if (a[k] > b[p])
                     {
-                        c[i] = a[p];
-                        p++;
+                        c[i] = a[k];
+                        k++;
                     }
                     else
                     {
-                        c[i] = b[k];
-                        k++;
+                        c[i] = b[p];
+                        p++;
                     }
                 }
-                for (int i = a.Length * 2; i < c.Length; i++)
+                else if (p >= b.Length)
+                {
+                    c[i] = a[k];
+                    k++;
+                }
+                else
                 {
                     c[i] = b[p];
                     p++;
                 }
-                foreach (int i in c)
-                {
-                    Console.WriteLine(i);
-                }
             }
-
-        }
-        static void task0_13()
-        {
-            double[] a = new double[5] { 0, -2, 4, 6, 8 };
-            double[] b = new double[7] { 1, 3, 5, 7, 9, 11, 13 };
-            double[] c = new double[a.Length + b.Length];
-            int k = 0,p = 0;
-            for (int i = 0; i < a.Length; i++)
-            {
-                c[i] = a[k];
-                k++;
-            }
-            for (int i = k; i < c.Length; i++)
-            {
-                c[i] = b[p];
-                p++;
-            }
-            Array.Sort(c);
-            Array.Reverse(c);
             foreach(int i in c)
             {
-                Console.WriteLine(i);
+                Console.Write(i);
+                Console.Write(" ");
             }
 
         }
         static void task0_14()
         {
-            double[] a = new double[5] { 0, -2, 4, 6, 8 };
-            Array.Reverse(a);
-            foreach(int i in a)
+            double[] a = new double[6] { 0, -2, 4, 6, 8, 9 };
+            double help = 0;
+            for (int i = 0, j = a.Length - 1; i < j; i++, j--)
+            {
+                help = a[i];
+                a[i] = a[j];
+                a[j] = help;
+            }
+            foreach (int i in a)
             {
                 Console.Write(i);
                 Console.Write(" ");
@@ -615,14 +653,14 @@ namespace ConsoleApp6
             if (int.TryParse(Console.ReadLine(), out int m))
             {
                 int[] b = new int[m];
-                for (int i = a.Length - 1; i >= a.Length - m;i--)
+                for (int i = a.Length - 1; i >= a.Length - m; i--)
                 {
                     b[p] = a[i];
                     p++;
                 }
                 p = 0;
                 Array.Reverse(b);
-                Array.Resize(ref a,a.Length - m);
+                Array.Resize(ref a, a.Length - m);
                 Array.Reverse(a);
                 Array.Resize(ref a, a.Length + m);
                 for (int i = a.Length - 1; i > a.Length - m - 1; i--)
@@ -643,6 +681,6 @@ namespace ConsoleApp6
             }
 
         }
+
     }
-}
-    
+} 
