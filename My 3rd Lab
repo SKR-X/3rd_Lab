@@ -75,6 +75,7 @@ foreach (double x in original)
         n += 1;
     }
 }
+Array.Resize(ref result, n);
 Console.WriteLine($"New array with positive elements from original is");
 for (int i = 0; i < n; i++)
 {
