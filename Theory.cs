@@ -128,7 +128,7 @@ namespace _3rd_Lab
 
             #region 3.2.5
 
-            int n_e, i_e = 0, imin_e = 0, imax_e = 0, m_e, k_e = 0;
+            int n_e, i_e = 0, imin_e = 0, imax_e = 0, m_e, k_e = 0, A_e=0, B_e=0;
             double max_e, min_e;
             Console.WriteLine("enter n");
             int.TryParse(Console.ReadLine(), out n_e);
@@ -164,24 +164,20 @@ namespace _3rd_Lab
             Console.WriteLine();
             if (imax_e < imin_e)
             {
-                for (m_e = imax_e + 1; m_e < imin_e; m_e++)
-                {
-                    if (a_e[m_e] < 0)
-                    {
-                        b_e[k_e] = a_e[m_e];
-                        k_e++;
-                    }
-                }
+                A_e = imax_e;
+                B_e = imin_e;
             }
             else if (imax_e > imin_e)
             {
-                for (m_e = imin_e + 1; m_e < imax_e; m_e++)
+                B_e = imax_e;
+                A_e = imin_e;
+            }
+            for (m_e = A_e+1; m_e < B_e; m_e++)
+            {
+                if (a_e[m_e] < 0)
                 {
-                    if (a_e[m_e] < 0)
-                    {
-                        b_e[k_e] = a_e[m_e];
-                        k_e++;
-                    }
+                    b_e[k_e] = a_e[m_e];
+                    k_e++;
                 }
             }
             Console.WriteLine("array2: ");
@@ -245,7 +241,7 @@ namespace _3rd_Lab
 
             #region 3.2.9
 
-            int n_t, i_t = 0, imin_t = 0, imax_t = 0;
+            int n_t, i_t = 0, imin_t = 0, imax_t = 0, A_t = 0, B_t = 0;
             double s_t = 0, sr_t, min_t, max_t;
             Console.WriteLine("enter n");
             int.TryParse(Console.ReadLine(), out n_t);
@@ -277,19 +273,19 @@ namespace _3rd_Lab
                     imax_t = i_t;
                 }
             }
-            if (imin_t > imax_t)
+            if (imax_t < imin_t)
             {
-                for (i_t = imax_t + 1; i_t < imin_t; i_t++)
-                {
-                    s_t = s_t + a_t[i_t];
-                }
+                A_t = imax_t;
+                B_t = imin_t;
             }
-            if (imin_t < imax_t)
+            else if (imax_t > imin_t)
             {
-                for (i_t = imin_t + 1; i_t < imax_t; i_t++)
-                {
-                    s_t = s_t + a_t[i_t];
-                }
+                B_t = imax_t;
+                A_t = imin_t;
+            }
+            for (i_t = A_t + 1; i_t < B_t; i_t++)
+            {
+                s_t = s_t + a_t[i_t];
             }
             sr_t = s_t / (Math.Abs(imax_t - imin_t) - 1);
             Console.WriteLine();
@@ -739,24 +735,16 @@ namespace _3rd_Lab
                 }
             }
             Console.WriteLine();
-            for (i_m = 0; i_m < n_m; i_m++)
+            i_m = 0;
+            int q_m = 0;
+            while (q_m <len_m)
             {
-                if (a_m[i_m] < 0)
+                if (a_m[i_m] >= 0)
                 {
-                    a_m[i_m] = a_m[i_m + 1];
-                    for (int h_m = i_m + 1; h_m < n_m; h_m++)
-                    {
-                        if (a_m[h_m] >= 0)
-                        {
-                            a_m[i_m] = a_m[h_m];
-                            for (int f_m = h_m; f_m < n_m; f_m++)
-                            {
-                                a_m[f_m] = a_m[f_m + 1];
-                            }
-                            break;
-                        }
-                    }
+                    a_m[q_m] = a_m[i_m];
+                    q_m++;
                 }
+                i_m++;
             }
             Console.WriteLine("new array: ");
             for (i_m = 0; i_m < len_m; i_m++)
@@ -890,7 +878,7 @@ namespace _3rd_Lab
             const int n_v = 5, m_v = 3;
             int i_v = 0, k_v;
             double[] a_v = new double[n_v] { 1, 3, 5, 7, 8 };
-            double[] b_v = new double[m_v] { 2, 4, 6 };
+            double[] b_v = new double[m_v] { 2, 4, 6};
             Console.WriteLine("array A: ");
             for (i_v = 0; i_v < n_v; i_v++)
             {
@@ -918,14 +906,14 @@ namespace _3rd_Lab
             {
                 for (i_v = k_v; i_v < n_v; i_v++)
                 {
-                    c_v[i_v + (k_v - 1) * 2 - 1] = a_v[i_v];
+                    c_v[i_v+ k_v] = a_v[i_v];
                 }
             }
             else if (n_v < m_v)
             {
                 for (i_v = k_v; i_v < m_v; i_v++)
                 {
-                    c_v[i_v] = b_v[i_v];
+                    c_v[i_v + k_v] = b_v[i_v];
                 }
             }
             Console.WriteLine("array C: ");
