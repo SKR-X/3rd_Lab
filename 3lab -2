@@ -1,0 +1,1630 @@
+using System;
+using System.Collections;
+namespace Lab3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Task6_L1
+            static void L1N6()
+            {
+               // int n = 5;
+                double[] a = new double[5] { 1, 1, 1, 1, 1 };
+                Console.WriteLine("Введите числа x1..x5 через пробел\nИзначально каждому x присвоено значение 1");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double sum = 0;
+
+                for (int i = 0; i < 5; i++)
+                {
+                    if ((c.Length < 5) || (c.Length > 5))
+                    {
+                        Console.WriteLine("Длина массива не может быть меньше или больше 5");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    sum += a[i] * a[i];
+                }
+                
+                Console.WriteLine($"L = {Math.Sqrt(sum)}");
+            }
+            #endregion
+            #region Task10_L1
+            static void L1N10()
+            {
+                double[] a = new double[10];
+
+                Console.WriteLine("Введите 10 чисел через пробел");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double P, Q;
+                Console.WriteLine("Введите число P");
+                bool normA = double.TryParse(Console.ReadLine(), out P);
+                Console.WriteLine("Введите число Q");
+                bool normB = double.TryParse(Console.ReadLine(), out Q);
+                bool normik = normA & normB;
+
+                int endik = 0;
+                for (int i = 0; i < 10; i++)
+                {
+
+                    if ((c.Length < 10) || (c.Length > 10))
+                    {
+                        Console.WriteLine("Длина массива не может быть меньше или больше 10");
+                        break;
+                    }
+                    if (!normik || P >= Q)
+                    {
+                        Console.WriteLine("Значения P и Q введены неверно");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if ((a[i] > P) & (a[i] < Q))
+                    {
+                        endik += 1;
+                    }
+                }
+                
+                
+                Console.WriteLine($"\nКол-во точек между P и Q: {endik}");
+            }
+            #endregion
+            #region Task11_L1
+            static void L1N11()
+            {
+                double[] a = new double[10];
+                Console.WriteLine("Введите 10 чисел через пробел");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double[] end = new double[10];
+                int countik = 0;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    if ((c.Length < 10) || (c.Length > 10))
+                    {
+                        Console.WriteLine("Длина массива не может быть меньше или больше 10");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] > 0)
+                    {
+                        end[countik] = a[i];
+                        countik += 1;
+                    }
+                }
+                
+                double[] endik = new double[countik];
+                for (int i = 0; i < countik; i++)
+                {
+                    endik[i] = end[i];
+                    Console.Write($"{endik[i]} ");
+                }
+
+            }
+            #endregion
+            #region Task12_L1
+            static void L1N12()
+            {
+                double[] a = new double[8];
+                Console.WriteLine("Введите 8 чисел через пробел");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+
+                int mini = 0;
+                double min = 0;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    if ((c.Length < 8) || (c.Length > 8))
+                    {
+                        Console.WriteLine("Длина массива не может быть меньше или больше 8");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] < 0)
+                    {
+                        mini = i;
+                        min = a[i];
+                    }
+                }
+                Console.WriteLine($"Последнее отриц. значение{min} а позиция {mini}");
+
+            }
+            #endregion
+            #region Task13_L1
+            static void L1N13()
+            {
+                double[] a = new double[10];
+                Console.WriteLine("Введите 10 чисел через пробел");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double[] arr1 = new double[5];
+                double[] arr2 = new double[5];
+                int countikArr1 = 0;
+                int countikArr2 = 0;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    if ((c.Length < 10) || (c.Length > 10))
+                    {
+                        Console.WriteLine("Длина массива не может быть меньше или больше 10");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (i % 2 == 0)
+                    {
+                        arr1[countikArr1] = a[i];
+                        countikArr1 += 1;
+                    }
+                    else
+                    {
+                        arr2[countikArr2] = a[i];
+                        countikArr2 += 1;
+                    }
+                }
+                Console.Write("1й массив: ");
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write($"{arr1[i]} ");
+                }
+                Console.Write("\n2й массив: ");
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write($"{arr2[i]} ");
+                }
+
+            }
+            #endregion
+            #region Task5_L2
+            static void L2N5()
+            {
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double max = double.MinValue;
+                double min = double.MaxValue;
+                int posMax = 0;
+                int posMin = 0;
+
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount}");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] > max)
+                    {
+                        max = a[i];
+                        posMax = i;
+                    }
+                    if (a[i] < min)
+                    {
+                        min = a[i];
+                        posMin = i;
+                    }
+                }
+                int counter = 0;
+                double[] prom = new double[ammount];
+                if (posMax < posMin)
+                {
+
+                    for (int i = posMax + 1; i < posMin; i++)
+                    {
+
+                        if (a[i] < 0)
+                        {
+                            prom[counter] = a[i];
+                            counter += 1;
+                        }
+                    }
+                }
+                if (posMax > posMin)
+                {
+                    for (int i = posMin + 1; i < posMax; i++)
+                    {
+
+                        if (a[i] < 0)
+                        {
+                            prom[counter] = a[i];
+                            counter += 1;
+                        }
+                    }
+                }
+                double[] arrMin = new double[counter];
+                Console.Write("Отрицательный массив: [");
+                for (int i = 0; i < arrMin.Length; i++)
+                {
+                    arrMin[i] = prom[i];
+                    Console.Write($"{arrMin[i]} ");
+                }
+
+                Console.Write("]");
+            }
+            #endregion
+            #region Task6_L2
+            static void L2N6()
+            {
+
+                static void Insert(ref double[] arr, double value, int index) // на вход получаем массив, значение, которое надо впихнуть и индекс (на какое место)
+                {
+                    double[] newArray = new double[arr.Length + 1];
+
+                    /*newArray[index] = value; // Сначала в пустой массив на нужное нам место пихаем значение
+                    for (int i = 0; i < index; i++)
+                    {
+                        newArray[i] = arr[i]; // в этом цикле заполняем пустые места до впихнутого элемента
+                    }
+                    for (int i = index; i < arr.Length; i++)
+                    {
+                        newArray[i + 1] = arr[i]; // тут впихиваем оставшееся от старого массива
+                    }
+                    arr = newArray; // Мы делаем вид, что это все тот же старый массив, хоть и создали новый
+                    */
+                    int k = index;
+                    for (int i = 0; i < newArray.Length; i++)
+                    {
+                        if (i < index)
+                        {
+                            newArray[i] = arr[i];
+                        }
+                        if (i == index)
+                        {
+                            newArray[index] = value;
+                        }
+                        if (k < arr.Length)
+                        {
+                            newArray[k + 1] = arr[k];
+                            k++;
+                        }
+                    }
+                    arr = newArray;
+
+                }
+                int P;
+                Console.WriteLine("Введите P");
+                bool normulik = int.TryParse(Console.ReadLine(), out P);
+                if (!normulik)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                int amount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out amount);
+                if (amount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[amount];
+                Console.WriteLine($"Введите {amount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double sumsred = 0;
+                for (int i = 0; i < amount; i++)
+                {
+                    if ((c.Length < amount) || (c.Length > amount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {amount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    sumsred += a[i];
+                }
+
+
+                double sred = sumsred / amount;
+
+                double proverka = 1;
+                int posit = 0;
+                for (int i = 0; i < amount; i++)
+                {
+                    if (Math.Abs(1 - a[i] / sred) < proverka)
+                    {
+                        posit = i;
+                        proverka = Math.Abs(1 - a[i] / sred);
+                    }
+                }
+
+                Insert(ref a, P, posit + 1);
+                Console.Write("Массив с добавлением: [");
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+                Console.Write("]");
+            }
+            #endregion
+            #region Task9_L2
+            static void L2N9()
+            {
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double max = double.MinValue;
+                double min = double.MaxValue;
+                int posMax = 0;
+                int posMin = 0;
+
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount}");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] > max)
+                    {
+                        max = a[i];
+                        posMax = i;
+                    }
+                    if (a[i] < min)
+                    {
+                        min = a[i];
+                        posMin = i;
+                    }
+                }
+
+                int counter = 0;
+
+                if (posMax < posMin)
+                {
+                    (a[posMax], a[posMin]) = (a[posMin], a[posMax]);
+                }
+
+                double sum = 0;
+                int count = 0;
+                for (int i = posMin + 1; i < posMax; i++)
+                {
+                    sum += a[i];
+                    count += 1;
+                }
+                double sred = sum / count;
+
+                Console.WriteLine(sred);
+            }
+            #endregion
+            #region Task10_L2
+            static void L2N10()
+            {
+
+                static void Insert(ref double[] arr, int index)
+                {
+                    double[] newArray = new double[arr.Length - 1];
+                    /*                                                
+                   for (int i = 0; i < index; i++)
+                   {
+                       newArray[i] = arr[i];
+                   }
+                   for (int i = index + 1; i < arr.Length; i++)
+                   {
+                       newArray[i - 1] = arr[i];
+                   }
+                   */
+                    for (int i = 0; i < newArray.Length; i++)
+                    {
+                        if (i < index)
+                        {
+                            newArray[i] = arr[i];
+                        }
+                        if (i >= index)
+                        {
+                            newArray[i] = arr[i + 1];
+                        }
+                    }
+
+
+                    arr = newArray;
+                }
+                
+                
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                int posit = 0;
+                double minznach = double.MaxValue;
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if ((a[i] > 0) & (a[i] < minznach))
+                    {
+                        minznach = a[i];
+                        posit = i;
+                    }
+                }
+
+
+                Insert(ref a, posit);
+                Console.Write("Массив с удалением: [");
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+                Console.Write("]");
+            }
+            #endregion
+            #region Task11_L2
+            static void L2N11()
+            {
+
+                static void Insert(ref double[] arr, double value, int index)
+                {
+                    double[] newArray = new double[arr.Length + 1];
+                    int k = index;
+                    for (int i = 0; i < newArray.Length; i++)
+                    {
+                        if (i < index)
+                        {
+                            newArray[i] = arr[i];
+                        }
+                        if (i == index)
+                        {
+                            newArray[index] = value;
+                        }
+                        if (k < arr.Length)
+                        {
+                            newArray[k + 1] = arr[k];
+                            k++;
+                        }
+                    }
+                    arr = newArray;
+                }
+                int P;
+                Console.WriteLine("Введите P");
+                bool normulik = int.TryParse(Console.ReadLine(), out P);
+                if (!normulik)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                int posit = default;
+                int countik = 0;
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] > 0)
+                    {
+                        posit = i;
+                        countik += 1;
+                    }
+                }
+
+
+                if (countik == 0)
+                {
+                    Console.WriteLine("Положительных нет");
+                    return;
+                }
+
+                Insert(ref a, P, posit + 1);
+                Console.Write("Массив с добавлением: [");
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+                Console.Write("]");
+            }
+            #endregion
+            #region Task13_L2
+            static void L2N13()
+            {
+
+
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                int posit = default;
+                double max = double.MinValue;
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (i % 2 == 0)
+                    {
+                        if (a[i] > max)
+                        {
+                            max = a[i];
+                            posit = i;
+                        }
+                    }
+                }
+
+                a[posit] = posit;
+
+                
+                Console.Write("Массив с добавлением: [");
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+                Console.Write("]");
+            }
+            #endregion
+            #region Task15_L2
+            static void L2N15()
+            {
+
+                static void Insert(ref double[] arr, ref double[] arr2, int index)
+                {
+                    double[] newArray = new double[arr.Length + arr2.Length];
+
+
+                    for (int i = 0; i < index; i++)
+                    {
+                        newArray[i] = arr[i];
+                    }
+                    int k = 0;
+                    for (int i = index; i <= arr2.Length + 1; i++)
+                    {
+                        newArray[i] = arr2[k];
+                        k += 1;
+                    }
+                    for (int i = index; i < arr.Length; i++)
+                    {
+                        newArray[i + arr2.Length] = arr[i];
+                    }
+                    arr = newArray;
+                }
+
+                #region massA
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива A");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                #endregion
+                #region ArrB
+                int ammountB;
+                Console.WriteLine("Введите кол-во элементов будущего массива B");
+                bool normulB = int.TryParse(Console.ReadLine(), out ammountB);
+                if (ammountB < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normulB)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] b = new double[ammountB];
+                Console.WriteLine($"Введите {ammountB} значений/я массива через пробел ");
+                string sB = Console.ReadLine();
+                string[] cB = sB.Split(' ');
+                for (int i = 0; i < ammountB; i++)
+                {
+                    if ((cB.Length < ammountB) || (cB.Length > ammountB))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammountB} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(cB[i], out b[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                #endregion
+                int K;
+                Console.WriteLine("Введите K");
+                bool normulik = int.TryParse(Console.ReadLine(), out K);
+                if ((!normulik) || (K >= a.Length))
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                int posit = default;
+                int countik = 0;
+                for (int i = a.Length - 1; i >= 0; i--)
+                {
+                    if (a[i] > 0)
+                    {
+                        posit = i;
+                        countik += 1;
+                        break;
+                    }
+                }
+
+
+                Insert(ref a, ref b, K + 1);
+                Console.Write("Массив с добавлением: [");
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+                Console.Write("]");
+            }
+            #endregion
+            #region Task1_L3
+            static void L3N1()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                int countik = 0;
+                double max = double.MinValue;
+                double[] positFinal = new double[ammount];
+                ArrayList arr = new ArrayList();
+                int counter = 0;
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] > max)
+                    {
+
+                        max = a[i];
+                        countik += 1;
+                        arr.Clear();
+                    }
+                    if (a[i] == max)
+                    {
+                        arr.Add(i);
+                        countik += 1;
+                    }
+
+                }
+
+                
+                
+                if (countik < 2)
+                {
+                    Console.WriteLine("У макс нет повторений");
+                    return;
+                }
+                double[] Final = new double[counter];
+
+                Console.Write("Новый массив[");
+                for (int i = 0; i < arr.Count; i++)
+                {
+                    Console.Write($"{arr[i]} ");
+                }
+                Console.WriteLine("]");
+            }
+            #endregion
+            #region Task5_L3
+            static void L3N5()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                double[] mass = { };
+                if (a.Length % 2 == 0)
+                {
+                    mass = new double[a.Length / 2];
+                }
+                else
+                {
+                    mass = new double[(a.Length + 1) / 2];
+                }
+                int counter = 0;
+                for (int i = 0; i < a.Length; i += 2)
+                {
+                    mass[counter] = a[i];
+                    counter += 1;
+                }
+                double q, w, e;
+                for (q = 0; q < mass.Length; q++)
+                {
+                    for (int i = 0; i < mass.Length - 1; i++)
+                    {
+                        if (mass[i] > mass[i + 1])
+                        {
+                            w = mass[i];
+                            mass[i] = mass[i + 1];
+                            mass[i + 1] = w;
+                        }
+                    }
+                }
+
+                int cop = 0;
+                for (int i = 0; i < a.Length; i++)
+                {
+                    
+                    if (i%2 == 0)
+                    {
+                        a[i] = mass[cop];
+                        cop += 1;
+                    }
+
+                    
+                    Console.Write($"{a[i]} ");
+                }
+            }
+            #endregion
+            #region Task8_L3
+            static void L3N8()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double[] pop = new double[a.Length];
+                int[] popindex = new int[a.Length];
+                int counter = 0;
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] < 0)
+                    {
+                        pop[counter] = a[i];
+                        popindex[counter] = i;
+                        counter += 1;
+                    }
+                }
+                
+                if (counter < 2)
+                {
+                    Console.WriteLine("Вы ввели слишком мало отрицательных");
+                    return;
+                }
+
+                double q, w;
+                for (q = 0; q < counter; q++)
+                {
+                    for (int i = 0; i < counter - 1; i++)
+                    {
+                        if (pop[i] < pop[i + 1])
+                        {
+                            w = pop[i];
+                            pop[i] = pop[i + 1];
+                            pop[i + 1] = w;
+                        }
+                    }
+                }
+                for (int i = 0; i < counter; i++)
+                {
+                    a[popindex[i]] = pop[i];
+                }
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+            }
+            #endregion
+            #region Task9_L3
+            static void L3N9()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                int counterup = 1;
+                int counterdown = 1;
+                int maxcounter = 0;
+                for (int i = 0; i < a.Length - 1; i++)
+                {
+                    if (a[i] > a[i + 1])
+                    {
+                        counterdown = 1;
+                        counterup += 1;
+                    }
+                    if (a[i] < a[i + 1])
+                    {
+                        counterup = 1;
+                        counterdown += 1;
+                    }
+                    if (a[i] == a[i + 1])
+                    {
+                        counterup = 1;
+                        counterdown = 1;
+                    }
+
+                    if (counterup > maxcounter)
+                    {
+                        maxcounter = counterup;
+                    }
+                    if (counterdown > maxcounter)
+                    {
+                        maxcounter = counterdown;
+                    }
+                }
+
+                Console.WriteLine(maxcounter);
+            }
+            #endregion
+            #region Task12_L3
+            static void L3N12()
+            {
+
+
+                double[] a = new double[12];
+                Console.WriteLine($"Введите {12} значений массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                double[] pos = new double[12];
+                int counter = 0;
+                for (int i = 0; i < 12; i++)
+                {
+                    if ((c.Length < 12) || (c.Length > 12))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {12} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                    if (a[i] > 0)
+                    {
+                        pos[counter] = a[i];
+                        counter += 1;
+                    }
+                }
+
+                Console.Write("Новый массив[");
+                for (int i = 0; i < counter; i++)
+                {
+                    Console.Write($"{pos[i]} ");
+                }
+                Console.Write("]");
+            }
+            #endregion
+            #region Task13_L3
+            static void L3N13()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                int counter;
+                int countik = 0;
+                double[] prom = new double[a.Length];
+                for (int i = 0; i < a.Length; i++)
+                {
+                    counter = 0;
+                    for (int j = 0; j < a.Length - 1; j++)
+                    {
+                        if (i == j)
+                        {
+                            continue;
+                        }
+                        if (a[i] == a[j])
+                        {
+                            counter += 1;
+                        }
+                    }
+                    if (counter == 1)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        prom[countik] = a[i];
+                        countik += 1;
+                    }
+                }
+                if (countik == 0)
+                {
+                    Console.WriteLine("Все значения повторяются"); //Ну можно было тут и return приписать, но было бы менее красиво хз...
+
+                }
+                double[] edin = new double[countik];
+
+                Console.Write("Новый массив[");
+                for (int i = 0; i < countik; i++)
+                {
+                    edin[i] = prom[i];
+                    Console.Write($"{edin[i]} ");
+                }
+                Console.Write("]");
+            }
+            #endregion
+            #region Alg 11
+            static void Alg11()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                Array.Sort(a);
+                double x;
+                Console.WriteLine("Введите Х");
+                bool normulik = double.TryParse(Console.ReadLine(), out x);
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                int ind = 0;
+                int ind2 = a.Length - 1;
+                int sred;
+                int indx = 0;
+                while (ind <= ind2)
+                {
+                    sred = (ind + ind2) / 2;
+                    if (a[sred] == x)
+                    {
+                        indx = sred;
+                        break;
+                    }
+                    else if (a[sred] < x)
+                    {
+                        ind = sred + 1;
+                    }
+                    else if (a[sred] > x)
+                    {
+                        ind2 = sred - 1;
+                    }
+                }
+                Console.WriteLine(indx);
+            }
+            #endregion
+            #region Alg12
+            static void Alg12()
+            {
+             
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива A");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                int ammountB;
+                int ammountFinal = 0;
+                Console.WriteLine("Введите кол-во элементов будущего массива B");
+                bool normulB = int.TryParse(Console.ReadLine(), out ammountB);
+                if ((ammount < 2)||(ammountB < 2))
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normulB || !normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                int much = 0;
+                ammountFinal = ammount;
+                much = Math.Abs(ammount - ammountB);
+                if (ammount >= ammountB)
+                {
+                    ammountFinal = ammountB;
+                }
+
+
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел для массива А");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                
+                
+                double[] b = new double[ammountB];
+                Console.WriteLine($"Введите {ammountB} значений/я массива через пробел для массива B ");
+                string sB = Console.ReadLine();
+                string[] cB = sB.Split(' ');
+                for (int i = 0; i < ammountB; i++)
+                {
+                    if ((cB.Length < ammountB) || (cB.Length > ammountB))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammountB} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(cB[i], out b[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                
+
+                double[] massik = new double[ammount + ammountB];
+                int countik = 0;
+                for (int i = 0; i < ammountFinal ; i++)
+                {
+                    massik[2 * i] = a[countik];
+                    massik[2 * i + 1] = b[countik];
+                    countik += 1;
+
+                }
+                
+                for (int i = ammountFinal * 2; i < ammountFinal * 2 + much; i++)
+                {
+                    if (ammount >= ammountB)
+                    {
+                        massik[i] = a[countik];
+                        countik += 1;
+                    }
+                    if (ammount < ammountB)
+                    {
+                        massik[i] = b[countik];
+                        countik += 1;
+                    }
+                }
+                
+                for (int i = 0; i < massik.Length; i++)
+                {
+                    Console.Write($"{massik[i]} ");
+                }
+
+                
+            }
+            #endregion
+            #region Alg13
+            static void Alg13()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива A");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                int ammountB;
+                int ammountFinal = 0;
+                Console.WriteLine("Введите кол-во элементов будущего массива B");
+                bool normulB = int.TryParse(Console.ReadLine(), out ammountB);
+                if ((ammount < 2) || (ammountB < 2))
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normulB || !normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+
+                ammountFinal = ammount + ammountB;
+                
+
+
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел для массива А");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+
+
+                double[] b = new double[ammountB];
+                Console.WriteLine($"Введите {ammountB} значений/я массива через пробел для массива B ");
+                string sB = Console.ReadLine();
+                string[] cB = sB.Split(' ');
+                for (int i = 0; i < ammountB; i++)
+                {
+                    if ((cB.Length < ammountB) || (cB.Length > ammountB))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammountB} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(cB[i], out b[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                Array.Sort(a);
+                Array.Sort(b);
+                Array.Reverse(a);
+                Array.Reverse(b);
+                double[] massik = new double[ammountFinal];
+                int countA = 0;
+                int countB = 0;
+                int op = 0;
+                
+                while ((countA < a.Length)||(countB < b.Length))
+                {
+                    
+                    if (countA == a.Length)
+                    {
+                        massik[op] = b[countB];
+                        countB += 1;
+                        op += 1;
+                        continue;
+                    }
+                    if (countB == a.Length)
+                    {
+                        massik[op] = a[countA];
+                        countA += 1;
+                        op += 1;
+                        continue;
+                    }
+                    if (a[countA] >= b[countB])
+                    {
+                        massik[op] = a[countA];
+                        countA += 1;
+                        op += 1;
+                    }
+                    else
+                    {
+                        massik[op] = b[countB];
+                        countB += 1;
+                        op += 1;
+                    }
+
+                }
+               
+                for (int i = 0; i < massik.Length; i++)
+                {
+                    Console.Write($"{massik[i]} ");
+                }
+
+
+            }
+            #endregion
+            #region Alg 14
+            static void Alg14()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                double l;
+                int back = a.Length - 1;
+                for (int i = 0; i < a.Length / 2 ; i++)
+                {
+                    
+                    l = a[i];
+                    a[i] = a[back];
+                    a[back] = l;
+                    back--;
+                }
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+                
+                
+            }
+            #endregion
+            #region Alg15
+            static void Alg15()
+            {
+
+                int ammount;
+                Console.WriteLine("Введите кол-во элементов будущего массива");
+                bool normul = int.TryParse(Console.ReadLine(), out ammount);
+                if (ammount < 2)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                if (!normul)
+                {
+                    Console.WriteLine("Вы ввели что-то не то");
+                    return;
+                }
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел ");
+                string s = Console.ReadLine();
+                string[] c = s.Split(' ');
+                for (int i = 0; i < ammount; i++)
+                {
+                    if ((c.Length < ammount) || (c.Length > ammount))
+                    {
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
+                        break;
+                    }
+                    bool norm = double.TryParse(c[i], out a[i]);
+                    if (!norm)
+                    {
+                        Console.WriteLine("Вы ввели что-то не так");
+                    }
+                }
+                int m;
+                Console.WriteLine("Введите m");
+                bool normulB = int.TryParse(Console.ReadLine(), out m);
+                if ( m < 1)
+                {
+                    Console.WriteLine("Слишком мало");
+                    return;
+                }
+                double l;
+                int back = a.Length - 1;
+                for (int i = 0; i < m; i++)
+                {
+                    l = a[back];
+                    for (int j = a.Length - 1; j > 0; j--)
+                    {
+                        a[j] = a[j - 1];
+                    }
+                    a[0] = l;
+                    
+                }
+
+
+                for (int i = 0; i < a.Length; i++)
+                {
+                    Console.Write($"{a[i]} ");
+                }
+
+
+            }
+            #endregion
+            //L1N6();
+            //L1N10();
+            //L1N11();
+            //L1N12();
+            //L1N13();
+            //L2N5();
+            //L2N6();
+            //L2N9();
+            //L2N10();
+            //L2N11();
+            //L2N13();
+            //L2N15();
+            //L3N1();
+            //L3N5();
+            //L3N8();
+            //L3N9();
+            //L3N12();
+            //L3N13();
+            //Alg11();
+            Alg12();
+            //Alg13();
+            //Alg14();
+            //Alg15();
+            
+        }
+    }
+}
