@@ -73,8 +73,8 @@ namespace _3rd_Lab
             #region Task11
             {
                 const int n = 10;
+                int nu11=0;
                 double[] a = new double[n];
-                double[] b = new double[n];
                 int k = 0;
                 for (int i = 0; i < n; i++)
                 {
@@ -82,7 +82,10 @@ namespace _3rd_Lab
                     Console.WriteLine($"Enter el {i} of massive");
                     double.TryParse(Console.ReadLine(), out elem);
                     a[i] = elem;
+                    if (elem > 0)
+                        nu11++;
                 }
+                double[] b = new double[nu11];
                 foreach (double x in a)
                 {
                     if (x > 0)
@@ -91,7 +94,7 @@ namespace _3rd_Lab
                         k += 1;
                     }
                 }
-                for (int i1 = 0; i1 < k; i1++)
+                for (int i1 = 0; i1 < nu11; i1++)
                     Console.Write("{0:f1} ", b[i1]);
                 Console.WriteLine();
             }
@@ -138,15 +141,18 @@ namespace _3rd_Lab
                     double.TryParse(Console.ReadLine(), out el13);
                     mas[i] = el13;
                 }
-                for (int i1 = 0; i1 < len; i1 += 2)
+                for (int i = 0; i < len; i++)
                 {
-                    masch[k1] = mas[i1];
-                    k1 += 1;
-                }
-                for (int i1 = 1; i1 < len; i1 += 2)
-                {
-                    masnch[k2] = mas[i1];
-                    k2 += 1;
+                    if (i%2==0)
+                    {
+                        masch[k1] = mas[i];
+                        k1 += 1;
+                    }
+                    else
+                    {
+                        masnch[k2] = mas[i];
+                        k2 += 1;
+                    }
                 }
                 foreach (double x in masch)
                     Console.Write("{0:f1} ", x);
@@ -643,7 +649,7 @@ namespace _3rd_Lab
                 int ku39 = 0, kv39 = 0, ans39 = 0;
                 Console.WriteLine("Enter l39");
                 bool success39 = int.TryParse(Console.ReadLine(), out l39);
-                if(success39)
+                if (success39)
                 {
                     double[] a39 = new double[l39];
                     for (int i = 0; i < l39; i++)
@@ -653,36 +659,27 @@ namespace _3rd_Lab
                         double.TryParse(Console.ReadLine(), out el39);
                         a39[i] = el39;
                     }
-                    for(int i=0;i<l39-1;i++)
+                    for (int i = 0; i < l39 - 1; i++)
                     {
+                        int k391 = 0;
                         int k39 = 0;
-                        for(int j=i+1;j<l39;j++)
+                        for (int j = i + 1; j < l39; j++)
                         {
-                            if (a39[j] > a39[j-1])
+                            if (a39[j] > a39[j - 1])
                             {
                                 k39++;
-                                if (k39>kv39)
+                                if (k39 > kv39)
                                 {
                                     kv39 = k39;
                                 }
                             }
-                            else
-                                break;
-                        }
-                    }
-                    for (int i = 0; i < l39 - 1; i++)
-                    {
-                        int k391= 0;
-                        for (int j = i + 1; j < l39; j++)
-                        {
-                            if (a39[j] <a39[j-1])
+                            else if (a39[j] < a39[j - 1])
                             {
                                 k391++;
-                                if(k391>ku39)
+                                if (k391 > ku39)
                                 {
                                     ku39 = k391;
                                 }
-
                             }
                             else
                                 break;
@@ -701,34 +698,36 @@ namespace _3rd_Lab
             #region Task3.12
             {
                 int l312 = 12;
-                int c312 = 0;
                 double[] a312 = new double[l312];
-                int k312 = 0;
-                for(int i = 0; i < l312; i++)
+                int[] b312 = new int[l312];
+                int i312 = 0;
+                int c312 = 0;
+                for (int i = 0; i < l312; i++)
                 {
                     double el312;
                     Console.WriteLine($"Enter {i} element");
                     double.TryParse(Console.ReadLine(), out el312);
                     a312[i] = el312;
-                }
-                for (int i = 0; i < l312-1; i++)
-                {
-                    for(int j=i+1; j < l312; j++)
+                    if (el312 < 0)
                     {
-                        if (a312[j] < 0)
-                        {
-                            k312 = j;
-                            c312 += 1;
-                            for (int l = k312; l < l312 - 1; l++)
-                            {
-                                a312[l] = a312[l + 1];
-                            }
-                        }
+                        b312[i312] = i;
+                        i312++;
                     }
-
                 }
-                for(int i=0;i<l312-c312;i++)
-                    Console.Write("{0:} ",a312[i]);
+                foreach (int x in b312)
+                    Console.Write("{0:} ", x);
+                Console.WriteLine();
+                Console.WriteLine(i312);
+                for (int i = 0; i < i312; i++)
+                {
+                    for (int j = b312[i] - c312; j < l312 - 1; j++)
+                    {
+                        a312[j] = a312[j + 1];
+                    }
+                    c312++;
+                }
+                for (int i = 0; i < l312 - i312; i++)
+                    Console.Write("{0:} ", a312[i]);
                 Console.WriteLine();
             }
             #endregion
@@ -833,6 +832,7 @@ namespace _3rd_Lab
             #region Task 2
             {
                 int l2;
+                int k = 0, j = 0;
                 Console.WriteLine("Enter lenght of A massive");
                 bool success2 = int.TryParse(Console.ReadLine(), out l2);
                 if (success2)
@@ -867,43 +867,45 @@ namespace _3rd_Lab
                         Console.WriteLine();
                         if (l2 > n2)
                         {
-                            for (int i = 0, j = 0; (i < n2 * 2 && j < n2); i += 2, j++)
+                            for (int i = 0; i < n2 * 2; i++)
                             {
-                                c2[i] = a2[j];
+                                if (i % 2 == 0)
+                                {
+                                    c2[i] = a2[j];
+                                    j++;
+                                }
+                                else if (i % 2 != 0)
+                                {
+                                    c2[i] = b2[k];
+                                    k++;
+                                }
                             }
-                            for (int i = 1, j = 0; (i < n2 * 2 && j < n2); i += 2, j++)
+                            for (int i = n2 * 2, j1 = n2; (i < n2 + l2 && j1 < l2); i++, j1++)
                             {
-                                c2[i] = b2[j];
-                            }
-                            for (int i = n2 * 2, j = n2; (i < n2 + l2 && j < l2); i++, j++)
-                            {
-                                c2[i] = a2[j];
-                            }
-                        }
-                        else if (n2 > l2)
-                        {
-                            for (int i = 0, j = 0; (i < l2 * 2 && j < l2); i += 2, j++)
-                            {
-                                c2[i] = a2[j];
-                            }
-                            for (int i = 1, j = 0; (i < l2 * 2 && j < l2); i += 2, j++)
-                            {
-                                c2[i] = b2[j];
-                            }
-                            for (int i = l2 * 2, j = l2; (i <= n2 + l2 && j <= l2); i++, j++)
-                            {
-                                c2[i] = b2[j];
+                                c2[i] = a2[j1];
                             }
                         }
                         else
                         {
-                            for (int i = 0, j = 0; (i < l2 * 2 && j < l2); i += 2, j++)
+                            for (int i = 0; i < l2 * 2; i++)
                             {
-                                c2[i] = a2[j];
+                                if (i % 2 == 0)
+                                {
+                                    c2[i] = a2[j];
+                                    j++;
+                                }
+                                else if (i % 2 != 0)
+                                {
+                                    c2[i] = b2[k];
+                                    k++;
+                                }
                             }
-                            for (int i = 1, j = 0; (i < l2 * 2 && j < l2); i += 2, j++)
+                            if (k + j < l2 + n2)
                             {
-                                c2[i] = b2[j];
+                                for (int i = l2 * 2, j1 = l2; (i <= n2 + l2 && j1 <= l2); i++, j1++)
+                                {
+                                    c2[i] = b2[j];
+                                }
                             }
                         }
                         foreach (int x in c2)
