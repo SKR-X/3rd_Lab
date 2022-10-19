@@ -512,10 +512,10 @@ namespace lab3
 
             min_ind = -1;
             min = 0;
-            
+
             for (int i = min_ind + 1; i < lst2.Length; i++)
             {
-                if ((lst2[i] > 0) && ((lst2[i] < min) || (min_ind == 0)))
+                if ((lst2[i] > 0) && ((lst2[i] < min) || (min_ind == -1)))
                 {
                     min = lst2[i];
                     min_ind = i;
@@ -541,7 +541,7 @@ namespace lab3
             }
 
             Console.ReadLine();
-        #endregion
+            #endregion
 
         task_11_lv2:
             #region task 11 lv2
@@ -829,7 +829,7 @@ namespace lab3
 
             Console.ReadLine();
         #endregion
-
+10
         task_5_lv3:
             #region task 5 lv3
             Console.WriteLine("Task 5 (level 3)");
@@ -846,19 +846,7 @@ namespace lab3
             }
 
             lst2 = new double[lst1.Length];
-            for (int i = 0; i < lst1.Length; i++)
-            {
-                try_x = double.TryParse(lst1[i], out lst2[i]);
-                if (!try_x)
-                {
-                    Console.WriteLine("Invalid input.");
-                    Console.ReadLine();
-                    return;
-                }
-            }
-
-            lst = new double[(lst2.Length + 1) / 2];
-            for (int i = 0; i < lst2.Length; i ++)
+            for (int i = 0; i < lst2.Length; i++)
             {
                 if (i % 2 == 0)
                 {
@@ -868,23 +856,24 @@ namespace lab3
 
             Array.Sort(lst);
 
-            Console.WriteLine();
-            Console.WriteLine("Here is your new array:");
-
             for (int i = 0; i < lst2.Length; i++)
             {
                 if (i % 2 == 0)
                 {
-                    Console.Write($"{lst[i / 2]}  ");
-                }
-                else
-                {
-                    Console.Write($"{lst2[i]}  ");
+                    lst2[i] = lst[i / 2];
                 }
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Here is your new array:");
+
+            foreach (double val in lst2)
+            {
+                Console.Write($"{val}  ");
+            }
+
             Console.ReadLine();
-        #endregion
+            #endregion
 
         task_8_lv3:
             #region task 8 lv3
