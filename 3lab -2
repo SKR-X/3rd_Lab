@@ -1295,23 +1295,24 @@ namespace Lab3
                     Console.WriteLine("Вы ввели что-то не то");
                     return;
                 }
-                
+                int much = 0;
                 ammountFinal = ammount;
+                much = Math.Abs(ammount - ammountB);
                 if (ammount >= ammountB)
                 {
                     ammountFinal = ammountB;
                 }
 
 
-                double[] a = new double[ammountFinal];
-                Console.WriteLine($"Введите {ammountFinal} значений/я массива через пробел для массива А");
+                double[] a = new double[ammount];
+                Console.WriteLine($"Введите {ammount} значений/я массива через пробел для массива А");
                 string s = Console.ReadLine();
                 string[] c = s.Split(' ');
-                for (int i = 0; i < ammountFinal; i++)
+                for (int i = 0; i < ammount; i++)
                 {
-                    if ((c.Length < ammountFinal) || (c.Length > ammountFinal))
+                    if ((c.Length < ammount) || (c.Length > ammount))
                     {
-                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammountFinal} ");
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammount} ");
                         break;
                     }
                     bool norm = double.TryParse(c[i], out a[i]);
@@ -1322,15 +1323,15 @@ namespace Lab3
                 }
                 
                 
-                double[] b = new double[ammountFinal];
-                Console.WriteLine($"Введите {ammountFinal} значений/я массива через пробел для массива B ");
+                double[] b = new double[ammountB];
+                Console.WriteLine($"Введите {ammountB} значений/я массива через пробел для массива B ");
                 string sB = Console.ReadLine();
                 string[] cB = sB.Split(' ');
-                for (int i = 0; i < ammountFinal; i++)
+                for (int i = 0; i < ammountB; i++)
                 {
-                    if ((cB.Length < ammountFinal) || (cB.Length > ammountFinal))
+                    if ((cB.Length < ammountB) || (cB.Length > ammountB))
                     {
-                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammountFinal} ");
+                        Console.WriteLine($"Длина массива не может быть меньше или больше {ammountB} ");
                         break;
                     }
                     bool norm = double.TryParse(cB[i], out b[i]);
@@ -1339,8 +1340,9 @@ namespace Lab3
                         Console.WriteLine("Вы ввели что-то не так");
                     }
                 }
+                
 
-                double[] massik = new double[ammountFinal * 2];
+                double[] massik = new double[ammount + ammountB];
                 int countik = 0;
                 for (int i = 0; i < ammountFinal ; i++)
                 {
@@ -1349,6 +1351,21 @@ namespace Lab3
                     countik += 1;
 
                 }
+                
+                for (int i = ammountFinal * 2; i < ammountFinal * 2 + much; i++)
+                {
+                    if (ammount >= ammountB)
+                    {
+                        massik[i] = a[countik];
+                        countik += 1;
+                    }
+                    if (ammount < ammountB)
+                    {
+                        massik[i] = b[countik];
+                        countik += 1;
+                    }
+                }
+                
                 for (int i = 0; i < massik.Length; i++)
                 {
                     Console.Write($"{massik[i]} ");
@@ -1419,6 +1436,8 @@ namespace Lab3
                         Console.WriteLine("Вы ввели что-то не так");
                     }
                 }
+                Array.Sort(a);
+                Array.Sort(b);
                 Array.Reverse(a);
                 Array.Reverse(b);
                 double[] massik = new double[ammountFinal];
@@ -1599,9 +1618,9 @@ namespace Lab3
             //L3N8();
             //L3N9();
             //L3N12();
-            L3N13();
+            //L3N13();
             //Alg11();
-            //Alg12();
+            Alg12();
             //Alg13();
             //Alg14();
             //Alg15();
