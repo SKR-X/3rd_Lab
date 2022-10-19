@@ -512,32 +512,21 @@ namespace lab3
 
             min_ind = -1;
             min = 0;
-            for (int i = 0; i < lst2.Length; i++)
+            
+            for (int i = min_ind + 1; i < lst2.Length; i++)
             {
-                if (lst2[i] > 0)
+                if ((lst2[i] > 0) && ((lst2[i] < min) || (min_ind == 0)))
                 {
                     min = lst2[i];
                     min_ind = i;
-                    break;
                 }
             }
-
             if (min_ind == -1)
             {
                 Console.WriteLine("No positive values to delete in the array.");
                 Console.ReadLine();
                 return;
             }
-
-            for (int i = min_ind + 1; i < lst2.Length; i++)
-            {
-                if ((lst2[i] > 0) && (lst2[i] < min))
-                {
-                    min = lst2[i];
-                    min_ind = i;
-                }
-            }
-
             Console.WriteLine($"min positive: {min}; index: {min_ind}");
             Console.WriteLine();
 
