@@ -646,7 +646,7 @@ namespace _3rd_Lab
             #region Task3.9
             {
                 int l39;
-                int ku39 = 0, kv39 = 0, ans39 = 0;
+                int kv39 = 0, ans39 = 0;
                 Console.WriteLine("Enter l39");
                 bool success39 = int.TryParse(Console.ReadLine(), out l39);
                 if (success39)
@@ -659,36 +659,30 @@ namespace _3rd_Lab
                         double.TryParse(Console.ReadLine(), out el39);
                         a39[i] = el39;
                     }
-                    for (int i = 0; i < l39 - 1; i++)
+                    int k391 = 0;
+                    int k39 = 0;
+                    for (int i = 1; i < l39; i++)
                     {
-                        int k391 = 0;
-                        int k39 = 0;
-                        for (int j = i + 1; j < l39; j++)
+                        if (a39[i - 1] < a39[i])
                         {
-                            if (a39[j] > a39[j - 1])
-                            {
-                                k39++;
-                                if (k39 > kv39)
-                                {
-                                    kv39 = k39;
-                                }
-                            }
-                            else if (a39[j] < a39[j - 1])
-                            {
-                                k391++;
-                                if (k391 > ku39)
-                                {
-                                    ku39 = k391;
-                                }
-                            }
-                            else
-                                break;
+                            k391++;
                         }
+                        else
+                        {
+                            k391 = 0;
+                        }
+                        kv39 = Math.Max(k391, kv39);
+                        if (a39[i - 1] > a39[i])
+                        {
+                            k39++;
+                        }
+                        else
+                        {
+                            k39 = 0;
+                        }
+                        kv39 = Math.Max(k39, kv39);
                     }
-                    if (kv39 > ku39)
-                        ans39 = kv39;
-                    else
-                        ans39 = ku39;
+                    ans39 = kv39;
                     Console.WriteLine($"Answer for 3.9 is {ans39}");
                 }
                 else
