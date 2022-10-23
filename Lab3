@@ -538,7 +538,6 @@ namespace Lab3
                 int j = 0;
                 int k = 0;  
                 int i = 0;                 
-
                     while (j != ArrayA.Length & k != ArrayB.Length)
                     {
                         ArrayC[i] = ArrayA[j];
@@ -561,9 +560,7 @@ namespace Lab3
                                 ArrayC[m] = ArrayA[j];
                                 j++;
                         }
-                    }
-                
-
+                    }    
                 foreach (double x in ArrayC)
                     Console.WriteLine(x);
             }
