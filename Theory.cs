@@ -1,121 +1,241 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 
-namespace _3rd_Lab
+namespace ConsoleApplication1
 {
-    class Theory
+    class Program
     {
         static void Main(string[] args)
         {
-            #region Collections Theory
-            /* Array - static (restricted) massive of data in the memory. If we want to extend it, we should create a new array and copy existing data there.
-             * access to each number of array have static time that don't depend on size of array. So get arr[10] and arr[25426] consume equal time.
-             * use it when you have determinative amount of elements.
-             * 
-             *
-             *
-             * These more suitable collections available if you add System.Collections.Generic library
-             *
-             *
-             * Stack<type of data> - pile of elements (like a books on the table or plates in the sink) 
-             * that lay one over another and you can add new one to the top, look at the uppest one or take it
-             * 
-             * Queue<type of data> - like in the shop or on escalator in the subway. You can add to the end, look the first element or take the first element.
-             * 
-             * List<type of data> - linked array when you don't know the limit of your array and ought to add or remove elements sometimes (linked array)
-             * the PC create an array and when you want to add new element, it create a new array and copy all existing elements there.
-             *
-             * LinkedList<type of data> - array with a reference to the next and previous element (twice-linked array)
-             * 
-             * Dictionary<type of key, type of data> - pair key-value. You can add new key, find key, get value by key, set value by key. 
-             * Very fast access (as simple array), but more flexible
-             * 
-             */
-            #endregion
+            #region task 1.5
 
-            #region Arrays
-
-            //Dimensions:
-            int[] oneDimension = new int[1000000]; // row with a 1 million if zeros
-            double[] oneDimensionInitializedArray; // undefined array
-            int[,] twoDimension = new int[1000, 1000]; // matrix 1000 x 1000, filled by zeros
-            string[,,] threeDimension = new string[5, 10, 255]; 
-            // 5 rows, 10 columns and 255 elements in the column. Each element can contain a string (so it 4-th dimension array actually)
-
-            int[][] notSquarMatrix = new int[15][]; // array where each element contain an array (different or equal lengths) -> [ [0,1,2,3,4] , [10,25] , [8] ];
-
-            //and so on
-
-            // Access to element:
-
-            threeDimension[threeDimension.Length-1, 0, threeDimension.GetLength(2)-1] = "I am the latest element here!"; 
-            // do not forget that start with 0 and end with Length-1!
-
-
-            double[] shortExample = new double[4] { 1.2, 0.154564, -454, 0 }; // will be crated a new massive with 4 elements
-
-            // Use arrays for limited length. Otherwise - List.
-            // For fast search - Dictionary
-            // Efficient simple solutions usually realizing by Stack and Queue
-            // LinkedList is used seldom
+            Console.WriteLine("Task 1.5");
+            int n = 5;
+            double sum = 0;
+            double answer = 0;
+            double[] mas = new double[n];
+            Console.WriteLine("Write 5 numbers");
+            for (int i = 0; i < n; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                sum += mas[i] * mas[i];
+            }
+            answer = Math.Sqrt(sum);
+            Console.WriteLine("answer {0:f4}", answer);
 
             #endregion
-                
-            #region Tuples
-
-            //It is linked links to several variables in the fixed order:
-            (string name, int age, double height) student = ("Vasiliy", 20, 1.89);
-            (int[] marks, int average) table = ({1,2,3,4,5}, 3);.
-                
-            string Name = student.name; // or student.Item1
-            
-            var tuple = (count:5, sum:10);
-            Console.WriteLine(tuple.count); // 5
-            Console.WriteLine(tuple.sum); // 10
-            
-            // It is the simpliest structure of data (not an array!)
+            #region task 1.10
+            Console.WriteLine("task 1.10");
+            Console.WriteLine("Write P and Q");
+            double P, Q;
+            P = double.Parse(Console.ReadLine());
+            Q = double.Parse(Console.ReadLine());
+            double swap = 0;
+            if (P > Q)
+            {
+                swap = Q;
+                Q = P;
+                P = swap;
+            }
+            int kol = 0;
+            n = 10;
+            double[] mas2 = new double[n];
+            Console.WriteLine("Write 10 numbers in mas");
+            for (int i = 0; i < n; i++)
+            {
+                mas2[i] = double.Parse(Console.ReadLine());
+                if (P < mas2[i] && mas2[i] < Q)
+                {
+                    kol += 1;
+                }
+            }
+            Console.WriteLine("answer - {0:f4}", kol);
             #endregion
-           
-            #region Enum
-
-            //It is order of integers (Int 8 / 16 / 32 / 64) where you create a list of names and each name get the value (increment by 1 of previous):              
-            enum Marks
+            #region task 1.11
+            Console.WriteLine("task 1.11");
+            Console.WriteLine("Write 10 numbers of mas");
+            mas = new double[n];
+            mas2 = new double[n];
+            kol = 0;
+            for (int i = 0; i < n; i++)
             {
-                Bad = 2,
-                Nice, // auto-incremented to 3
-                Good, // 4 ...
-                Excellent // not coma at the end!
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] > 0)
+                {
+                    mas2[kol] = mas[i];
+                    kol += 1;
+                }
             }
-            
-            enum Classes
+            Console.WriteLine("mas with only positive numbers");
+            for (int i = 0; i < kol; i++)
             {
-                Math = 1,
-                PhysicalCulture = 3, // Jump over
-                History = 4,
-                Dinner = 2 // Instead Informatics
+                Console.WriteLine(mas2[i]);
             }
-            
-            int myAvgMark = (int)Marks.Bad + (int)Marks.Excellent; // cast to int!
-            Console.WriteLine((Classes)10); // expancion to enum values
-            
-            public enum Season
+            #endregion
+            #region task 1.12
+            Console.WriteLine("task 1.12");
+            n = 8;
+            int nomer = -1;
+            double znach = 0;
+            Console.WriteLine("Write numbers of mas");
+            mas = new double[n];
+            for (int i = 0; i < n; i++)
             {
-                Spring,
-                Summer,
-                Autumn,
-                Winter
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] < 0)
+                {
+                    znach = mas[i];
+                    nomer = i;
+                }
             }
-            
-            Season a = Season.Autumn;
-            Console.WriteLine($"Integral value of {a} is {(int)a}");  // output: Integral value of Autumn is 2
+                if (nomer == -1)
+                {
+                    Console.WriteLine("No numbers");
+                }
+                else
+                {
+                    Console.WriteLine($"answer, value - {znach} , index - {nomer}");
+                }
 
-            var b = (Season)1;
-            Console.WriteLine(b);  // output: Summer
+            #endregion
+            #region task 1.13
+            Console.WriteLine("task 1.13");
+            Console.WriteLine("Write 10 numbers of mas");
+            n = 10;
+            mas = new double[n];
+            int b = 5;
+            int j = 0;
+            int z = 0;
+            mas2 = new double[b];
+            double[] mas3 = new double[b];
+            for (int i=0; i<n;i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                if (i%2==0)
+                {
+                    mas2[j] = mas[i];
+                    j += 1;
+                }
+                else
+                {
+                    mas3[z] = mas[i];
+                    z += 1;
+                }
+            }
+            Console.WriteLine("Mas with even index");
+            for (int i=0;i<5;i++)
+            {
+                Console.WriteLine(mas2[i]);
+            }
+            Console.WriteLine("Mas with odd index");
+            for (int i=0;i<5;i++)
+            {
+                Console.WriteLine(mas3[i]);
+            }
+            #endregion
+            #region task 2.5
+            Console.WriteLine("task 2.5");
+            Console.WriteLine("Write size of mas");
+            int N = int.Parse(Console.ReadLine());
+            mas = new double[N];
+            double[] masotr = new double[N];
+            kol = 0;
+            double max=0;
+            int a = 0;
+            b = 0;
+            double min=0;
+            Console.WriteLine("Write numbers in mas");
+            for (int i=0;i<N;i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                if (i==0)
+                {
+                    max = mas[i];
+                    min = mas[i];
+                    a = i;
+                    b = i;
+                }
+                if (mas[i]>max)
+                {
+                    max = mas[i];
+                    a = i;
+                }
+                if (mas[i] < min)
+                {
+                    min = mas[i];
+                    b = i;
+                }
+            }
+            Console.WriteLine("Mas with negative numbers");
+            if (a < b)
+            {
+                for (int i = a + 1; i < b; i++)
+                {
+                    if (mas[i] < 0)
+                    {
+                        masotr[kol] = mas[i];
+                        Console.WriteLine(masotr[kol]);
+                        kol += 1;
+                    }
+                }
 
-            var c = (Season)4;
-            Console.WriteLine(c);  // output: 4
-            
-            // More informative than variables, more flexible than constans, more strict than string, more effective than dictionary :) cool thing!
-            #endregion       
+            }
+            else if (a > b)
+            {
+                for (int i = b + 1; i < a; i++)
+                {
+                    if (mas[i] < 0)
+                    {
+                        masotr[kol] = mas[i];
+                        Console.WriteLine(masotr[kol]);
+                        kol += 1;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No answer");
+            }
+            #endregion
+            #region task 2.6
+            Console.WriteLine("Task 2.6");
+            Console.WriteLine("Write P and amount of numbers in mas");
+            P = double.Parse(Console.ReadLine());
+            n = int.Parse(Console.ReadLine());
+            mas = new double[n];
+            sum = 0;
+            double sred = 0;
+            for(int i=0;i<n;i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                sum += mas[i];
+            }
+            sred = sum / n;
+            min = Math.Abs(sred-mas[0]);
+            for (int i=1;i<n;i++)
+            {
+                if (Math.Abs(sred - mas[i]) < min) ;
+                {
+                    a = i;
+                    min = (Math.Abs(sred - mas[i]));
+                }
+            }
+            for(int i=n-1;i>a;i--)
+            {
+                mas[i] = mas[i - 1];
+            }
+            mas[a + 1] = P;
+            Console.WriteLine("mas with P");
+            for(int i=0;i<n;i++)
+            {
+                Console.WriteLine(mas[i]);
+            }
+            #endregion
         }
     }
 }
