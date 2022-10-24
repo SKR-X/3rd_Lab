@@ -65,6 +65,7 @@ namespace ConsoleApplication1
             Console.WriteLine("Write 10 numbers of mas");
             mas = new double[n];
             mas2 = new double[n];
+            int count = 0; 
             kol = 0;
             for (int i = 0; i < n; i++)
             {
@@ -74,12 +75,15 @@ namespace ConsoleApplication1
                     mas2[kol] = mas[i];
                     kol += 1;
                 }
+                if (mas[i]<0)
+                {
+                    count += 1;
+                }
+                
             }
             Console.WriteLine("mas with only positive numbers");
-            for (int i = 0; i < kol; i++)
-            {
-                Console.WriteLine(mas2[i]);
-            }
+            mas2=mas2.SkipLast(count).ToArray();
+            Console.WriteLine(String.Join(" ", mas2));
             #endregion
             #region task 1.12
             Console.WriteLine("task 1.12");
@@ -176,36 +180,15 @@ namespace ConsoleApplication1
                 }
             }
             Console.WriteLine("Mas with negative numbers");
-            if (a < b)
+            for (int i= Math.Min(a,b)+1; i<Math.Max(a,b); i++)
             {
-                for (int i = a + 1; i < b; i++)
+                if (mas[i]<0)
                 {
-                    if (mas[i] < 0)
-                    {
-                        masotr[kol] = mas[i];
-                        Console.WriteLine(masotr[kol]);
-                        kol += 1;
-                    }
-                }
-
-            }
-            else if (a > b)
-            {
-                for (int i = b + 1; i < a; i++)
-                {
-                    if (mas[i] < 0)
-                    {
-                        masotr[kol] = mas[i];
-                        Console.WriteLine(masotr[kol]);
-                        kol += 1;
-                    }
+                    masotr[kol] = mas[i];
+                    Console.WriteLine(masotr[kol]);
+                    kol += 1;
                 }
             }
-            else
-            {
-                Console.WriteLine("No answer");
-            }
-            
             #endregion
             void Level2_6()
                 {
@@ -274,11 +257,10 @@ namespace ConsoleApplication1
                         b = i;
                     }
                 }
-                if (b > a) Console.WriteLine("Wrong b must be less than a");
                 if (a - b - 1 == 0 || n==1) Console.WriteLine("No elements");
                 else
                 {
-                    for (int i = b + 1; i < a; i++)
+                    for (int i = Math.Min(a,b)+1; i < Math.Max(a,b); i++)
                     {
                         sum += mas[i];
                     }
@@ -617,40 +599,16 @@ namespace ConsoleApplication1
                 int count = 0;
                 int count2 = 0;
                 int flag = 0;
+                List<double> masend = new List<double>();
                 Console.WriteLine("Write elements in mas");
                 for (int i=0;i<n;i++)
                 {
                     mas[i] = double.Parse(Console.ReadLine());
-                }
-                for(int i=0;i<n-1;i++)
-                {
-                    flag = 0;
-                    for(int j=i+1;j<n;j++)
-                    {
-                        if (mas[i] == mas[j])
-                        {   if (flag == 0)
-                            {
-                                flag = 1;
-                                count += 1;
-                            }
-                            for (int x=j+1;x<n;x++)
-                            {
-                                if (mas[j] != mas[x])
-                                {
-                                    swap = mas[j];
-                                    mas[j] = mas[x];
-                                    mas[x] = swap;
-                                    count2 += 1;
-                                    
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                    if (masend.Contains(mas[i]) == true) continue;
+                    else masend.Add(mas[i]);
                 }
                 Console.WriteLine("Answer");
-                mas = mas.SkipLast(count).ToArray();
-                Console.WriteLine(string.Join(", ",mas));   
+                Console.WriteLine(string.Join(", ",masend));   
             }
             void search_element()
             {
@@ -860,6 +818,7 @@ namespace ConsoleApplication1
             unification2();
             invert();
             shift();
+            
 
         }
     }
