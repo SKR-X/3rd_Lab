@@ -24,33 +24,58 @@ namespace ConsoleApp5
             #endregion
 
             #region 10
+            Console.WriteLine("Enter the size of your array:");
+            int rtywnde = Convert.ToInt32(Console.ReadLine());
+            int[] S15 = new int[rtywnde];
+            int inde1 = 0, inde2 = 0;
+            Console.WriteLine("Type the array:");
+            for (int i = 0; i < S15.Length; i++)
+            {
+                S15[i] = Convert.ToInt32(Console.ReadLine());
+            }
             Console.WriteLine("Type P:");
-            double P = Convert.ToDouble(Console.ReadLine());
+            double P = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Type Q:");
-            double Q = Convert.ToDouble(Console.ReadLine());
-            if (P >= Q)
+            double Q = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < S15.Length; i++)
             {
-                Console.WriteLine("No");
+                if (S15[i] == P)
+                {
+                    inde1 = i;
+                }
+                if (S15[i] == Q)
+                {
+                    inde2 = i;
+                }
             }
-            else
-            {
-                Console.WriteLine($"There are {Q - P - 1} symbol(s) between them");
-            }
+            Console.WriteLine(Math.Max(inde1, inde2) - Math.Min(inde1, inde2));
             #endregion
             
             #region 11
             double[] W = new double[10];
-            string S = "";
+            int cnt3 = 0, cnt4 = 0;
             Console.WriteLine("Type the array:");
             for (int i = 0; i < W.Length; i++)
             {
                 W[i] = Convert.ToDouble(Console.ReadLine());
                 if (W[i] > 0)
                 {
-                    S += Convert.ToString(W[i]) + " ";
+                    cnt3 += 1;
                 }
             }
-            Console.WriteLine(S);
+            double[] W1 = new double[cnt3];
+            for (int i = 0; i < W.Length; i++)
+            {
+                if (W[i] > 0)
+                {
+                    W1[cnt4] = W[i];
+                    cnt4 += 1;
+                }
+            }
+            for (int i = 0; i < W1.Length; i++)
+            {
+                Console.Write(W1[i] + " ");
+            }
             #endregion
             
             #region 12
@@ -105,9 +130,9 @@ namespace ConsoleApp5
             Console.WriteLine("Enter the size of your array:");
             int u = Convert.ToInt32(Console.ReadLine());
             double[] K = new double[u];
-            string E = "";
+            
             double ma, mi;
-            int i1 = 0, i2 = 0;
+            int i1 = 0, i2 = 0, cnt6 = 0, cnt7 = 0;
             Console.WriteLine("Type the array:");
             K[0] = Convert.ToDouble(Console.ReadLine());
             ma = K[0];
@@ -130,35 +155,51 @@ namespace ConsoleApp5
             {
                 if (K[i] < 0)
                 {
-                    E += Convert.ToString(K[i]) + " ";
+                    cnt7 += 1;
                 }
             }
-            Console.WriteLine("Your array is: " + E);
+            double[] E = new double[cnt7];
+            for (int i = Math.Min(i1, i2) + 1; i < Math.Max(i1, i2); i++)
+            {
+                if (K[i] < 0)
+                {
+                    E[cnt6] = K[i];
+                    cnt6 += 1;
+                }
+            }
+            for (int i = 0; i < E.Length; i++)
+            {
+                Console.Write(E[i] + " ");
+            }
             #endregion
             
             #region 6
-            Console.WriteLine("Enter the size of your array:");
+            Console.WriteLine("\nEnter the size of your array:");
             int j3 = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter 'P':");
             double p = Convert.ToDouble(Console.ReadLine());
-            double[] U = new double[j3];
+            double[] U = new double[j3+1];
             int ie = 0;
             double min, io = 0;
             Console.WriteLine("Type the array:");
-            for (int i = 0; i < U.Length; i++)
+            for (int i = 0; i < U.Length - 1; i++)
             {
                 U[i] = Convert.ToDouble(Console.ReadLine());
                 io += U[i];
             }
             min = U[0];
             io /= j3;
-            for (int i = 0; i < U.Length; i++)
+            for (int i = 0; i < U.Length - 1; i++)
             {
                 if (Math.Abs(U[i]-io) < min)
                 {
                     min = Math.Abs(U[i] - io);
                     ie = i;
                 }
+            }
+            for (int i = U.Length - 1; i > ie; i--)
+            {
+                U[i] = U[i - 1];
             }
             U[ie + 1] = p;
             for (int i = 0; i < U.Length; i++) 
@@ -169,7 +210,17 @@ namespace ConsoleApp5
             
             #region 9
             Console.WriteLine("Enter the size of your array:");
-            int jt = Convert.ToInt32(Console.ReadLine());
+            int jt;
+            if (!int.TryParse(Console.ReadLine(), out jt))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (jt <= 0)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
             double[] UU = new double[jt];
             double minn, maxx, summm = 0;
             int imin = 0, imax = 0;
@@ -204,8 +255,9 @@ namespace ConsoleApp5
             Console.WriteLine("Enter the size of your array:");
             int jj = Convert.ToInt32(Console.ReadLine());
             double[] SS = new double[jj];
+            
             double mi1 = -1;
-            int imi = 0;
+            int imi = 0, cnt8 = 0;
             Console.WriteLine("Type the array:");
             for (int i = 0; i < SS.Length; i++)
             {
@@ -223,17 +275,24 @@ namespace ConsoleApp5
             {
                 for (int i = 0; i < SS.Length; i++)
                 {
-                    if (SS[i] > 0 && SS[i] < mi)
+                    if (SS[i] > 0 && SS[i]<mi1)
                     {
-                        imi = i;
+                        mi1 = SS[i];
                     }
                 }
+                double[] SS1 = new double[jj-1];
+                cnt8 = 0;
                 for (int i = 0; i < SS.Length; i++)
                 {
-                    if (i != imi)
+                    if (i != imi + 1)
                     {
-                        Console.Write(SS[i] + " ");
+                        SS1[cnt8] = SS[i];
+                        cnt8 += 1;
                     }
+                }
+                for (int i = 0; i < SS1.Length; i++)
+                {
+                    Console.Write(SS1[i] + " ");
                 }
             }
             #endregion
@@ -447,7 +506,7 @@ namespace ConsoleApp5
                 Console.Write(ZXC[i] + " ");
             }
             #endregion
-
+            
             #region 9
             Console.WriteLine("Enter the size of your array:");
             int werty = Convert.ToInt32(Console.ReadLine());
@@ -458,37 +517,55 @@ namespace ConsoleApp5
             {
                 S1[i] = Convert.ToDouble(Console.ReadLine());
             }
+
             for (int i = 0; i < S1.Length - 1; i++)
             {
                 cnt1 += 1;
                 cnt2 += 1;
                 if (S1[i] >= S1[i + 1])
                 {
-                    max9 = Math.Max(max9, cnt1);
-                    cnt1 = 0;
+                    cnt1 = 1;
                 }
                 if (S1[i] <= S1[i + 1])
                 {
-                    max2 = Math.Max(max2, cnt2);
-                    cnt2 = 0;
+                    cnt2 = 1;  
                 }
+                max9 = Math.Max(max9, cnt1);
+                max2 = Math.Max(max2, cnt2);
             }
+
             Console.Write(Math.Max(max9, max2));
             #endregion
             
             #region 12
             double[] S2 = new double[12];
+            int cnt11 = 0;
             Console.WriteLine("Type the array:");
             for (int i = 0; i < S2.Length; i++)
             {
                 S2[i] = Convert.ToDouble(Console.ReadLine());
             }
+
             for (int i = 0; i < S2.Length; i++)
             {
-                if (S2[i]>=0)
+                if (S2[i]<0)
                 {
-                    Console.Write(S2[i] + " ");
+                    cnt11 += 1;
                 }
+            }
+            double[] SS2 = new double[cnt11];
+            cnt11 = 0;
+            for (int i = 0; i < S2.Length; i++)
+            {
+                if (S2[i] >= 0)
+                {
+                    SS2[cnt11] = S2[i];
+                    cnt11 += 1;
+                }
+            }
+            for (int i = 0; i < SS2.Length; i++)
+            {
+                Console.Write(SS2[i] + " ");
             }
             #endregion
             
@@ -522,7 +599,7 @@ namespace ConsoleApp5
                 }
             }
             #endregion
-            
+
             
             // алгоритмы (11, 12, 13, 14, 15)
 
@@ -586,10 +663,20 @@ namespace ConsoleApp5
                 }
             }
             #endregion
-            
+
             #region 12
             Console.WriteLine("Enter the size of your A array:");
-            int ty = Convert.ToInt32(Console.ReadLine());
+            int ty;
+            if (!int.TryParse(Console.ReadLine(), out ty))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (ty <= 0)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
             int[] S5 = new int[ty];
             Console.WriteLine("Type the A array:");
             for (int i = 0; i < S5.Length; i++)
@@ -597,7 +684,17 @@ namespace ConsoleApp5
                 S5[i] = Convert.ToInt32(Console.ReadLine());
             }
             Console.WriteLine("Enter the size of your B array:");
-            int ti = Convert.ToInt32(Console.ReadLine());
+            int ti;
+            if (!int.TryParse(Console.ReadLine(), out ti))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (ti <= 0)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
             int[] S6 = new int[ti];
             Console.WriteLine("Type the B array:");
             for (int i = 0; i < S6.Length; i++)
