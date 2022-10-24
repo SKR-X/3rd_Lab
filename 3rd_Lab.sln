@@ -1,25 +1,820 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32630.194
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3rd_Lab", "3rd_Lab.csproj", "{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D986EC4-2E4B-4FCE-84C6-9501CE396F60}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {81830C5F-B9BF-4AFB-AF7C-20645099C2E5}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Numerics;
+using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
+using System.Transactions;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.VisualBasic;
+
+public class Proga
+{
+
+    public static void Main(string[] args)
+    {
+        //resh.lvl1ex6();
+        //resh.lvl1ex10();
+        //resh.lvl1ex11();
+        //resh.lvl1ex12();
+        //resh.lvl1ex13();
+        //resh.lvl2ex6();
+        //resh.lvl2ex5();
+        //resh.lvl2ex9();
+        //resh.lvl2ex10();
+        //resh.lvl2ex11();
+        //resh.lvl2ex13();
+        //resh.lvl2ex15();
+        //resh.lvl3ex1();
+        //resh.lvl3ex5();
+        //resh.lvl3ex8();
+        //resh.lvl3ex9();
+        //resh.lvl3ex12();
+        //resh.lvl3ex13();
+        //resh.alg11();
+        //resh.alg12();
+        //resh.alg13();
+        //resh.alg14();
+        resh.alg15();
+    }
+
+    public class resh
+    {
+        public static void lvl1ex6()
+        {
+            Console.WriteLine("Enter 5 numbers");
+            double[] mas = new double[5];
+            for (int i = 0; i < 5; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+            }
+            double s = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                s += mas[i] * mas[i];
+            }
+            Console.WriteLine($"Vector len is {Math.Sqrt(s)}");
+        }
+        public static void lvl1ex10()
+        {
+            double[] mas = new double[10];
+
+            Console.WriteLine("Enter p and q");
+            double p = Convert.ToDouble(Console.ReadLine());
+            double q = Convert.ToDouble(Console.ReadLine());
+
+            while (p > q)
+            {
+                Console.WriteLine("enter q > p");
+                q = Convert.ToDouble(Console.ReadLine());
+            }
+            Console.WriteLine("Enter 10 numbers");
+
+            for (int i = 0; i < 10; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+            }
+
+            Console.WriteLine($"{mas.Where(i => i > p && q > i).Count()} number between p and q");
+            Console.ReadLine();
+        }
+
+        public static void lvl1ex11()
+        {
+            double[] mas = new double[10];
+            Console.WriteLine("Enter 10 numbers");
+
+            for (int i = 0; i < 10; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+            }
+            double[] Arr = Array.FindAll(mas, i => i > 0);
+            foreach (double s in Arr) Console.Write(s + " ");
+            Console.ReadLine();
+        }
+
+        public static void lvl1ex12()
+        {
+            double[] mas = new double[8];
+            Console.WriteLine("Enter 8 numbers");
+            for (int i = 0; i < 8; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+            }
+            double ans = Array.FindLast(mas, i => i < 0);
+            double index = Array.FindLastIndex(mas, i => i < 0);
+            Console.WriteLine($"Last element < 0 is {ans} its number is {index + 1}");
+            Console.ReadLine();
+        }
+
+        public static void lvl1ex13()
+        {
+            double[] mas = new double[8];
+            Console.WriteLine("Enter 8 numbers");
+
+            for (int i = 0; i < 8; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+
+            }
+
+            double[] even = Array.FindAll(mas, i => i % 2 == 0);
+            double[] odd = Array.FindAll(mas, i => i % 2 == 1);
+            Console.WriteLine("Even numbers:");
+            foreach (double s in even)
+                Console.Write(s + " ");
+            Console.WriteLine("\nOdd numbers:");
+            foreach (double s in odd)
+                Console.Write(s + " ");
+            Console.ReadLine();
+        }
+
+        public static void lvl2ex6()
+        {
+            Console.Write("Enter P: ");
+            double P = Convert.ToDouble(Console.ReadLine());
+            double sum = 0;
+            Console.WriteLine("Enetr length of massive: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] mas = new double[Le + 1];
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + "number of massive");
+                mas[i] = double.Parse(Console.ReadLine());
+            }
+            foreach (double s in mas)
+            {
+                sum += s;
+            }
+            double average = sum / Le;
+
+
+            double MinRange = 10000000;
+            int after = 0;
+            for (int i = 0; i < Le; i++)
+            {
+                if (MinRange > Math.Abs(mas[i] - average))
+                {
+                    MinRange = Math.Abs(mas[i] - average);
+                    after = i;
+
+                }
+            }
+            for (int i = Le; i > after; i--)
+            {
+                mas[i] = mas[i - 1];
+            }
+            mas[after + 1] = P;
+            foreach (double s in mas)
+            {
+                Console.Write(s + " ");
+            }
+        }
+
+        public static void lvl2ex5()
+        {
+            int counter = 0;
+            Console.WriteLine("Enetr length of massive: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] mas = new double[Le + 1];
+            double maximum = -10000000;
+            int minIn = -1;
+            double minimum = 10000000;
+            int maxIn = -1;
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " number of massive");
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] > maximum)
+                {
+                    maximum = mas[i];
+                    maxIn = i;
+                }
+                if (mas[i] < minimum)
+                {
+                    minimum = mas[i];
+                    minIn = i;
+                }
+            }
+
+            for (int i = Math.Min(maxIn, minIn) + 1; i < Math.Max(maxIn, minIn); i++)
+            {
+                if (mas[i] < 0)
+                {
+                    counter++;
+                }
+            }
+
+            int tmp = 0;
+            double[] masminus = new double[counter];
+            for (int i = Math.Min(maxIn, minIn) + 1; i < Math.Max(maxIn, minIn); i++)
+            {
+                if (mas[i] < 0)
+                {
+                    masminus[tmp] = mas[i];
+                    tmp++;
+                }
+            }
+            foreach (double s in masminus)
+            {
+                Console.Write(s + " ");
+            }
+        }
+
+        public static void lvl2ex9()
+        {
+            int counter = 0;
+            Console.WriteLine("Enetr length of massive: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] mas = new double[Le + 1];
+            double maximum = -10000000;
+            int minIn = -1;
+            double minimum = 10000000;
+            int maxIn = -1;
+            double sum = 0;
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " number of massive");
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] > maximum)
+                {
+                    maximum = mas[i];
+                    maxIn = i;
+                }
+                if (mas[i] < minimum)
+                {
+                    minimum = mas[i];
+                    minIn = i;
+                }
+            }
+
+            for (int i = Math.Min(maxIn, minIn) + 1; i < Math.Max(maxIn, minIn); i++)
+            {
+                counter++;
+                sum += mas[i];
+            }
+            Console.Write("arithmetic mean: " + sum / counter);
+        }
+
+        public static void lvl2ex10()
+        {
+            int counter = 0;
+            Console.WriteLine("Enetr length of massive: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] mas = new double[Le];
+            double maximum = -10000000;
+            int minIn = -1;
+            double minimum = 10000000;
+            int maxIn = -1;
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " number of massive");
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] < minimum && mas[i] > 0)
+                {
+                    minimum = mas[i];
+                    minIn = i;
+                }
+            }
+
+            double[] masminus = new double[Le - 1];
+
+            bool flag = false;
+            for (int i = 0; i < Le - 1; i++)
+            {
+                if (i == minIn)
+                {
+                    flag = true;
+                }
+                if (flag == false)
+                {
+                    masminus[i] = mas[i];
+                }
+                else
+                {
+                    masminus[i] = mas[i];
+                }
+            }
+
+            foreach (double s in masminus)
+            {
+                Console.Write(s + " ");
+            }
+        }
+
+        public static void lvl2ex11()
+        {
+            Console.Write("Enter P: ");
+            double P = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enetr length of massive: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] mas = new double[Le + 1];
+
+            int maxIn = -1;
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " number of massive");
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] > 0)
+                {
+                    maxIn = i;
+                }
+            }
+
+            for (int i = Le; i > maxIn + 1; i--)
+            {
+                mas[i] = mas[i - 1];
+            }
+            mas[maxIn + 1] = P;
+            foreach (double s in mas)
+            {
+                Console.Write(s + " ");
+            }
+        }
+
+        public static void lvl2ex13()
+        {
+            Console.WriteLine("Enetr length of massive: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] mas = new double[Le];
+
+            int maxIn = -1;
+            double maxnumber = -10000000;
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " number of massive");
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] > maxnumber && i % 2 == 0)
+                {
+                    maxIn = i;
+                }
+            }
+            mas[maxIn] = maxIn;
+            foreach (double s in mas)
+            {
+                Console.Write(s + " ");
+            }
+        }
+
+        public static void lvl2ex15()
+        {
+            Console.WriteLine("Eneter length of massive A: ");
+            int LeA = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Eneter length of massive B: ");
+            int LeB = Convert.ToInt32(Console.ReadLine());
+            double[] masA = new double[LeA];
+            double[] masB = new double[LeB];
+            double[] ANS = new double[LeA + LeB];
+
+            Console.WriteLine("Eneter K: ");
+            int k = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < LeA; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " number of massive A");
+                masA[i] = double.Parse(Console.ReadLine());
+            }
+            for (int i = 0; i < LeB; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " number of massive B");
+                masB[i] = double.Parse(Console.ReadLine());
+            }
+            for (int i = 0; i < k; i++)
+            {
+                ANS[i] = masA[i];
+            }
+            for (int i = k; i < k + LeB; i++)
+            {
+                ANS[i] = masB[i - k];
+            }
+            for (int i = k + LeB; i < ANS.Length; i++)
+            {
+                ANS[i] = masA[i - LeB];
+            }
+
+
+            foreach (double s in ANS)
+            {
+                Console.Write(s + " ");
+            }
+        }
+
+        public static void lvl3ex1()
+        {
+            Console.WriteLine("Enter length of array: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double max = -9000000;
+            double[] arr = new double[Le];
+            int counter = 0;
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " elememt of array");
+                arr[i] = Convert.ToDouble(Console.ReadLine());
+                if (max < arr[i])
+                {
+                    counter = 0;
+                    max = arr[i];
+                }
+                if (max == arr[i])
+                {
+                    counter++;
+                }
+            }
+            int[] arr2 = new int[counter];
+            int tmp = 0;
+            for (int i = 0; i < Le; i++)
+            {
+                if (arr[i] == max)
+                {
+                    arr2[tmp] = i;
+                    tmp++;
+                }
+            }
+            foreach (int i in arr2)
+            {
+                Console.Write(i + " ");
+            }
+        }
+
+        public static void lvl3ex5()
+        {
+            Console.WriteLine("Enter length of array: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] arr = new double[Le];
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " elememt of array");
+                arr[i] = Convert.ToDouble(Console.ReadLine());
+            }
+            double tmp;
+
+            for (int i = 0; i < Le - 2; i += 2)
+            {
+                for (int j = i + 2; j < Le; j += 2)
+                {
+                    if (arr[i] > arr[j])
+                    {
+                        tmp = arr[j];
+                        arr[j] = arr[i];
+                        arr[i] = tmp;
+                    }
+                }
+            }
+
+            foreach (double i in arr)
+            {
+                Console.Write(i + " ");
+            }
+        }
+
+        public static void lvl3ex8()
+        {
+            Console.WriteLine("Enter length of array: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] arr = new double[Le];
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " elememt of array");
+                arr[i] = Convert.ToDouble(Console.ReadLine());
+            }
+            double tmp;
+
+            for (int i = 0; i < Le - 1; i++)
+            {
+                if (arr[i] < 0)
+                {
+                    for (int j = i + 1; j < Le; j++)
+                    {
+                        if (arr[j] < 0 && arr[i] < arr[j])
+                        {
+                            tmp = arr[j];
+                            arr[j] = arr[i];
+                            arr[i] = tmp;
+                        }
+                    }
+                }
+            }
+
+            foreach (double i in arr)
+            {
+                Console.Write(i + " ");
+            }
+        }
+
+
+        public static void lvl3ex9()
+        {
+            Console.WriteLine("Enter length of array: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            double[] arr = new double[Le];
+            double maxLe = 0;
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " elememt of array");
+                arr[i] = Convert.ToDouble(Console.ReadLine());
+            }
+            double tmp;
+            for (int i = 0; i < Le - 1; i++)
+            {
+                tmp = 2;
+                if (arr[i] < arr[i + 1])
+                {
+                    for (int j = i + 1; j < Le - 1; j++)
+                    {
+                        if (arr[j] < arr[j + 1])
+                        {
+                            tmp++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (arr[i] > arr[i + 1])
+                {
+                    for (int j = i + 1; j < Le - 1; j++)
+                    {
+                        if (arr[j] > arr[j + 1])
+                        {
+                            tmp++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (maxLe < tmp)
+                {
+                    maxLe = tmp;
+                }
+            }
+            Console.WriteLine("Biggest length is: " + maxLe);
+        }
+
+        public static void lvl3ex12()
+        {
+            List<double> list1 = new List<double>();
+            double maxLe = 0;
+            for (int i = 0; i < 12; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " elememt of array");
+                list1.Add(Convert.ToDouble(Console.ReadLine()));
+            }
+            for (int i = 0; i < list1.Count; i++)
+            {
+                if (list1[i] < 0)
+                {
+                    list1.RemoveAt(i);
+                    i--;
+                }
+            }
+            for (int i = 0; i < list1.Count; i++)
+            {
+                Console.Write(list1[i] + " ");
+            }
+
+        }
+
+        public static void lvl3ex13()
+        {
+            List<double> arr = new List<double>();
+            Console.WriteLine("Enter length of array: ");
+            int Le = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < Le; i++)
+            {
+                Console.WriteLine("Enter " + (i + 1) + " elememt of array");
+                arr.Add(Convert.ToDouble(Console.ReadLine()));
+            }
+            for (int i = 0; i < arr.Count - 1; i++)
+            {
+                for (int j = i + 1; j < arr.Count; j++)
+                {
+                    if (arr[i] == arr[j])
+                    {
+                        arr.RemoveAt(j);
+                        j--;
+                    }
+                }
+            }
+            for (int i = 0; i < arr.Count; i++)
+            {
+                Console.Write(arr[i] + " ");
+            }
+            Console.Write("/n");
+        }
+
+        public static void alg11()
+        {
+            Console.WriteLine("Enter length of array: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            double[] a = new double[n];
+
+            for (int j = 0; j < n; j++)
+            {
+                Console.WriteLine("Enter " + (j + 1) + " elememt of array");
+                a[j] = Convert.ToDouble(Console.ReadLine());
+            }
+            Console.WriteLine("Enter X: ");
+            double x = Convert.ToDouble(Console.ReadLine());
+            int i1 = 0, i2 = n - 1, i ;
+            while (i2 >= i1)
+            {
+                i = (i1 + i2) / 2;
+                if (a[i] == x)
+                {
+                    Console.WriteLine($"X exist, it's index {i}");
+                    break;
+                }
+                else if (x < a[i])
+                {
+                    i2 = i - 1;
+                }else
+                {
+                    i1 = i + 1;
+                }
+            }
+            if (i2 < i1)
+            {
+                Console.WriteLine("X doesn't exist");
+            }
+        }
+
+        public static void alg12()
+        {
+            Console.WriteLine("Enter length of array a: ");
+            int a1 = Convert.ToInt32(Console.ReadLine());
+            double[] a = new double[a1];
+
+            for (int j = 0; j < a1; j++)
+            {
+                Console.WriteLine("Enter " + (j + 1) + " elememt of array a");
+                a[j] = Convert.ToDouble(Console.ReadLine());
+            }
+            Console.WriteLine("Enter length of array b: ");
+            int b1 = Convert.ToInt32(Console.ReadLine());
+            double[] b = new double[b1];
+
+            for (int j = 0; j < b1; j++)
+            {
+                Console.WriteLine("Enter " + (j + 1) + " elememt of array");
+                b[j] = Convert.ToDouble(Console.ReadLine());
+            }
+
+            double[] c = new double [a1 + b1 - Math.Abs(a1-b1)];
+            for (int j = 0; j < c.Length / 2; j++)
+            {
+                c[2 * j] = a[j];
+                c[2 * j + 1] = b[j];
+            }
+
+            foreach (double i in c)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine("");
+            if (a1 < b1)
+            {
+                for (int j = a1; j < a1 + Math.Abs(a1 - b1); j++)
+                {
+                    Console.Write(b[j] + " ");
+                }
+            }else if (a1 > b1)
+            {
+                for (int j = b1; j < b1 + Math.Abs(a1 - b1); j++)
+                {
+                    Console.Write(a[j] + " ");
+                }
+            }
+        }
+
+        public static void alg13()
+        {
+            Console.WriteLine("Enter length of array a: ");
+            int a1 = Convert.ToInt32(Console.ReadLine());
+            double[] a = new double[a1];
+
+            for (int j = 0; j < a1; j++)
+            {
+                Console.WriteLine("Enter " + (j + 1) + " elememt of array a");
+                a[j] = Convert.ToDouble(Console.ReadLine());
+            }
+            Console.WriteLine("Enter length of array b: ");
+            int b1 = Convert.ToInt32(Console.ReadLine());
+            double[] b = new double[b1];
+
+            for (int j = 0; j < b1; j++)
+            {
+                Console.WriteLine("Enter " + (j + 1) + " elememt of array");
+                b[j] = Convert.ToDouble(Console.ReadLine());
+            }
+
+            double[] c = new double[a1 + b1];
+            int min = 0;
+            if (a1 < b1)
+            {
+                min = a1;
+            }else
+            {
+                min = b1;
+            }
+            int ai = 0, bi = 0;
+            while (ai < min || bi < min)
+            {
+                if (a[ai] < b[bi])
+                {
+                    c[ai + bi] = b[bi];
+                    bi++;
+                }
+                else
+                {
+                    c[ai + bi] = a[ai];
+                    ai++;
+                }
+            }
+
+            if (a1 < b1)
+            {
+                for (; bi < b1; bi++)
+                {
+                    c[bi + ai] = b[bi];
+                }
+            }
+            if (a1 > b1)
+            {
+                for (; ai < a1; ai++)
+                {
+                    c[bi + ai] = a[ai];
+                }
+            }
+
+            foreach (double i in c)
+            {
+                Console.Write(i + " ");
+            }
+        }
+
+        public static void alg14()
+        {
+            Console.WriteLine("Enter length of array a: ");
+            int a1 = Convert.ToInt32(Console.ReadLine());
+            double[] a = new double[a1];
+
+            for (int j = 0; j < a1; j++)
+            {
+                Console.WriteLine("Enter " + (j + 1) + " elememt of array a");
+                a[j] = Convert.ToDouble(Console.ReadLine());
+            }
+            double tmp = 0;
+            for (int i = 0; i < a1 / 2; i++)
+            {
+                tmp = a[i];
+                a[i] = a[a1 - i - 1];
+                a[a1 - i - 1] = tmp;
+            }
+            foreach (double i in a)
+            {
+                Console.Write(i + " ");
+            }
+        }
+
+        public static void alg15()
+        {
+            Console.WriteLine("Enter length of array a: ");
+            int a1 = Convert.ToInt32(Console.ReadLine());
+            double[] a = new double[a1];
+
+            for (int j = 0; j < a1; j++)
+            {
+                Console.WriteLine("Enter " + (j + 1) + " elememt of array a");
+                a[j] = Convert.ToDouble(Console.ReadLine());
+            }
+
+            Console.WriteLine("Enter amount of moves: ");
+            int x = Convert.ToInt32(Console.ReadLine());
+            x = x % a1;
+            double[] help = new double[x];
+
+            for (int i = 0; i < x; i++)
+            {
+                help[i] = a[a1 - 1 - i];
+            }
+
+            for (int i = a1 - 1; i > x - 1; i--)
+            {
+                a[i] = a[i - x];
+            }
+            for (int i = 0; i < x; i++)
+            {
+                a[i] = help[x - 1 - i];
+            }
+
+            foreach (double i in a)
+            {
+                Console.Write(i + " ");
+            }
+        }
+    }
+}
