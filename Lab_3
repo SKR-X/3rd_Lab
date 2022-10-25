@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApp5
+namespace ConsoleApp2
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
+            
             // Lab 3
             // 1st lvl (6, 10, 11, 12, 13)
             #region 6
@@ -22,33 +25,74 @@ namespace ConsoleApp5
             s = Math.Pow(s, 0.5);
             Console.WriteLine($"L = {s}");
             #endregion
-
+            
             #region 10
             Console.WriteLine("Enter the size of your array:");
-            int rtywnde = Convert.ToInt32(Console.ReadLine());
+            int rtywnde;
+            if (!int.TryParse(Console.ReadLine(), out rtywnde))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (rtywnde <= 0)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
             int[] S15 = new int[rtywnde];
-            int inde1 = 0, inde2 = 0;
             Console.WriteLine("Type the array:");
             for (int i = 0; i < S15.Length; i++)
             {
                 S15[i] = Convert.ToInt32(Console.ReadLine());
             }
             Console.WriteLine("Type P:");
-            double P = Convert.ToInt32(Console.ReadLine());
+            int P;
+            if (!int.TryParse(Console.ReadLine(), out P))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (P <= 0)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
             Console.WriteLine("Type Q:");
-            double Q = Convert.ToInt32(Console.ReadLine());
+            int Q;
+            if (!int.TryParse(Console.ReadLine(), out Q))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (Q <= 0 || Q <= P)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            int cnt52 = 0;
             for (int i = 0; i < S15.Length; i++)
             {
-                if (S15[i] == P)
+                if (S15[i] > P && S15[i] < Q)
                 {
-                    inde1 = i;
-                }
-                if (S15[i] == Q)
-                {
-                    inde2 = i;
+                    cnt52 += 1;
                 }
             }
-            Console.WriteLine(Math.Max(inde1, inde2) - Math.Min(inde1, inde2));
+            int[] P1 = new int[cnt52];
+            cnt52 = 0;
+            for (int i = 0; i < S15.Length; i++)
+            {
+                if (S15[i] > P && S15[i] < Q)
+                {
+                    P1[cnt52] = S15[i];
+                    cnt52 += 1;
+                }
+            }
+            for (int i = 0; i < P1.Length; i++)
+            {
+                Console.Write(P1[i] + " ");
+            }
+            Console.ReadLine();
+
             #endregion
             
             #region 11
@@ -77,7 +121,7 @@ namespace ConsoleApp5
                 Console.Write(W1[i] + " ");
             }
             #endregion
-            
+
             #region 12
             double[] V = new double[8];
             double m = 0, n = 0, f = 0;
@@ -96,12 +140,12 @@ namespace ConsoleApp5
             {
                 Console.WriteLine("Nope");
             }
-            else 
+            else
             {
                 Console.WriteLine($"Value = {m}, " + $"index = {n}");
             }
             #endregion
-            
+
             #region 13
             double[] A = new double[10];
             double[] B = new double[5];
@@ -110,27 +154,37 @@ namespace ConsoleApp5
             for (int i = 0; i < A.Length; i++)
             {
                 A[i] = Convert.ToDouble(Console.ReadLine());
-                if (i%2==0)
+                if (i % 2 == 0)
                 {
                     B[i / 2] = A[i];
                 }
                 else
                 {
-                    C[(i-1) / 2] = A[i];
+                    C[(i - 1) / 2] = A[i];
                 }
             }
             var str1 = string.Join(" ", B);
             var str2 = string.Join(" ", C);
             Console.WriteLine("1st array: " + str1 + "\n2nd array: " + str2);
             #endregion
-            
-            // 2nd lvl (5, 6, 9, 10, 11, 13, 15)
 
+            // 2nd lvl (5, 6, 9, 10, 11, 13, 15)
+            
             #region 5
             Console.WriteLine("Enter the size of your array:");
-            int u = Convert.ToInt32(Console.ReadLine());
+            int u;
+            if (!int.TryParse(Console.ReadLine(), out u))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (u <= 0)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
             double[] K = new double[u];
-            
+
             double ma, mi;
             int i1 = 0, i2 = 0, cnt6 = 0, cnt7 = 0;
             Console.WriteLine("Type the array:");
@@ -177,8 +231,18 @@ namespace ConsoleApp5
             Console.WriteLine("\nEnter the size of your array:");
             int j3 = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter 'P':");
-            double p = Convert.ToDouble(Console.ReadLine());
-            double[] U = new double[j3+1];
+            double p;
+            if (!int.TryParse(Console.ReadLine(), out p))
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            else if (p <= -1)
+            {
+                Console.WriteLine("Nope");
+                return;
+            }
+            double[] U = new double[j3 + 1];
             int ie = 0;
             double min, io = 0;
             Console.WriteLine("Type the array:");
@@ -191,7 +255,7 @@ namespace ConsoleApp5
             io /= j3;
             for (int i = 0; i < U.Length - 1; i++)
             {
-                if (Math.Abs(U[i]-io) < min)
+                if (Math.Abs(U[i] - io) < min)
                 {
                     min = Math.Abs(U[i] - io);
                     ie = i;
@@ -202,7 +266,7 @@ namespace ConsoleApp5
                 U[i] = U[i - 1];
             }
             U[ie + 1] = p;
-            for (int i = 0; i < U.Length; i++) 
+            for (int i = 0; i < U.Length; i++)
             {
                 Console.Write(U[i] + " ");
             }
@@ -255,36 +319,31 @@ namespace ConsoleApp5
             Console.WriteLine("Enter the size of your array:");
             int jj = Convert.ToInt32(Console.ReadLine());
             double[] SS = new double[jj];
-            
-            double mi1 = -1;
-            int imi = 0, cnt8 = 0;
+
+            double mi1 = double.PositiveInfinity;
+            int imi = 0, f70 = 0, cnt8;
             Console.WriteLine("Type the array:");
             for (int i = 0; i < SS.Length; i++)
             {
                 SS[i] = Convert.ToDouble(Console.ReadLine());
-                if (SS[i] > 0)
+                if (SS[i] > 0 && SS[i] < mi1)
                 {
                     mi1 = SS[i];
+                    f70 = 1;
+                    imi = i;
                 }
             }
-            if (mi1 == -1)
+            if (f70 == 0)
             {
                 Console.WriteLine("No");
             }
             else
             {
-                for (int i = 0; i < SS.Length; i++)
-                {
-                    if (SS[i] > 0 && SS[i]<mi1)
-                    {
-                        mi1 = SS[i];
-                    }
-                }
-                double[] SS1 = new double[jj-1];
+                double[] SS1 = new double[jj - 1];
                 cnt8 = 0;
                 for (int i = 0; i < SS.Length; i++)
                 {
-                    if (i != imi + 1)
+                    if (i != imi)
                     {
                         SS1[cnt8] = SS[i];
                         cnt8 += 1;
@@ -295,6 +354,7 @@ namespace ConsoleApp5
                     Console.Write(SS1[i] + " ");
                 }
             }
+            Console.ReadLine();
             #endregion
             
             #region 11
@@ -330,7 +390,7 @@ namespace ConsoleApp5
                 Console.Write(pp);
             }
             #endregion
-            
+
             #region 13
             Console.WriteLine("Enter the size of your array:");
             int ll = Convert.ToInt32(Console.ReadLine());
@@ -363,7 +423,7 @@ namespace ConsoleApp5
                 }
             }
             #endregion
-            
+
             #region 15
             Console.WriteLine("Enter the size of your A array:");
             int ee = Convert.ToInt32(Console.ReadLine());
@@ -406,7 +466,7 @@ namespace ConsoleApp5
                 }
             }
             #endregion
-            
+
             //3rd lvl (1, 5, 8, 9, 12, 13)
 
             #region 1
@@ -436,10 +496,10 @@ namespace ConsoleApp5
             }
             for (int i = 0; i < IND.Count; i++)
             {
-                 Console.Write(IND[i] + " ");
+                Console.Write(IND[i] + " ");
             }
             #endregion
-            
+
             #region 5
             Console.WriteLine("Enter the size of your array:");
             int eeee = Convert.ToInt32(Console.ReadLine());
@@ -471,7 +531,7 @@ namespace ConsoleApp5
                 Console.Write(NNN[i] + " ");
             }
             #endregion
-            
+
             #region 8
             Console.WriteLine("Enter the size of your array:");
             int qwerty = Convert.ToInt32(Console.ReadLine());
@@ -506,7 +566,7 @@ namespace ConsoleApp5
                 Console.Write(ZXC[i] + " ");
             }
             #endregion
-            
+
             #region 9
             Console.WriteLine("Enter the size of your array:");
             int werty = Convert.ToInt32(Console.ReadLine());
@@ -528,7 +588,7 @@ namespace ConsoleApp5
                 }
                 if (S1[i] <= S1[i + 1])
                 {
-                    cnt2 = 1;  
+                    cnt2 = 1;
                 }
                 max9 = Math.Max(max9, cnt1);
                 max2 = Math.Max(max2, cnt2);
@@ -536,7 +596,7 @@ namespace ConsoleApp5
 
             Console.Write(Math.Max(max9, max2));
             #endregion
-            
+
             #region 12
             double[] S2 = new double[12];
             int cnt11 = 0;
@@ -548,7 +608,7 @@ namespace ConsoleApp5
 
             for (int i = 0; i < S2.Length; i++)
             {
-                if (S2[i]<0)
+                if (S2[i] < 0)
                 {
                     cnt11 += 1;
                 }
@@ -568,7 +628,7 @@ namespace ConsoleApp5
                 Console.Write(SS2[i] + " ");
             }
             #endregion
-            
+
             #region 13
             Console.WriteLine("Enter the size of your array:");
             int erty = Convert.ToInt32(Console.ReadLine());
@@ -600,7 +660,7 @@ namespace ConsoleApp5
             }
             #endregion
 
-            
+
             // алгоритмы (11, 12, 13, 14, 15)
 
 
@@ -663,7 +723,7 @@ namespace ConsoleApp5
                 }
             }
             #endregion
-
+            
             #region 12
             Console.WriteLine("Enter the size of your A array:");
             int ty;
@@ -701,24 +761,36 @@ namespace ConsoleApp5
             {
                 S6[i] = Convert.ToInt32(Console.ReadLine());
             }
-            int[] S7 = new int[Math.Min(S6.Length, S5.Length) * 2];
-
-            for (int i = 0; i < S7.Length; i++)
+            int[] S7 = new int[S6.Length + S5.Length];
+            int c10 = 0, c11 = 0;
+            for (int i = 0; i < S7.Length - 1; i += 2)
             {
-                if (i%2 == 0)
+                if (c10 < S5.Length)
                 {
-                    S7[i] = S5[i / 2];
+                    S7[i] = S5[c10];
+                    c10 += 1;
                 }
                 else
                 {
-                    S7[i] = S6[(i - 1) / 2];
+                    S7[i] = S6[c11];
+                    c11 += 1;
                 }
-            }
-
+                if (c11 < S6.Length)
+                {
+                    S7[i + 1] = S6[c11];
+                    c11 += 1;
+                }
+                else
+                {
+                    S7[i + 1] = S5[c10];
+                    c10 += 1;
+                }
+            }           
             for (int i = 0; i < S7.Length; i++)
             {
                 Console.Write(S7[i] + " ");
             }
+            Console.ReadLine();
             #endregion
             
             #region 13
@@ -818,7 +890,7 @@ namespace ConsoleApp5
                 Console.Write(S10[i] + " ");
             }
             #endregion
-            
+
             #region 14
             Console.WriteLine("Enter the size of your array:");
             int rtywn = Convert.ToInt32(Console.ReadLine());
@@ -829,7 +901,7 @@ namespace ConsoleApp5
             {
                 S11[i] = Convert.ToInt32(Console.ReadLine());
             }
-            for (int i = 0; i < S11.Length/2; i++)
+            for (int i = 0; i < S11.Length / 2; i++)
             {
                 num1 = S11[rtywn - i - 1];
                 S11[rtywn - i - 1] = S11[i];
@@ -869,6 +941,7 @@ namespace ConsoleApp5
                 Console.Write(S12[i] + " ");
             }
             #endregion
+            
         }
     }
 }
