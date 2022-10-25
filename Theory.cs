@@ -1,121 +1,825 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Channels;
+using System.Xml.Serialization;
 
-namespace _3rd_Lab
+namespace ConsoleApplication1
 {
-    class Theory
+    class Program
     {
         static void Main(string[] args)
         {
-            #region Collections Theory
-            /* Array - static (restricted) massive of data in the memory. If we want to extend it, we should create a new array and copy existing data there.
-             * access to each number of array have static time that don't depend on size of array. So get arr[10] and arr[25426] consume equal time.
-             * use it when you have determinative amount of elements.
-             * 
-             *
-             *
-             * These more suitable collections available if you add System.Collections.Generic library
-             *
-             *
-             * Stack<type of data> - pile of elements (like a books on the table or plates in the sink) 
-             * that lay one over another and you can add new one to the top, look at the uppest one or take it
-             * 
-             * Queue<type of data> - like in the shop or on escalator in the subway. You can add to the end, look the first element or take the first element.
-             * 
-             * List<type of data> - linked array when you don't know the limit of your array and ought to add or remove elements sometimes (linked array)
-             * the PC create an array and when you want to add new element, it create a new array and copy all existing elements there.
-             *
-             * LinkedList<type of data> - array with a reference to the next and previous element (twice-linked array)
-             * 
-             * Dictionary<type of key, type of data> - pair key-value. You can add new key, find key, get value by key, set value by key. 
-             * Very fast access (as simple array), but more flexible
-             * 
-             */
-            #endregion
+            #region task 1.5
 
-            #region Arrays
-
-            //Dimensions:
-            int[] oneDimension = new int[1000000]; // row with a 1 million if zeros
-            double[] oneDimensionInitializedArray; // undefined array
-            int[,] twoDimension = new int[1000, 1000]; // matrix 1000 x 1000, filled by zeros
-            string[,,] threeDimension = new string[5, 10, 255]; 
-            // 5 rows, 10 columns and 255 elements in the column. Each element can contain a string (so it 4-th dimension array actually)
-
-            int[][] notSquarMatrix = new int[15][]; // array where each element contain an array (different or equal lengths) -> [ [0,1,2,3,4] , [10,25] , [8] ];
-
-            //and so on
-
-            // Access to element:
-
-            threeDimension[threeDimension.Length-1, 0, threeDimension.GetLength(2)-1] = "I am the latest element here!"; 
-            // do not forget that start with 0 and end with Length-1!
-
-
-            double[] shortExample = new double[4] { 1.2, 0.154564, -454, 0 }; // will be crated a new massive with 4 elements
-
-            // Use arrays for limited length. Otherwise - List.
-            // For fast search - Dictionary
-            // Efficient simple solutions usually realizing by Stack and Queue
-            // LinkedList is used seldom
+            Console.WriteLine("Task 1.5");
+            int n = 5;
+            double sum = 0;
+            double answer = 0;
+            double[] mas = new double[n];
+            Console.WriteLine("Write 5 numbers");
+            for (int i = 0; i < n; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                sum += mas[i] * mas[i];
+            }
+            answer = Math.Sqrt(sum);
+            Console.WriteLine("answer {0:f4}", answer);
 
             #endregion
+            #region task 1.10
+            Console.WriteLine("task 1.10");
+            Console.WriteLine("Write P and Q");
+            double P, Q;
+            P = double.Parse(Console.ReadLine());
+            Q = double.Parse(Console.ReadLine());
+            double swap = 0;
+            if (P > Q)
+            {
+                swap = Q;
+                Q = P;
+                P = swap;
+            }
+            int kol = 0;
+            n = 10;
+            double[] mas2 = new double[n];
+            Console.WriteLine("Write 10 numbers in mas");
+            for (int i = 0; i < n; i++)
+            {
+                mas2[i] = double.Parse(Console.ReadLine());
+                if (P < mas2[i] && mas2[i] < Q)
+                {
+                    kol += 1;
+                }
+            }
+            Console.WriteLine("answer - {0:f4}", kol);
+            #endregion
+            #region task 1.11
+            Console.WriteLine("task 1.11");
+            Console.WriteLine("Write 10 numbers of mas");
+            mas = new double[n];
+            mas2 = new double[n];
+            int count = 0; 
+            kol = 0;
+            for (int i = 0; i < n; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] > 0)
+                {
+                    mas2[kol] = mas[i];
+                    kol += 1;
+                }
+                if (mas[i]<0)
+                {
+                    count += 1;
+                }
                 
-            #region Tuples
-
-            //It is linked links to several variables in the fixed order:
-            (string name, int age, double height) student = ("Vasiliy", 20, 1.89);
-            (int[] marks, int average) table = ({1,2,3,4,5}, 3);.
-                
-            string Name = student.name; // or student.Item1
-            
-            var tuple = (count:5, sum:10);
-            Console.WriteLine(tuple.count); // 5
-            Console.WriteLine(tuple.sum); // 10
-            
-            // It is the simpliest structure of data (not an array!)
+            }
+            Console.WriteLine("mas with only positive numbers");
+            mas2=mas2.SkipLast(count).ToArray();
+            Console.WriteLine(String.Join(" ", mas2));
             #endregion
-           
-            #region Enum
-
-            //It is order of integers (Int 8 / 16 / 32 / 64) where you create a list of names and each name get the value (increment by 1 of previous):              
-            enum Marks
+            #region task 1.12
+            Console.WriteLine("task 1.12");
+            n = 8;
+            int nomer = -1;
+            double znach = 0;
+            Console.WriteLine("Write numbers of mas");
+            mas = new double[n];
+            for (int i = 0; i < n; i++)
             {
-                Bad = 2,
-                Nice, // auto-incremented to 3
-                Good, // 4 ...
-                Excellent // not coma at the end!
+                mas[i] = double.Parse(Console.ReadLine());
+                if (mas[i] < 0)
+                {
+                    znach = mas[i];
+                    nomer = i;
+                }
             }
-            
-            enum Classes
+            if (nomer == -1)
             {
-                Math = 1,
-                PhysicalCulture = 3, // Jump over
-                History = 4,
-                Dinner = 2 // Instead Informatics
+                Console.WriteLine("No numbers");
             }
-            
-            int myAvgMark = (int)Marks.Bad + (int)Marks.Excellent; // cast to int!
-            Console.WriteLine((Classes)10); // expancion to enum values
-            
-            public enum Season
+            else
             {
-                Spring,
-                Summer,
-                Autumn,
-                Winter
+                Console.WriteLine($"answer, value - {znach} , index - {nomer}");
             }
-            
-            Season a = Season.Autumn;
-            Console.WriteLine($"Integral value of {a} is {(int)a}");  // output: Integral value of Autumn is 2
 
-            var b = (Season)1;
-            Console.WriteLine(b);  // output: Summer
+            #endregion
+            #region task 1.13
+            Console.WriteLine("task 1.13");
+            Console.WriteLine("Write 10 numbers of mas");
+            n = 10;
+            mas = new double[n];
+            int b = 5;
+            int j = 0;
+            int z = 0;
+            mas2 = new double[b];
+            double[] mas3 = new double[b];
+            for (int i = 0; i < n; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                if (i % 2 == 0)
+                {
+                    mas2[j] = mas[i];
+                    j += 1;
+                }
+                else
+                {
+                    mas3[z] = mas[i];
+                    z += 1;
+                }
+            }
+            Console.WriteLine("Mas with even index");
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(mas2[i]);
+            }
+            Console.WriteLine("Mas with odd index");
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(mas3[i]);
+            }
+            #endregion
+            #region task 2.5
+            Console.WriteLine("task 2.5");
+            Console.WriteLine("Write size of mas");
+            int N = int.Parse(Console.ReadLine());
+            mas = new double[N];
+            double[] masotr = new double[N];
+            kol = 0;
+            double max = 0;
+            int a = 0;
+            b = 0;
+            double min = 0;
+            Console.WriteLine("Write numbers in mas");
+            for (int i = 0; i < N; i++)
+            {
+                mas[i] = double.Parse(Console.ReadLine());
+                if (i == 0)
+                {
+                    max = mas[i];
+                    min = mas[i];
+                    a = i;
+                    b = i;
+                }
+                if (mas[i] > max)
+                {
+                    max = mas[i];
+                    a = i;
+                }
+                if (mas[i] < min)
+                {
+                    min = mas[i];
+                    b = i;
+                }
+            }
+            Console.WriteLine("Mas with negative numbers");
+            for (int i= Math.Min(a,b)+1; i<Math.Max(a,b); i++)
+            {
+                if (mas[i]<0)
+                {
+                    masotr[kol] = mas[i];
+                    Console.WriteLine(masotr[kol]);
+                    kol += 1;
+                }
+            }
+            #endregion
+            void Level2_6()
+                {
+                Console.WriteLine("Level2_6");
+                double P;
+                Console.WriteLine("Write number P");
+                P = double.Parse(Console.ReadLine());
+                int n;
+                int k = 0;
+                Console.WriteLine("Write amount numbers in mas");
+                n = int.Parse(Console.ReadLine());
+                n = n + 1;
+                double max = 0, sum = 0;
+                double[] mas = new double[n];
+                Console.WriteLine("Write numbers in mas");
+                for (int i = 0; i < n - 1; i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                    sum += mas[i];
+                }
+                sum /= n - 1;
+                double min;
+                min = Math.Abs(sum - mas[0]);
+                for (int i = 1; i < n - 1; i++)
+                {
+                    if (Math.Abs(mas[i] - sum) < min)
+                    {
+                        k = i;
+                    }
+                }
+                for (int i = n - 1; i > k; i--)
+                {
+                    mas[i] = mas[i - 1];
+                }
+                mas[k + 1] = P;
+                Console.WriteLine("Answer");
+                for (int i = 0; i < n; i++)
+                {
+                    Console.WriteLine(mas[i]);
+                }
+            }
+           void Level2_9(){
+                Console.WriteLine("Level 2_9");
+                int a = 0, b = 0;
+                double min = 0;
+                double max = 0;
+                Console.WriteLine("amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double [] mas = new double[n];
+                Console.WriteLine("Write elements in mas");
+                mas[0] = double.Parse(Console.ReadLine());
+                max = mas[0];
+                min = mas[0];
+                double sum = 0;
+                for (int i = 1; i < n; i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                    if (mas[i] > max)
+                    {
+                        max = mas[i];
+                        a = i;
+                    }
+                    if (mas[i] < min)
+                    {
+                        min = mas[i];
+                        b = i;
+                    }
+                }
+                if (a - b - 1 == 0 || n==1) Console.WriteLine("No elements");
+                else
+                {
+                    for (int i = Math.Min(a,b)+1; i < Math.Max(a,b); i++)
+                    {
+                        sum += mas[i];
+                    }
 
-            var c = (Season)4;
-            Console.WriteLine(c);  // output: 4
+                    sum /= a - b - 1;
+                    Console.WriteLine("Answer - {0:f4}", sum);
+                }
+            }
+            void Level2_10()
+            {
+                Console.WriteLine("Level 2_10");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas = new double[n];
+                double min = 0;
+                int flag = 0;
+                int k = 0;
+                Console.WriteLine("Write elements in mas");
+                for (int i=0; i<n; i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                    if (mas[i]>0 && flag==0)
+                    {
+                        min=mas[i];
+                        flag = 1;
+                        k = i;
+                    }
+                    if (mas[i] < min && mas[i] > 0 && flag == 1) { min = mas[i];k = i; }
+                }
+                if (flag == 1)
+                {
+                    for (int i = k; i < n - 1; i++)
+                    {
+                        mas[i] = mas[i + 1];
+                    }
+                    mas = mas.SkipLast(1).ToArray();
+                    Console.WriteLine("Anwer");
+                    Console.WriteLine(string.Join(",", mas));
+                }
+                else Console.WriteLine("No correct numbers");
+            }
+            void Level2_11()
+            {
+                Console.WriteLine("Level 2_11");
+                Console.WriteLine("Write P");
+                double P = double.Parse(Console.ReadLine());
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                n = n + 1;
+                double[] mas = new double[n];
+                int k = -1;
+                Console.WriteLine("Write elements in mas");
+                for (int i=0; i<n-1;i++)
+                {
+                    mas[i]=double.Parse(Console.ReadLine());
+                    if (mas[i]>0)
+                    {
+                        k= i;
+                    }
+                }
+                if (k != -1)
+                {
+                    for (int i = n - 1; i > k + 1; i--)
+                    {
+                        mas[i] = mas[i - 1];
+                    }
+                    mas[k + 1] = P;
+                    Console.WriteLine("Answer");
+                    Console.WriteLine(string.Join(", ", mas));
+                }
+                else Console.WriteLine("No correct numbers");
+
+            }
+            void Level2_13()
+            {
+                Console.WriteLine("Level 2_13");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas = new double[n];
+                Console.WriteLine("Write elements in mas");
+                mas[0] = double.Parse(Console.ReadLine());
+                double max = mas[0];
+                int k = 0;
+                for(int i=1;i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                    if (i % 2 == 0 && mas[i] > max) k = i;
+
+                }
+                mas[k] = k;
+                Console.WriteLine("Answer");
+                Console.WriteLine(string.Join(", ", mas));
+            }
+            void Level2_15()
+            {
+                Console.WriteLine("Level 2_15");
+                Console.WriteLine("Write k");
+                int k = int.Parse(Console.ReadLine());
+                Console.WriteLine("Write amount of elements in mas a");
+                int n = int.Parse(Console.ReadLine());
+                Console.WriteLine("Write amount of elements in mas b");
+                int m = int.Parse(Console.ReadLine());
+                n = n + m;
+                double[] a = new double[n];
+                double[] b = new double[m];
+                Console.WriteLine("Write elements in mas a");
+                for (int i = 0; i<n-m;i++)
+                {
+                    if (k > n) break;
+                    if (i < k)
+                    {
+
+
+                        a[i] = double.Parse(Console.ReadLine());
+                    }
+                    if (i>=k)
+                    {
+                        a[i + m] = double.Parse(Console.ReadLine());
+                    }
+                }
+                Console.WriteLine("Write elements in mas b");
+                for (int j=0;j<m;j++)
+                {
+                   if (k>n) break;
+                    b[j] = double.Parse(Console.ReadLine());
+                    a[k] = b[j];
+                    k += 1;
+                }
+                if (k > n) Console.WriteLine("Wrong number k");
+                else
+                {
+                    Console.WriteLine("Answer");
+                    Console.WriteLine(string.Join(", ", a));
+                }
+            }
+            void Level3_1()
+            {
+                Console.WriteLine("Level 3_1");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas = new double[n];
+                double[] mas2= new double[n];
+                int count = 0;
+                double k = 0;
+                Console.WriteLine("Write elements in mas");
+                mas[0] = double.Parse(Console.ReadLine());
+                double max = mas[0];
+                for (int i =1; i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                    if (mas[i] > max)
+                    {
+                        max = mas[i];
+                        count = 0;
+                        mas2[count] = i;
+                    }
+                    else if (mas[i]==max)
+                    {
+                        count += 1;
+                        mas2[count] = i;
+                    }
+                }
+                mas2 = mas2.SkipLast(n - count - 1).ToArray();
+                Console.WriteLine("Answer");
+                Console.WriteLine(string.Join(", ", mas2));
+            }
+            void Level3_3()
+            {
+                Console.WriteLine("Level 3_3");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas= new double[n];
+                Console.WriteLine("Write elements in mas");
+                mas[0] = double.Parse(Console.ReadLine());
+                double max = mas[0];
+                int k = 0;
+                double swap = 0;
+                for (int i = 1; i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                    if (mas[i]>max)
+                    {
+                        max = mas[i];
+                        k = i;
+                    }
+                }
+                if (k % 2 != 0) k = k - 1;
+                for (int i=0;i<k;i+=2)
+                {
+                    swap = mas[i];
+                    mas[i] = mas[i + 1];
+                    mas[i + 1] = swap;
+                }
+                Console.WriteLine("Answer");
+                Console.WriteLine(string.Join(", ", mas));
+            }
+            void Level3_5()
+            {
+                Console.WriteLine("Level 3_5");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                Console.WriteLine("Write elements in mas");
+                double[] mas = new double[n];
+                double swap = 0;
+                for (int i = 0; i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                }
+                for (int i = 0; i<n; i+=2)
+                {
+                    for (int j = i+2; j<n;j+=2)
+                    {
+                       if (mas[i] < mas[j])
+                        {
+                            swap = mas[i];
+                            mas[i] = mas[j];
+                            mas[j] = swap;
+                        }
+                    }
+                }
+                Console.WriteLine("Answer");
+                Console.WriteLine(string.Join(", ", mas));
+            }
+            void Level3_8()
+            {
+                Console.WriteLine("Level 3_8");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas= new double[n];
+                double swap = 0;
+                Console.WriteLine("Write elements in mas");
+                for (int i=0;i<n;i++)
+                {
+                    mas[i]=double.Parse(Console.ReadLine());
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    if (mas[i]<0)
+                    {
+                        for (int j=i+1;j<n;j++)
+                        {
+                            if (mas[j] <0 )
+                            {
+                                if (mas[i] > mas[j])
+                                {
+                                    swap = mas[i];
+                                    mas[i] = mas[j];
+                                    mas[j] = swap;
+                                }
+                            }
+                        }
+                    }
+                }
+                Console.WriteLine("Answer");
+                Console.WriteLine(string.Join(", ",mas));
+            }
+            void Level3_9()
+            {
+                Console.WriteLine("Level 3_9");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas= new double[n];
+                int count = 0;
+                int k = -1;
+                int count2 = 0;
+                Console.WriteLine("Write elements in mas");
+                for (int i=0;i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                }
+                for (int i=0;i<n-1;i++)
+                {
+                    count = 0;
+                    count2 = 0;
+                    for (int j=i;j<n-1;j++)
+                    {
+                        if (mas[j] > mas[j + 1])
+                        {
+                            count += 1;
+                            if (count > k) k = count;
+                        }
+                        else count = 0;
+                        if (mas[j] < mas[j + 1])
+                        { 
+                            count2 += 1;
+                            if (count2>k) k = count2;
+
+                        }
+                        else count2 = 0;
+                    }
+                }
+                Console.WriteLine("Answer");
+                Console.WriteLine(k);
+                
+            }
+            void Level3_12()
+            {
+                Console.WriteLine("Level 3_12");
+                int n = 12;
+                double[] mas= new double[n];
+                int count = 0;
+                double swap = 0;
+                Console.WriteLine("Write elements in mas");
+                for (int i=0;i<n;i++)
+                {
+                    mas[i]=double.Parse(Console.ReadLine());
+                    if (mas[i] < 0) count += 1;
+                }
+                for(int i=0;i<n;i++)
+                {
+                    if (mas[i] < 0)
+                    {
+                        for (int j = i + 1; j < n; j++)
+                        {
+                            if (mas[j]>0)
+                            {
+                                swap = mas[i];
+                                mas[i] = mas[j];
+                                mas[j] = swap;
+                                break;
+                            }
+                        }
+                    }
+                }
+                Console.WriteLine("Answer");
+                mas = mas.SkipLast(count).ToArray();
+                Console.WriteLine(string.Join(", ", mas));
+            }
+            void Level3_13()
+            {
+                Console.WriteLine("Level 3_13");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas = new double[n];
+                double swap = 0;
+                int count = 0;
+                int count2 = 0;
+                int flag = 0;
+                List<double> masend = new List<double>();
+                Console.WriteLine("Write elements in mas");
+                for (int i=0;i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                    if (masend.Contains(mas[i]) == true) continue;
+                    else masend.Add(mas[i]);
+                }
+                Console.WriteLine("Answer");
+                Console.WriteLine(string.Join(", ",masend));   
+            }
+            void search_element()
+            {
+                Console.WriteLine("Search_elements");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                double[] mas= new double[n];
+                Console.WriteLine("Write elements in mas");
+                for (int i=0;i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                }
+                Console.WriteLine("Write number that you want find");
+                double s = double.Parse(Console.ReadLine());
+                Array.Sort(mas);
+                int i1 = 0, i2 = n - 1;
+                int k;
+                k = (i2 + i1) / 2;
+                while (mas[k]!=s)
+                {
+                    if (s < mas[k]) i2 = k - 1;
+                    else i1 = k + 1;
+                    k= (i2 + i1) / 2;
+                    if (i1 > i2) break;
+                }
+                if (i1 > i2) Console.WriteLine("No number");
+                else Console.WriteLine("Your number in mas");
+            }
+            void unification()
+            {
+                Console.WriteLine("Unification");
+                Console.WriteLine("Write amount of elements in mas a");
+                int n = int.Parse(Console.ReadLine());
+                Console.WriteLine("Write amount of elements in mas b");
+                int m = int.Parse(Console.ReadLine());
+                int l = n + m;
+                double[] a = new double[n];
+                double[] b = new double[m];
+                double[] c = new double[l];
+                Console.WriteLine("Write elements in mas a");
+                for (int i=0;i<n;i++)
+                {
+                    a[i]= double.Parse(Console.ReadLine());
+                }
+                Console.WriteLine("Write elements in mas b");
+                for (int i=0;i<m;i++)
+                {
+                    b[i]= double.Parse(Console.ReadLine());
+                }
+                for (int i=0;i<Math.Min(n,m);i++)
+                {
+                    c[i*2]= a[i];
+                    c[i * 2 + 1] = b[i];
+                }
+                int k = 0;
+                if (n>m)
+                {
+                    for (int i=m*2;i<(m+n);i++)
+                    {
+                        c[i] = a[m + k];
+                        k++;
+                    }
+                    Console.WriteLine("Your mas");
+                    Console.WriteLine(String.Join(",", c));
+                }
+                else if (n<m)
+                {
+                    for (int i=n*2;i<(m+n);i++)
+                    {
+                        c[i] = b[n + k];
+                        k++;
+                    }
+                    Console.WriteLine("Your mas");
+                    Console.WriteLine(String.Join(",", c));
+                }
+                else
+                {
+                    Console.WriteLine("Your mas");
+                    Console.WriteLine(String.Join(",", c));
+                }
+            }
+            void unification2()
+            {
+                Console.WriteLine("Unification2");
+                Console.WriteLine("Write amount of elements in mas a");
+                int n = int.Parse(Console.ReadLine());
+                Console.WriteLine("Write amount of elements in mas b");
+                int m = int.Parse(Console.ReadLine());
+                double[] a = new double[n];
+                double[] b = new double[m];
+                double[] c = new double[n + m];
+                Console.WriteLine("Write elements in mas a");
+                for (int i=0; i<n;i++)
+                {
+                    a[i] = double.Parse(Console.ReadLine());
+                }
+                Console.WriteLine("Write elements in mas b");
+                for (int i=0;i<m;i++)
+                {
+                    b[i] = double.Parse(Console.ReadLine());
+                }
+                Array.Sort(a);
+                Array.Sort(b);
+                Array.Reverse(a);
+                Array.Reverse(b);
+                int I = 0;
+                int J = 0;
+                for (int i=0;i<n+m;i++)
+                {
+                   if (I<n && J<m)
+                    {
+                        if (a[I] > b[J])
+                        {
+                            c[i] = a[I];
+                            I++;
+                        }
+                        else
+                        {
+                            c[i] = b[J];
+                            J++;
+                        }
+                    }
+                    else
+                    {
+                        if(I>=n)
+                        {
+                            c[i] = b[J];
+                            J++;
+                        }
+                        else if (J>=m)
+                        {
+                            c[i] = a[I];
+                            I++;
+                        }
+                    }
+                }
+                Console.WriteLine("Your mas");
+                Console.WriteLine(String.Join(", ", c));
+            }
+            void invert()
+            {
+                Console.WriteLine("Invert");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse(Console.ReadLine());
+                Console.WriteLine("Write elements in mas");
+                double[] mas = new double[n];
+                for (int i=0;i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                }
+                n = n - 1;
+                double swap = 0;
+                for (int i=0;i<=n/2;i++)
+                {
+                    swap = mas[i];
+                    mas[i] = mas[n - i];
+                    mas[n - i] = swap;
+                }
+                Console.WriteLine("Your mas");
+                Console.WriteLine(String.Join(", ",mas));
+
+            }
+            void shift()
+            {
+                Console.WriteLine("Shift");
+                Console.WriteLine("Write amount of elements in mas");
+                int n = int.Parse (Console.ReadLine());
+                Console.WriteLine("Write number m");
+                int m = int.Parse(Console.ReadLine());
+                double[] mas = new double[n];
+                Console.WriteLine("Write elements in mas");
+                for (int i = 0; i<n;i++)
+                {
+                    mas[i] = double.Parse(Console.ReadLine());
+                }
+                double pred = 0;
+                double next = 0;
+                for (int i=0;i<m;i++)
+                {
+                    pred = mas[0];
+                    for (int j=0;j<(n-1);j++)
+                    {
+                        next = mas[j+1];
+                        mas[j + 1] = pred;
+                        pred = next;
+                    }
+                    mas[0] = pred;
+                }
+                Console.WriteLine("Your Mas");
+                Console.WriteLine(String.Join(", ",mas));
+            }
+            Level2_6();
+            Level2_9();
+            Level2_10();
+            Level2_11();
+            Level2_13();
+            Level2_15();
+            Level3_1();
+            Level3_3();
+            Level3_5();
+            Level3_8();
+            Level3_9();
+            Level3_12();
+            Level3_13();
+            search_element();
+            unification();
+            unification2();
+            invert();
+            shift();
             
-            // More informative than variables, more flexible than constans, more strict than string, more effective than dictionary :) cool thing!
-            #endregion       
+
         }
     }
 }
