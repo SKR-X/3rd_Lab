@@ -8,6 +8,7 @@ using System.Data;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualBasic;
+using System.Collections.Immutable;
 
 public class Proga
 {
@@ -33,10 +34,11 @@ public class Proga
         //resh.lvl3ex12();
         //resh.lvl3ex13();
         //resh.alg11();
-        //resh.alg12();
+        resh.alg12();
         //resh.alg13();
         //resh.alg14();
-        resh.alg15();
+        //resh.alg15();
+
     }
 
     public class resh
@@ -514,41 +516,31 @@ public class Proga
                 Console.WriteLine("Enter " + (i + 1) + " elememt of array");
                 arr[i] = Convert.ToDouble(Console.ReadLine());
             }
-            double tmp;
+            double tmplow = 1, tmphigh = 1;
             for (int i = 0; i < Le - 1; i++)
             {
-                tmp = 2;
-                if (arr[i] < arr[i + 1])
-                {
-                    for (int j = i + 1; j < Le - 1; j++)
-                    {
-                        if (arr[j] < arr[j + 1])
-                        {
-                            tmp++;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                }
                 if (arr[i] > arr[i + 1])
                 {
-                    for (int j = i + 1; j < Le - 1; j++)
+                    if (tmphigh > 1)
                     {
-                        if (arr[j] > arr[j + 1])
-                        {
-                            tmp++;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
+                        tmphigh = 1;                    }
+                    tmplow++;
                 }
-                if (maxLe < tmp)
+                if (arr[i] < arr[i + 1])
                 {
-                    maxLe = tmp;
+                    if (tmplow > 1)
+                    {
+                        tmplow = 1;
+                    }
+                    tmphigh++;
+                }
+                if (maxLe < tmplow)
+                {
+                    maxLe = tmplow;
+                }
+                if (maxLe < tmphigh)
+                {
+                    maxLe = tmphigh;
                 }
             }
             Console.WriteLine("Biggest length is: " + maxLe);
@@ -588,6 +580,7 @@ public class Proga
                 Console.WriteLine("Enter " + (i + 1) + " elememt of array");
                 arr.Add(Convert.ToDouble(Console.ReadLine()));
             }
+            int flag = 0;
             for (int i = 0; i < arr.Count - 1; i++)
             {
                 for (int j = i + 1; j < arr.Count; j++)
@@ -596,14 +589,22 @@ public class Proga
                     {
                         arr.RemoveAt(j);
                         j--;
+                        flag++;
                     }
                 }
+                
+                if (flag > 0)
+                {
+                    arr.RemoveAt(i);
+                    i--;
+                }
+                flag = 0;
             }
+
             for (int i = 0; i < arr.Count; i++)
             {
                 Console.Write(arr[i] + " ");
             }
-            Console.Write("/n");
         }
 
         public static void alg11()
@@ -617,6 +618,8 @@ public class Proga
                 Console.WriteLine("Enter " + (j + 1) + " elememt of array");
                 a[j] = Convert.ToDouble(Console.ReadLine());
             }
+            Array.Sort(a);
+
             Console.WriteLine("Enter X: ");
             double x = Convert.ToDouble(Console.ReadLine());
             int i1 = 0, i2 = n - 1, i ;
@@ -663,30 +666,38 @@ public class Proga
                 b[j] = Convert.ToDouble(Console.ReadLine());
             }
 
-            double[] c = new double [a1 + b1 - Math.Abs(a1-b1)];
-            for (int j = 0; j < c.Length / 2; j++)
+            double[] c = new double [a1 + b1];
+            int min = -1;
+            if (a1 < b1)
+            {
+                min = a1;
+            }
+            else
+            {
+                min = b1;
+            }
+            for (int j = 0; j <  min ; j++)
             {
                 c[2 * j] = a[j];
                 c[2 * j + 1] = b[j];
             }
 
-            foreach (double i in c)
-            {
-                Console.Write(i + " ");
-            }
-            Console.WriteLine("");
             if (a1 < b1)
             {
-                for (int j = a1; j < a1 + Math.Abs(a1 - b1); j++)
+                for (int j = 0; j < Math.Abs(a1 - b1); j++)
                 {
-                    Console.Write(b[j] + " ");
+                    c[min * 2 + j] = b[a1 + j];
                 }
             }else if (a1 > b1)
             {
                 for (int j = b1; j < b1 + Math.Abs(a1 - b1); j++)
                 {
-                    Console.Write(a[j] + " ");
+                    c[min * 2 + j] = a[b1 + j];
                 }
+            }
+            foreach (double i in c)
+            {
+                Console.Write(i + " ");
             }
         }
 
@@ -701,6 +712,7 @@ public class Proga
                 Console.WriteLine("Enter " + (j + 1) + " elememt of array a");
                 a[j] = Convert.ToDouble(Console.ReadLine());
             }
+            Array.Sort(a);
             Console.WriteLine("Enter length of array b: ");
             int b1 = Convert.ToInt32(Console.ReadLine());
             double[] b = new double[b1];
@@ -710,6 +722,8 @@ public class Proga
                 Console.WriteLine("Enter " + (j + 1) + " elememt of array");
                 b[j] = Convert.ToDouble(Console.ReadLine());
             }
+            Array.Sort(b);
+
 
             double[] c = new double[a1 + b1];
             int min = 0;
