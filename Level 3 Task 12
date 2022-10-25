@@ -1,0 +1,43 @@
+using System;
+
+namespace Task_12
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+		    
+		    int[] a12_2 = new int[] { -9, 11, 83, -32, -5, -2, -1, 22, 44, 2, 101, 204 } ;
+		    int n = 0;
+
+            for (int i = 0; i < 12; i++)
+            {
+                if (a12_2[i] > 0)
+                {
+                    n++;
+                }
+            }
+            
+            int[] b12 = new int[n];
+            int B_i = 0;
+            
+            for (int i = 0; i < a12_2.Length; i++)
+            {
+                if (a12_2[i] > 0)
+                 {
+                    b12[B_i] = a12_2[i];
+                    B_i++;
+                 }
+            }
+            
+            Console.Write("Получившийся массив: ");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write($"{b12[i]}, ");
+            }
+
+		}
+	}
+}
+
+

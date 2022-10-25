@@ -1,0 +1,104 @@
+Level 2 Task 5:
+using System;
+
+namespace Task 5
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int n, min5, max5, imax, imin, amount;
+            max5 = 0;
+            amount = 2;
+            imax = 0;
+            imin = 0;
+
+            Console.WriteLine("Введите количество элементов массива");
+
+            if (Int32.TryParse(Console.ReadLine(), out n))
+            {
+                int[] mas1 = new int[n];
+
+                Console.WriteLine("Введите элементы массива: ");
+
+                for (int i = 0; i < mas1.Length; i++)
+                {
+                    Int32.TryParse(Console.ReadLine(), out mas1[i]);
+                }
+
+                min5 = mas1[0];
+				
+				for (int j = 0; j < mas1.Length; j++)
+                {
+                    if (mas1[j] > max5)
+                    {
+                        max5 = mas1[j];
+                        imax = j;
+                    }
+					
+					if (mas1[j] < min5)
+					{
+						min5 = mas1[j];
+						imin = j;
+					}
+
+                }
+
+
+                for (int i = 0; i < mas1.Length; i++)
+                {
+                    if (mas1[i] < 0)
+                    {
+                        if (mas1[i] != min5 && mas1[i] != max5)
+                        {
+                            amount++;
+                        }
+                    }
+
+                }
+                int[] mas2 = new int[amount];
+                int n2 = 0;
+
+                if (max5 > min5)
+                {
+                    mas2[0] = min5;
+                    
+                    for (int i = imin; i < imax; i++)
+                {
+                    if (mas1[i] < 0)
+                    {
+                        mas2[n2] = mas1[i];
+                        n2++;
+                    }
+
+                }
+
+                }
+                else
+                {
+                    for (int i = imax; i < imin; i++)
+                    {
+                      if (mas1[i] < 0)
+                      {
+                        mas2[n2] = mas1[i];
+                        n2++;
+                      }
+
+                    }
+                }
+                    
+                mas2[amount - 1] = max5;
+
+                Console.WriteLine("Task5: получившийся массив -");
+                for (int i = 0; i < mas2.Length; i++)
+                {
+                    Console.WriteLine(mas2[i]);
+                }
+            }
+			
+		}
+	}
+}
+
+
+
