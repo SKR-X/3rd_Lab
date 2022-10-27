@@ -248,7 +248,7 @@ class Homew4
         }
         else if (numb == 12)
         {
-            List<double> ma2 = new List<double>();
+            double[] ma2 = new double[12];
             Console.WriteLine("введите массив(12 элементов)! через enter");
             bool w = true;
             for (int i2 = 0; i2 < 12; i2++)
@@ -256,7 +256,7 @@ class Homew4
                 w = double.TryParse(Console.ReadLine(), out double xx);
                 if (w == true)
                 {
-                    ma2.Add(xx);
+                    ma2[i2]=xx;
                 }
                 else {
 
