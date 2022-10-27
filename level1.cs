@@ -70,15 +70,23 @@ class homew4lvl1
                 double q = Convert.ToDouble(Console.ReadLine());
                 if (p < q)
                 {
-                    int i3 = 0;
+                    //int i3 = 0;
                     int count = 0;
-                    bool start = false;
-                    while (ma2[i3] != q)
-                    {
-                        if (ma2[i3] == p) { start = true; }
+                    //bool start = false;
+                    //задание сформулировано странно: можно подумать, что вводятся элементы массива, между которыми необходимо найти количество элементов
+                    //тогда алгоритм должен быть таким:
+                    //while (ma2[i3] != q)
+                    //{
+                      //  if (ma2[i3] == p) { start = true; }
 
-                        if ((start == true) && (ma2[i3] != p)) count += 1;
-                        i3++;
+                        //if ((start == true) && (ma2[i3] != p)) count += 1;
+                        //i3++;
+                    //}
+                    // но с другой стороны p и q может быть промежутком (p;q)
+                    //тогда алгоритм такой:
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if ((ma2[i] > p) && (ma2[i] < q)) count++;
                     }
                     Console.WriteLine($"количество элементов -> {count}");
                 }
