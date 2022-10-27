@@ -73,12 +73,12 @@ class homew4_algorithms
             {
                 Console.WriteLine("введите массив второй");
                 string[] temp2 = (Console.ReadLine()).Split(' ');
-
-                double[] ma2 = new double[l];
+                int m = temp2.Length;
+                double[] ma2 = new double[m];
                 bool v = true;
-                for (int i = 0; i < l; i++)
+                for (int i = 0; i < m; i++)
                 {
-                    v = double.TryParse(temp1[i], out double xx);
+                    v = double.TryParse(temp2[i], out double xx);
                     if (v == true)
                     {
                         ma2[i] = xx;
@@ -94,16 +94,42 @@ class homew4_algorithms
                 {
                     int c1 = 0;
                     int c2 = 0;
-                    double[] ma3 = new double[l + l];
-                    for (int ix = 0; ix < (2 * l); ix++)
+                    double[] ma3 = new double[l + m];
+                    int z = 0;
+                    int d = 0;
+                    int p = 0;
+                    if (l == m) z = l;
+                    else if (l > m) { z = m; d = 1; }
+                    else { z = l; d = 2; }
+
+                        for (int ix = 0; ix < (2 * z); ix++)
+                        {
+                            if (ix % 2 == 0) { ma3[ix] = ma[c1]; c1++; }
+                            else { ma3[ix] = ma2[c2]; c2++; }
+                        }
+                    if (d == 1)
                     {
-                        if (ix % 2 == 0) { ma3[ix] = ma[c1]; c1++; }
-                        else { ma3[ix] = ma2[c2]; c2++; }
+                        int t = 0;
+                        for (int i = m; i < l; i++)
+                        {
+                            ma3[z * 2 + t] = ma[i];
+                            t++;
+                        }
                     }
-                    for (int ixx = 0; ixx < (2 * l); ixx++)
-                        Console.WriteLine(ma3[ixx]);
-                }
+                    else if (d == 2)
+                    {
+                        int t = 0;
+                        for (int i = l; i < m; i++)
+                        {
+                            ma3[z * 2 + t] = ma2[i];
+                            t++;
+                        }
+                    }
+                        for (int ixx = 0; ixx < (l+m); ixx++)
+                            Console.WriteLine(ma3[ixx]);
+                    }
                 
+             
             }
             else if (numb == 3)
             {
