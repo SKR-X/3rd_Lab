@@ -92,16 +92,18 @@ class homew4lvl1
             #region Level1 Task11
             Console.WriteLine("введите массив размером 10");
             double[] ma11 = new double[10];
-            double[] newma = new double[10];
+            
             int ix = 0;
             string[] temp11 = (Console.ReadLine()).Split(' ');
             bool j = true;
+            int c = 0;
             for (int i11 = 0; i11 < 10; i11++)
             {
                 j = double.TryParse(temp11[i11], out double xx);
                 if (j == true)
                 {
                     ma11[i11] = xx;
+                    if (xx>0) c++;
                 }
                 else
                 {
@@ -111,7 +113,7 @@ class homew4lvl1
             }
             if (j == true)
             {
-
+                double[] newma = new double[c];
                 for (int i112 = 0; i112 < 10; i112++)
                 {
                     if (ma11[i112] > 0)
