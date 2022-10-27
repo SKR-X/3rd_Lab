@@ -185,7 +185,7 @@ class Homew4
 
         else if (numb == 9)
         {
-            Console.WriteLine("введите массив!");
+           Console.WriteLine("введите массив!");
             string[] tempx = Console.ReadLine().Split(" ");
             int lx = tempx.Length;
             double[] maxx = new double[lx];
@@ -215,7 +215,34 @@ class Homew4
             {
                 if (!indx.Any())
                 {
+                    double t = maxx[0];
+                    int c1 = 1;
+                    int c2 = 0;
+                    int cmax = 1;
+                    for (int i8x = 1; i8x < lx; i8x++)
+                    {
+                        double r = maxx[i8x];
+                        if (r > t)
+                        {
+                            c2 = 1;
+                            c1++;
+                        }
+                        else
+                        {
+                            //Console.WriteLine(c1);
+                            c1 = 1;
+                            c2++;
+                        }
+                        t = maxx[i8x];
+                        if (c1 > cmax) cmax = c1;
+                        if (c2 > cmax) cmax = c2;
+                    }
+                    Console.WriteLine(cmax);
+                }
+                else
+                {
                     Console.WriteLine('-');
+                
                 }
             }
         }
