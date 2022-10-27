@@ -200,24 +200,31 @@ class homew4_algorithms
 
                         else 
                         {
+                            int q = 0;
+                            int r = 0;
+                            int y = 0;
+                            if (l > m) y = l;
+                            else y = m;
+                            double[] temp = new double[y];
                             if (i == l)
                             {
-                                while (j < m)
-                                {
-                                    ma3[c] = b[j];
-                                    j++;
-                                    c++;
-                                }
+                                q = j;
+                                r = m;
+                                temp = b;
                             }
                             else
                             {
-                                while (i < l)
+                                q = i;
+                                r = l;
+                                temp = ma;
+                            }
+                            while (q < r)
                                 {
-                                    ma3[c] = ma[i];
-                                    i++;
+                                    ma3[c] = temp[q];
+                                    q++;
                                     c++;
                                 }
-                            }
+                           
                         }
 
                     }
