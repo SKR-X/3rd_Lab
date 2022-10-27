@@ -201,11 +201,17 @@ class homew4lvl2
                         indexmin0 = j0;
                     }
                 }
-                //можно ли пользоваться встроенными методами или прописывать полностью функцию удаления?
-                ma0 = ma0.Where((e, i00) => i00 != indexmin0).ToArray(); //удаляем только первое вхождение элемента
+                //создаем удаление элемента:(
+                if (min0 != 1000000)
+                {
+                    for (int i = indexmin0; (i + 1) < l0; i++)
+                    {
+                        ma0[i] = ma0[i + 1];
+                    }
+                    l0 = l0 - 1;
+                }
 
-
-                for (int z0 = 0; z0 < (l0 - 1); z0++)
+                for (int z0 = 0; z0 < (l0); z0++)
                     Console.WriteLine(ma0[z0]);
             }
             #endregion
