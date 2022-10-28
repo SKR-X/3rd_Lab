@@ -198,11 +198,7 @@ class Homew4
                 if (h == true)
                 {
                     maxx[i8x] = xx;
-                    if (maxx[i8x] < 0)
-                    {
-                        denx.Add(maxx[i8x]);
-                        indx.Add(i8x);
-                    }
+                    
                 }
                 else
                 {
