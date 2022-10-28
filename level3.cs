@@ -227,17 +227,20 @@ class Homew4
                             c2 = 1;
                             c1++;
                         }
-                        else
+                       else if (r < t)
                         {
                             //Console.WriteLine(c1);
-                            c1 = 1;
+                            c1 = 0;
                             c2++;
                         }
+                        else if (r == t) { }
                         t = maxx[i8x];
+
                         if (c1 > cmax) cmax = c1;
                         if (c2 > cmax) cmax = c2;
                     }
-                    Console.WriteLine(cmax);
+                    if (cmax != 0) Console.WriteLine(cmax + 1);
+                    else Console.WriteLine(cmax);
                 }
                 else
                 {
